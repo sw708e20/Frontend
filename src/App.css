@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #444b59;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,41 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+div {
+  margin-bottom: 1em;
+}
+
+div:last-child {
+  margin-bottom: 0;
+}
+
+.edu-btn {
+  background-color: #1c2f39 !important;
+  border-color: #1c2f39 !important;
+}
+
+.edu-btn:focus {
+  border-color: #3a6277 !important;
+}
+
+.answer-choice {
+  width: 10em;
+
+}
+
+.next-btn {
+  width: 15em;
+}
+
+.edu-block {
+  background-color: #3a6277;
+  display: block;
+  width: 500px !important;
+  border-radius: 25px;
+}
+
+.education-header {
+  margin-top: 1em;
 }
