@@ -6,10 +6,15 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Result from "./Result";
 import ReactDOM from "react-dom";
+import axios from 'axios';
 
 class Page extends React.Component {
     getQuestion() {
-        return('skjdhfkjdsf')
+        axios.get(`http://localhost:8000/question/`)
+            .then(res => {
+                const id = res.data;
+                console.log(id);
+            })
     }
 
     renderTitle() {
