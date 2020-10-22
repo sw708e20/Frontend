@@ -42,13 +42,13 @@ class ResultPage extends React.Component {
                 eduTypes.push(
                     <div className={'row justify-content-center'}>
                         <div className={'col-4'}> {eduType.name} </div>
-                        <div className={'col-8'}> {eduType.url} </div>
+                        <div className={'col-8'}><a href={eduType.url}> {eduType.url} </a></div>
                     </div>
                 )
             }
 
             elems.push(
-                <div className={'edu-block'}>
+                <div className={'edu-block div-spacing'}>
                     <div className={'row justify-content-center'}>
                         <h3 className={'education-header'}> {edu.name} </h3>
                     </div>

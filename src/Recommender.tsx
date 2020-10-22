@@ -24,7 +24,7 @@ class Page extends React.Component {
 
         for (let answer of answerOptions) {
             elems.push(
-                <ToggleButtonGroup type={'radio'} value={answerOptions} name={'answer'}>
+                <ToggleButtonGroup type={'radio'} value={answerOptions} name={'answer'} className={'div-spacing'}>
                     <ToggleButton className={'answer-choice edu-btn'} value={answer}> {answer} </ToggleButton>
                 </ToggleButtonGroup>
             )

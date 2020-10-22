@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 2s linear;
   }
 }
 
@@ -37,12 +37,8 @@
   }
 }
 
-div {
+.div-spacing {
   margin-bottom: 1em;
-}
-
-div:last-child {
-  margin-bottom: 0;
 }
 
 .edu-btn {
@@ -56,7 +52,6 @@ div:last-child {
 
 .answer-choice {
   width: 10em;
-
 }
 
 .next-btn {
@@ -67,7 +62,7 @@ div:last-child {
   background-color: #3a6277;
   display: block;
   width: 500px !important;
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 .education-header {

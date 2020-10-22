@@ -27,20 +27,20 @@ class Index extends React.Component {
 
   renderLogo() {
       return (
-          <img alt={'EduFinder'} src={logo}/>
+          <img alt={'EduFinder'} className={'App-logo'} src={logo}/>
       )
   }
 
   render() {
     return (
         <div>
-          <div className={'row justify-content-center'}>
+          <div className={'row justify-content-center div-spacing'}>
             {this.renderLogo()}
           </div>
-          <div className={'row justify-content-center'}>
+          <div className={'row justify-content-center div-spacing'}>
             {this.renderTitle('EduFinder')}
           </div>
-          <div className={'row justify-content-center'}>
+          <div className={'row justify-content-center div-spacing'}>
             {this.renderButton('Begin')}
           </div>
         </div>
