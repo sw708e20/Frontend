@@ -7,9 +7,11 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Result from "./Result";
 import ReactDOM from "react-dom";
 import axios from 'axios';
+import constants from './Constants';
 
 class Page extends React.Component {
     getQuestion() {
+        console.log(constants.errorMsg1);
         axios.get(`http://localhost:8000/question/`)
             .then(res => {
                 const id = res.data;
