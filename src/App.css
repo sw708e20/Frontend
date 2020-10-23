@@ -61,10 +61,18 @@
 .edu-block {
   background-color: #3a6277;
   display: block;
-  width: 500px !important;
+  width: 600px !important;
   border-radius: 5px;
 }
 
 .education-header {
   margin-top: 1em;
+}
+
+hr {
+  width: 80%;
+}
+
+.title {
+  text-align: center;
 }

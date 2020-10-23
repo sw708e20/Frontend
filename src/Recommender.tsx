@@ -9,17 +9,19 @@ import ReactDOM from "react-dom";
 import axios from 'axios';
 
 class Page extends React.Component {
-    getQuestion() {
-        axios.get(`http://localhost:8000/question/`)
-            .then(res => {
-                const id = res.data;
-                console.log(id);
-            })
+    state:{ question: string; id: number } = {id: -1, question: ''};
+
+    async getQuestion() {
+        let res = await axios.get(`http://edufinder.dk/question/`);
+        let obj = res.data;
+        this.setState(obj)
     }
 
     renderTitle() {
+        let p = this.getQuestion();
+        p.then()
         return (
-            <h1> {this.getQuestion()} </h1>
+            <h1 className={'title'}> {this.state.question} </h1>
         )
     }
 
