@@ -7,9 +7,30 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import Result from "./Result";
 import ReactDOM from "react-dom";
 import axios from 'axios';
+import { Question, questionManager } from "./QuestionManager";
 
-class Page extends React.Component {
-    state:{ question: string; id: number } = {id: -1, question: ''};
+interface IRecommenderProps {
+
+}
+
+interface IRecommenderState {
+    question?: Question;
+}
+
+
+class Page extends React.Component<IRecommenderProps, IRecommenderState> {
+
+    constructor(props:any) {
+        super(props);
+        this.state = {question: undefined};
+        console.log("Test " + process.env.REACT_APP_DOMAIN);
+        questionManager.getFirstQuestion().then((res) => {
+            let new_question: Question = new Question(res.data.id, res.data.question);
+            this.setState({
+                question: new_question
+            })
+        });
+    }
 
     async getQuestion() {
         let res = await axios.get(`http://edufinder.dk/question/`);
@@ -18,10 +39,8 @@ class Page extends React.Component {
     }
 
     renderTitle() {
-        let p = this.getQuestion();
-        p.then()
         return (
-            <h1 className={'title'}> {this.state.question} </h1>
+            <h1 className={'title'}> {this.state.question? this.state.question.question: "null"} </h1>
         )
     }
 
