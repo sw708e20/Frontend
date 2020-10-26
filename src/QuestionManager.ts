@@ -69,35 +69,46 @@ export class Answer {
   }
 }
 
+class AnswerData{
+  id: number;
+  answer: number;
+
+  constructor(answer: Answer){
+    this.id = answer.question.id
+    this.answer = answer.value
+  }
+}
+
 
 class QuestionManager {
-
-  private answers: Answer[] = [];
 
   getFirstQuestion() {
     return EdufinderDataService.getFirstQuestion();
   }
 
-  getQuestion(answer: Answer) {
-    this.answers.push(answer);
-    let converted_numbers = this.getConvertedArray();
+  getQuestion(answers: Answer[]) {
+    let converted_numbers = this.getConvertedArray(answers);
     return EdufinderDataService.getNextQuestion(converted_numbers);
   }
 
-  getConvertedArray() {
+  getConvertedArray(answers : Answer[]) {
     let converted_numbers: { [key: string]: number } = {};
 
-    for (let element of this.answers) {
+    
+    for (let element of answers) {
       let question_key: any = element.question.id.toString();
       let answer_key = element.value;
       converted_numbers[question_key] = answer_key;
     }
-    return converted_numbers;
+    
+
+    
+    let converted_answers: AnswerData[] = answers.map((an) => new AnswerData(an));
+    return converted_answers;
   }
 
-  getRecommendations(answer: Answer) {
-    this.answers.push(answer);
-    let converted_numbers = this.getConvertedArray();
+  getRecommendations(answers: Answer[]) {
+    let converted_numbers = this.getConvertedArray(answers);
     return EdufinderDataService.getRecommendations(converted_numbers);
   }
 
