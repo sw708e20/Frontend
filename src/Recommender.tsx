@@ -6,8 +6,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Result from "./Result";
 import ReactDOM from "react-dom";
-import axios from 'axios';
-import { Question, questionManager } from "./QuestionManager";
+import { Question, questionManager, Answer_Enum, getAnswerString } from "./QuestionManager";
 
 interface IRecommenderProps {
 
@@ -20,22 +19,20 @@ interface IRecommenderState {
 
 class Page extends React.Component<IRecommenderProps, IRecommenderState> {
 
+    answer_options: Answer_Enum[] = [Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.PROBABLY_NOT, Answer_Enum.NO];
+
     constructor(props:any) {
         super(props);
         this.state = {question: undefined};
-        console.log("Test " + process.env.REACT_APP_DOMAIN);
-        questionManager.getFirstQuestion().then((res) => {
-            let new_question: Question = new Question(res.data.id, res.data.question);
+    }
+    
+    componentDidMount() {
+        questionManager.getFirstQuestion().then((qst) => {
             this.setState({
-                question: new_question
+                question: qst
             })
         });
-    }
-
-    async getQuestion() {
-        let res = await axios.get(`http://edufinder.dk/question/`);
-        let obj = res.data;
-        this.setState(obj)
+        
     }
 
     renderTitle() {
@@ -48,10 +45,11 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         let answerOptions:string[] = ['Yes', 'No', 'Probably', 'Probably not', 'Dont know']
         const elems:React.ReactElement[] = [];
 
-        for (let answer of answerOptions) {
+        for (let answer of this.answer_options) {
+            let stringvalue = getAnswerString(answer);
             elems.push(
                 <ToggleButtonGroup type={'radio'} value={answerOptions} name={'answer'} className={'div-spacing'}>
-                    <ToggleButton className={'answer-choice edu-btn'} value={answer}> {answer} </ToggleButton>
+                    <ToggleButton className={'answer-choice edu-btn'} value={answer}> {stringvalue} </ToggleButton>
                 </ToggleButtonGroup>
             )
             elems.push(<br/>)
