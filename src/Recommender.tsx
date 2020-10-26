@@ -2,8 +2,6 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
 import Result from "./Result";
 import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
