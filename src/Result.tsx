@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 import axios from "axios";
 
 interface EducationType {
@@ -27,13 +27,13 @@ class ResultPage extends React.Component {
             this.setState({list: obj, loading: false});
         }
     }
-    renderTitle(t: string) {
+    renderTitle(t: string) : ReactNode {
         return (
             <h1 className={'title'}> {t} </h1>
         )
     }
 
-    renderPrimaryRecommendation() {
+    renderPrimaryRecommendation() : ReactNode {
         const elems:React.ReactElement[] = [];
         const primary:Education = this.state.list[0];
 
@@ -50,7 +50,7 @@ class ResultPage extends React.Component {
         )
     }
 
-    renderRemainingRecommendations() {
+    renderRemainingRecommendations() : ReactNode {
         const elems:React.ReactElement[] = [];
 
         for (let edu2 of this.state.list.slice(1, this.state.list.length)) {
@@ -70,7 +70,7 @@ class ResultPage extends React.Component {
         )
     }
 
-    renderEducationInfo(edu: Education) {
+    renderEducationInfo(edu: Education) : ReactNode {
         return (
             <div>
                 <div className={'row justify-content-center'}>
@@ -84,7 +84,7 @@ class ResultPage extends React.Component {
         )
     }
 
-    renderEducationTypes(eduTypes: EducationType[]) {
+    renderEducationTypes(eduTypes: EducationType[]) : ReactNode {
         let elems: ReactElement[] = []
 
         for (let eduType of eduTypes) {
@@ -99,7 +99,7 @@ class ResultPage extends React.Component {
         return elems
     }
 
-    render() {
+    render() : ReactNode {
         this.getEducations();
         return (
             <div>
@@ -121,7 +121,7 @@ class ResultPage extends React.Component {
     }
 }
 
-function Result() {
+function Result() : ReactElement {
     return (
         <div className="App">
             <header className="App-header">
