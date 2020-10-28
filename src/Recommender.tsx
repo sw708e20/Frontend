@@ -26,7 +26,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         this.state = {answers: [] ,question: undefined};
     }
     
-    componentDidMount() {
+    componentDidMount() : void {
         questionManager.getFirstQuestion().then((qst) => {
             this.setState({
                 answers: this.state.answers,
@@ -59,8 +59,8 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         )
     }
 
-    onAnswerGiven(answer_value : Answer_Enum){
-        if(this.state.question === undefined){
+    onAnswerGiven(answer_value : Answer_Enum) : void {
+        if(this.state.question === undefined) {
             return;
         }
         
@@ -75,7 +75,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         }
     }
 
-    getNextQuestion(answers: Answer[]){
+    getNextQuestion(answers: Answer[]) : void {
         questionManager.getQuestion(answers).then((qst)=>{
             this.setState({
                 answers: answers,

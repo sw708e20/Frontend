@@ -19,7 +19,7 @@ interface Education {
 class ResultPage extends React.Component {
     state = {list: [], loading: true};
 
-    async getEducations() {
+    async getEducations() : Promise<void> {
         if (this.state.loading) {
             let res = await axios.post(`http://edufinder.dk/recommend/`,
                 {this_should: 'be questions and answers'});

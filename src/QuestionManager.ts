@@ -10,6 +10,7 @@ export class Education {
   }
 }
 
+// Education type that contains the name of the education, and the url of it
 export class EducationType {
   name: string;
   url: string;
@@ -20,6 +21,7 @@ export class EducationType {
   }
 }
 
+// Question class containing the id of the question, and the string that is the question.
 export class Question {
   id: number;
   question: string;
@@ -37,7 +39,8 @@ export enum Answer_Enum {
   NO = -2,
 }
 
-export function getAnswerString(value: Answer_Enum): string {
+// Get the answer string based on the provided enum
+export function getAnswerString(value: Answer_Enum) : string {
   let result: string = "";
   switch (value) {
     case Answer_Enum.YES:
@@ -82,16 +85,17 @@ class AnswerData{
 
 class QuestionManager {
 
-  getFirstQuestion() {
+  // Get the first question from the backend
+  getFirstQuestion() : Promise<Question> {
     return EdufinderDataService.getFirstQuestion();
   }
 
-  getQuestion(answers: Answer[]) {
+  getQuestion(answers: Answer[]) : Promise<Question> {
     let converted_numbers = this.getConvertedArray(answers);
     return EdufinderDataService.getNextQuestion(converted_numbers);
   }
 
-  getConvertedArray(answers : Answer[]) {
+  getConvertedArray(answers : Answer[]) : AnswerData[] {
     let converted_numbers: { [key: string]: number } = {};
 
     
@@ -107,7 +111,7 @@ class QuestionManager {
     return converted_answers;
   }
 
-  getRecommendations(answers: Answer[]) {
+  getRecommendations(answers: Answer[]) : Promise<Education[]> {
     let converted_numbers = this.getConvertedArray(answers);
     return EdufinderDataService.getRecommendations(converted_numbers);
   }

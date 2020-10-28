@@ -1,8 +1,11 @@
 import http from "./http-common";
 import { Question, Education } from "./QuestionManager";
 
+// Class for communicating with the backend service
+// Communication is facilitated used HTTP GET and POST requests
 class EdufinderDataService {
-  getFirstQuestion() {
+
+  getFirstQuestion() : Promise<Question> {
     return new Promise<Question>((resolve, reject) => {
       http.get("/question/").then((res) => {
         resolve(new Question(res.data.id, res.data.question));
@@ -12,7 +15,7 @@ class EdufinderDataService {
     });
   }
 
-  getNextQuestion(answers: Object) {
+  getNextQuestion(answers: Object) : Promise<Question> {
     return new Promise<Question>((resolve, reject) => {
       http.post("/question/", answers).then((res) => {
         resolve(new Question(res.data.id, res.data.question));
@@ -22,7 +25,7 @@ class EdufinderDataService {
     });
   }
 
-  getRecommendations(answers: Object) {
+  getRecommendations(answers: Object) : Promise<Education[]> {
     return new Promise<Education[]>((resolve, reject) => {
       http.post("/recommend/", answers).then((res) => {
         console.log(res);
