@@ -90,32 +90,23 @@ class QuestionManager {
     return EdufinderDataService.getFirstQuestion();
   }
 
-  getQuestion(answers: Answer[]) : Promise<Question> {
-    let converted_numbers = this.getConvertedArray(answers);
+  // Get the next question from the backend using the current answers
+  getNextQuestion(answers: Answer[]) : Promise<Question> {
+    let converted_numbers : AnswerData[] = this.getConvertedArray(answers);
     return EdufinderDataService.getNextQuestion(converted_numbers);
   }
 
+  // Create an AnswerData array from an Answer array
   getConvertedArray(answers : Answer[]) : AnswerData[] {
-    let converted_numbers: { [key: string]: number } = {};
-
-    
-    for (let element of answers) {
-      let question_key: any = element.question.id.toString();
-      let answer_key = element.value;
-      converted_numbers[question_key] = answer_key;
-    }
-    
-
-    
     let converted_answers: AnswerData[] = answers.map((an) => new AnswerData(an));
     return converted_answers;
   }
 
+  // Get recomendations from the backend
   getRecommendations(answers: Answer[]) : Promise<Education[]> {
-    let converted_numbers = this.getConvertedArray(answers);
+    let converted_numbers : AnswerData[] = this.getConvertedArray(answers);
     return EdufinderDataService.getRecommendations(converted_numbers);
   }
-
 }
 
 export const questionManager = new QuestionManager();
