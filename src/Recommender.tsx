@@ -76,7 +76,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 
     getNextQuestion(answers: Answer[]) : void {
-        questionManager.getQuestion(answers).then((qst)=>{
+        questionManager.getNextQuestion(answers).then((qst)=>{
             this.setState({
                 answers: answers,
                 question: qst
