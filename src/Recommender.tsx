@@ -2,12 +2,10 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
-import Result from "./Result";
-import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
 
 interface IRecommenderProps {
-
+    onQuizDone: (answers: Array<Answer>) => void;
 }
 
 interface IRecommenderState {
@@ -69,7 +67,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         let answers = this.state.answers.concat([new_answer])
         
         if(answers.length >= 20){
-            this.finishQuiz()
+            this.props.onQuizDone(answers)
         }else{
             this.getNextQuestion(answers)
         }
@@ -84,13 +82,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         });
     }
 
-    finishQuiz() {
-        ReactDOM.render(
-            <React.StrictMode>
-                <Result />
-            </React.StrictMode>,
-            document.getElementById('root'))
-    }
+    
 
     render() {
         return (
@@ -107,11 +99,12 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 }
 
-function Recommender() {
+function Recommender(quizDone: (answers: Answer[]) => void) {
+    console.debug(quizDone)
     return (
         <div className="App">
             <header className="App-header">
-                <Page />
+                <Page onQuizDone={quizDone}/>
             </header>
         </div>
     );
