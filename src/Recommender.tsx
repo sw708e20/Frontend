@@ -100,7 +100,6 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
 }
 
 function Recommender(quizDone: (answers: Answer[]) => void) {
-    console.debug(quizDone)
     return (
         <div className="App">
             <header className="App-header">
