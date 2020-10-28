@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React, {ReactElement} from 'react';
 import axios from "axios";
 
 interface EducationType {
@@ -27,46 +27,76 @@ class ResultPage extends React.Component {
             this.setState({list: obj, loading: false});
         }
     }
-    renderTitle() {
+    renderTitle(t: string) {
         return (
-            <h1 className={'title'}> {'Recommended educations 4 u'} </h1>
+            <h1 className={'title'}> {t} </h1>
         )
     }
 
-    renderEducations() {
+    renderPrimaryRecommendation() {
+        const elems:React.ReactElement[] = [];
+        const primary:Education = this.state.list[0];
+
+        elems.push(
+            <div className={'primary-edu-block div-spacing'}>
+                { this.renderEducationInfo(primary) }
+                <hr/>
+                { this.renderEducationTypes(primary.education_types) }
+            </div>
+        )
+
+        return (
+            <div> { elems } </div>
+        )
+    }
+
+    renderRemainingRecommendations() {
         const elems:React.ReactElement[] = [];
 
-        for (let edu2 of this.state.list) {
-            const eduTypes:React.ReactElement[] = [];
+        for (let edu2 of this.state.list.slice(1, this.state.list.length)) {
             let edu:Education = edu2;
-
-            for (let eduType of edu.education_types) {
-                eduTypes.push(
-                    <div key={eduType.id} className={'row justify-content-center'}>
-                        <div className={'col-6'}><p> {eduType.name} </p></div>
-                        <div className={'col-6'}><a href={eduType.url}> Link to www.ug.dk </a></div>
-                    </div>
-                )
-            }
 
             elems.push(
                 <div className={'edu-block div-spacing'}>
-                    <div className={'row justify-content-center'}>
-                        <h3 className={'education-header'}> {edu.name} </h3>
-                    </div>
+                    { this.renderEducationInfo(edu) }
                     <hr/>
-                    <div className={'row justify-content-center'}>
-                        <div className={'col-10'}> {edu.description} </div>
-                    </div>
-                    <hr/>
-                    {eduTypes}
+                    { this.renderEducationTypes(edu.education_types) }
                 </div>
             )
         }
-        console.log(elems);
+
         return (
             <div> {elems} </div>
         )
+    }
+
+    renderEducationInfo(edu: Education) {
+        return (
+            <div>
+                <div className={'row justify-content-center'}>
+                    <h3 className={'education-header'}> {edu.name} </h3>
+                </div>
+                <hr/>
+                <div className={'row justify-content-center'}>
+                    <div className={'col-10'}> {edu.description} </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderEducationTypes(eduTypes: EducationType[]) {
+        let elems: ReactElement[] = []
+
+        for (let eduType of eduTypes) {
+            elems.push(
+                <div key={eduType.id} className={'row justify-content-center'}>
+                    <div className={'col-6'}><p> {eduType.name} </p></div>
+                    <div className={'col-6'}><a href={eduType.url}> Link to www.ug.dk </a></div>
+                </div>
+            )
+        }
+
+        return elems
     }
 
     render() {
@@ -74,10 +104,17 @@ class ResultPage extends React.Component {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle()}
+                    {this.renderTitle('Anbefalet uddannelse')}
                 </div>
                 <div className={'row justify-content-center'}>
-                    {this.state.loading ? '' : this.renderEducations()}
+                    {this.state.loading ? '' : this.renderPrimaryRecommendation()}
+                </div>
+                <hr/>
+                <div className={'row justify-content-center'}>
+                    {this.renderTitle('Du vil måske også være interesseret i')}
+                </div>
+                <div className={'row justify-content-center'}>
+                    {this.state.loading ? '' : this.renderRemainingRecommendations()}
                 </div>
             </div>
         )
