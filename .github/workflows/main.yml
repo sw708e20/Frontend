@@ -20,7 +20,7 @@ jobs:
     - run: npm test
       env:
         CI: true
-    - name: A
+    - name: nyc npm test
       run: ./node_modules/.bin/nyc npm test
     - name: B
       run: ./node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov
