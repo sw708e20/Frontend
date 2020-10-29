@@ -19,4 +19,4 @@ jobs:
       env:
         CI: true
     - name: Upload coverage to Codecov
-      run: ./node_modules/.bin/codecov
+      run: ./node_modules/.bin/codecov --disable=gcov
