@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from "react-dom";
 import Recommender from "./Recommender";
 import Result from './Result'
+import Guess from './Guess'
 import { Answer } from './QuestionManager'
 
 class Index extends React.Component {
@@ -28,6 +29,14 @@ class Index extends React.Component {
           <Result />
       </React.StrictMode>,
       document.getElementById('root'))
+  }
+
+  returnToGuess(answers: Answer[]) {
+      ReactDOM.render(
+          <React.StrictMode>
+              {Guess(answers)}
+          </React.StrictMode>,
+          document.getElementById('root'))
   }
 
   returnToMain(answers:Answer[]){
@@ -61,10 +70,10 @@ class Index extends React.Component {
             {this.renderTitle('EduFinder')}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Uddannelses forslag', this.returnToResults)}
+            {this.renderButton('Uddannelsesforslag', this.returnToResults)}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Udannelse gætter', this.returnToMain)}
+            {this.renderButton('Udannelsesgætter', this.returnToGuess)}
           </div>
         </div>
     )
