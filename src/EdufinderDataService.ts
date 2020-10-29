@@ -26,6 +26,20 @@ class EdufinderDataService {
     return new Promise<Education[]>((resolve, reject) => {
       http.post("/recommend/", answers).then((res) => {
         console.log(res);
+        let list:Education[] = []
+        list = res.data
+
+        resolve(list)
+      }).catch((reason) => {
+        reject(reason);
+      });
+    });
+  }
+
+  postGuessData(guessData: Object) {
+    return new Promise<Education[]>((resolve, reject) => {
+      http.post("/guess/", guessData).then((res) => {
+        console.log(res);
         resolve()
       }).catch((reason) => {
         reject(reason);
@@ -33,6 +47,19 @@ class EdufinderDataService {
     });
   }
 
+  getEducations() {
+    return new Promise<Education[]>((resolve, reject) => {
+      http.post("/educations/").then((res) => {
+        console.log(res);
+        let list:Education[] = []
+        list = res.data
+
+        resolve(list)
+      }).catch((reason) => {
+        reject(reason);
+      });
+    });
+  }
 }
 
 export default new EdufinderDataService();
