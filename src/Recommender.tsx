@@ -2,8 +2,8 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { ReactElement, ReactNode } from 'react';
-import Result from "./Result";
-import ReactDOM from "react-dom";
+//import Result from "./Result";
+//import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
 
 interface IRecommenderProps {
