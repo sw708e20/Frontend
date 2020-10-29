@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
 
 interface IRecommenderProps {
-
+    onQuizDone: (answers: Array<Answer>) => void;
 }
 
 interface IRecommenderState {
@@ -69,7 +69,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         let answers = this.state.answers.concat([new_answer])
         
         if(answers.length >= 20){
-            this.finishQuiz()
+            this.props.onQuizDone(answers)
         }else{
             this.getNextQuestion(answers)
         }
@@ -111,7 +111,7 @@ function Recommender() : ReactElement {
     return (
         <div className="App">
             <header className="App-header">
-                <Page />
+                <Page onQuizDone={quizDone}/>
             </header>
         </div>
     );

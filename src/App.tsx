@@ -4,19 +4,39 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from "react-dom";
 import Recommender from "./Recommender";
+import Result from './Result'
+import { Answer } from './QuestionManager'
 
 class Index extends React.Component {
-  renderButton(text: string) {
+  renderButton(text: string, callback: (answers: Answer[]) => void) {
     return (
         <button className={"btn btn-primary edu-btn next-btn"} onClick={() =>
           ReactDOM.render(
             <React.StrictMode>
-                <Recommender />
+                {Recommender(callback)}
             </React.StrictMode>,
             document.getElementById('root')
         )
         }> {text} </button>
     )
+  }
+
+  returnToResults(answers:Answer[]){
+    
+    ReactDOM.render(
+      <React.StrictMode>
+          <Result />
+      </React.StrictMode>,
+      document.getElementById('root'))
+  }
+
+  returnToMain(answers:Answer[]){
+    
+    ReactDOM.render(
+      <React.StrictMode>
+          <App />
+      </React.StrictMode>,
+      document.getElementById('root'))
   }
 
   renderTitle(text: string) {
@@ -41,7 +61,10 @@ class Index extends React.Component {
             {this.renderTitle('EduFinder')}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Begin')}
+            {this.renderButton('Uddannelses forslag', this.returnToResults)}
+          </div>
+          <div className={'row justify-content-center div-spacing'}>
+            {this.renderButton('Udannelse gætter', this.returnToMain)}
           </div>
         </div>
     )
