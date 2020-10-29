@@ -92,17 +92,6 @@ class QuestionManager {
   }
 
   getConvertedArray(answers : Answer[]) {
-    let converted_numbers: { [key: string]: number } = {};
-
-    
-    for (let element of answers) {
-      let question_key: any = element.question.id.toString();
-      let answer_key = element.value;
-      converted_numbers[question_key] = answer_key;
-    }
-    
-
-    
     let converted_answers: AnswerData[] = answers.map((an) => new AnswerData(an));
     return converted_answers;
   }
