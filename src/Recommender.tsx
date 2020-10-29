@@ -84,14 +84,6 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         });
     }
 
-    finishQuiz() : void {
-        ReactDOM.render(
-            <React.StrictMode>
-                <Result />
-            </React.StrictMode>,
-            document.getElementById('root'))
-    }
-
     render() : ReactNode {
         return (
             <div>
@@ -107,7 +99,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 }
 
-function Recommender() : ReactElement {
+function Recommender(quizDone: (answers: Answer[]) => void) : ReactElement {
     return (
         <div className="App">
             <header className="App-header">
