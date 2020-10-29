@@ -25,7 +25,6 @@ class EdufinderDataService {
   getRecommendations(answers: Object) {
     return new Promise<Education[]>((resolve, reject) => {
       http.post("/recommend/", answers).then((res) => {
-        console.log(res);
         let list:Education[] = []
         list = res.data
 

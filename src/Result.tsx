@@ -26,7 +26,6 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
 
     getEducations() {
         questionManager.getRecommendations(this.props.answers).then((res)=>{
-            console.debug(res)
             this.setState({loading: false, list: res})
         })
         
