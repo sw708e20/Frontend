@@ -26,7 +26,10 @@ class EdufinderDataService {
     return new Promise<Education[]>((resolve, reject) => {
       http.post("/recommend/", answers).then((res) => {
         console.log(res);
-        resolve()
+        let list:Education[] = []
+        list = res.data
+
+        resolve(list)
       }).catch((reason) => {
         reject(reason);
       });

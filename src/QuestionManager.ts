@@ -2,11 +2,15 @@ import EdufinderDataService from "./EdufinderDataService";
 
 export class Education {
   id: number;
-  educationTypes: EducationType[];
+  description: string
+  name: string
+  education_types: EducationType[];
 
-  constructor(id: number) {
+  constructor(id: number, name:string, description:string) {
     this.id = id;
-    this.educationTypes = [];
+    this.name = name
+    this.description = description
+    this.education_types = [];
   }
 }
 
