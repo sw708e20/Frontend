@@ -18,3 +18,5 @@ jobs:
     - run: npm test
       env:
         CI: true
+    - name: Upload coverage to Codecov
+      run: ./node_modules/.bin/codecov
