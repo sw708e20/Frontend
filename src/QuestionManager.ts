@@ -2,21 +2,27 @@ import EdufinderDataService from "./EdufinderDataService";
 
 export class Education {
   id: number;
-  educationTypes: EducationType[];
+  education_types: EducationType[];
+  description: string;
+  name: string;
 
-  constructor(id: number) {
+  constructor(id: number, description: string, name: string) {
     this.id = id;
-    this.educationTypes = [];
+    this.education_types = [];
+    this.description = description;
+    this.name = name;
   }
 }
 
 export class EducationType {
   name: string;
   url: string;
+  id: number;
 
-  constructor(name: string, url: string) {
+  constructor(name: string, url: string, id: number) {
     this.name = name;
     this.url = url;
+    this.id = id;
   }
 }
 
@@ -112,6 +118,14 @@ class QuestionManager {
     return EdufinderDataService.getRecommendations(converted_numbers);
   }
 
+  sendGuessData(answers: Answer[], education: Education) {
+    let converted_numbers = this.getConvertedArray(answers);
+    return EdufinderDataService.postGuessData({questions: converted_numbers, education: education});
+  }
+
+  getEducations() {
+    return EdufinderDataService.getEducations();
+  }
 }
 
 export const questionManager = new QuestionManager();
