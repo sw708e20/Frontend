@@ -1,20 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement} from 'react';
 import axios from "axios";
-
-interface EducationType {
-    readonly id: number;
-    readonly education: number;
-    readonly name: string;
-    readonly url: string;
-}
-
-interface Education {
-    readonly id: number;
-    readonly name: string;
-    readonly description: string;
-    readonly education_types: EducationType[];
-}
+import {resultPageCommon} from './ResultPageCommon'
+import {Education} from './QuestionManager'
 
 class ResultPage extends React.Component {
     state = {list: [], loading: true};
@@ -39,9 +27,9 @@ class ResultPage extends React.Component {
 
         elems.push(
             <div className={'primary-edu-block div-spacing'}>
-                { this.renderEducationInfo(primary) }
+                { resultPageCommon.renderEducationInfo(primary) }
                 <hr/>
-                { this.renderEducationTypes(primary.education_types) }
+                { resultPageCommon.renderEducationTypes(primary.education_types) }
             </div>
         )
 
@@ -58,9 +46,9 @@ class ResultPage extends React.Component {
 
             elems.push(
                 <div className={'edu-block div-spacing'}>
-                    { this.renderEducationInfo(edu) }
+                    { resultPageCommon.renderEducationInfo(edu) }
                     <hr/>
-                    { this.renderEducationTypes(edu.education_types) }
+                    { resultPageCommon.renderEducationTypes(edu.education_types) }
                 </div>
             )
         }
@@ -68,35 +56,6 @@ class ResultPage extends React.Component {
         return (
             <div> {elems} </div>
         )
-    }
-
-    renderEducationInfo(edu: Education) {
-        return (
-            <div>
-                <div className={'row justify-content-center'}>
-                    <h3 className={'education-header'}> {edu.name} </h3>
-                </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-10'}> {edu.description} </div>
-                </div>
-            </div>
-        )
-    }
-
-    renderEducationTypes(eduTypes: EducationType[]) {
-        let elems: ReactElement[] = []
-
-        for (let eduType of eduTypes) {
-            elems.push(
-                <div key={eduType.id} className={'row justify-content-center'}>
-                    <div className={'col-6'}><p> {eduType.name} </p></div>
-                    <div className={'col-6'}><a href={eduType.url}> Link to www.ug.dk </a></div>
-                </div>
-            )
-        }
-
-        return elems
     }
 
     render() {
