@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install xmllint
+      run: sudo apt-get install lcov
     - uses: actions/checkout@v2
     - name: Use Node.js
       uses: actions/setup-node@v1
@@ -19,4 +21,4 @@ jobs:
       env:
         CI: true
     - name: Upload coverage to Codecov
-      run: ./node_modules/.bin/codecov --disable=gcov
+      run: ./node_modules/.bin/codecov
