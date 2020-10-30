@@ -23,6 +23,6 @@ jobs:
     - name: nyc npm test
       run: ./node_modules/.bin/nyc npm test
     - name: nyc report
-      run: ./node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov
+      run: ./node_modules/.bin/nyc report --reporter=json > coverage/coverage.json
     - name: Upload coverage to Codecov
       run: ./node_modules/.bin/codecov
