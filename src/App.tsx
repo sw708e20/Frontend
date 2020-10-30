@@ -61,10 +61,10 @@ class Index extends React.Component {
             {this.renderTitle('EduFinder')}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Uddannelses forslag', this.returnToResults)}
+            {this.renderButton('Uddannelsesforslag', this.returnToResults)}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Udannelse gætter', this.returnToMain)}
+            {this.renderButton('Udannelsesgætter', this.returnToMain)}
           </div>
         </div>
     )
