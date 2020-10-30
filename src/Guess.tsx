@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-fontawesome';
 import React, {ReactElement} from 'react';
 import ReactDOM from 'react-dom';
 import {Education, questionManager, Answer} from './QuestionManager';
 import {resultPageCommon} from "./ResultPageCommon";
+import App from "./App";
 
 interface IGuessProps {
     answers: Answer[];
@@ -16,6 +16,7 @@ interface IGuessState {
 
 interface ISelectorProps {
     searchTerm: string;
+    logCallback: (edu: Education) => void;
 }
 
 interface ISelectorState {
@@ -24,7 +25,7 @@ interface ISelectorState {
 }
 
 interface ISearchProps {
-
+    logCallback: (edu: Education) => void;
 }
 
 interface ISearchState {
@@ -51,6 +52,15 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
         })
     }
 
+    logData = (edu: Education) => {
+        questionManager.sendGuessData(this.props.answers, edu);
+        ReactDOM.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>,
+            document.getElementById('root'))
+    }
+
     renderTitle(t: string) {
         return (
             <h1 className={'title'}> { t } </h1>
@@ -71,7 +81,7 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
         return this.renderButton(
             'Ja',
             () => {
-                questionManager.sendGuessData(this.props.answers, this.state.guess)
+                this.logData(this.state.guess)
             }
         )
     }
@@ -82,7 +92,7 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
             () => {
                 ReactDOM.render(
                     <React.StrictMode>
-                        <SearchField />
+                        <SearchField logCallback={this.logData}/>
                     </React.StrictMode>,
                     document.getElementById('search-field')
                 )
@@ -137,6 +147,12 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         })
     }
 
+    handleKeyPress = (event: any) => {
+        if (event.key === 'Enter') {
+            this.performSearch()
+        }
+    }
+
     renderTitle() {
         return (
             <h1 className={'title'}> Angiv venligst din egentlige uddannelse </h1>
@@ -147,7 +163,7 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         return (
             <div className={'row justify-content-center'}>
                 <div className={'col-10'}>
-                    <input type={'text'} placeholder={'Søg'} className={'full-width'} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
+                    <input type={'text'} placeholder={'Søg'} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
                 </div>
                 <div className={'col-2'}>
                     {this.renderSearchButton()}
@@ -158,14 +174,16 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderSearchButton() {
         return (
-            <button onClick={() => {
-                ReactDOM.render(
-                    <React.StrictMode>
-                        <EducationSelector searchTerm={this.state.searchTerm}/>
-                    </React.StrictMode>,
-                    document.getElementById('education-selector')
-                )}} className={'btn btn-primary search-btn edu-btn div-spacing'}> Søg </button>
+            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}> Søg </button>
         )
+    }
+
+    performSearch() {
+        ReactDOM.render(
+            <React.StrictMode>
+                <EducationSelector searchTerm={this.state.searchTerm} logCallback={this.props.logCallback}/>
+            </React.StrictMode>,
+            document.getElementById('education-selector'))
     }
 
     render() {
@@ -192,7 +210,6 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
 
     componentDidMount() {
         questionManager.getEducations(this.props.searchTerm).then((data: Education[]) => {
-            console.log(data);
             this.setState({
                 educations: data,
                 loading: false
@@ -215,7 +232,9 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
             for (let i = 0; i < education_count; i++) {
                 elems.push(
                     <div className={'row justify-content-center'}>
-                        <p className={'title'}> {this.state.educations[i].name} </p>
+                        <button onClick={() => this.props.logCallback(this.state.educations[i])}
+                                className={'btn btn-primary search-selector-btn edu-btn div-spacing'}>
+                        {this.state.educations[i].name}</button>
                     </div>
                 )
             }

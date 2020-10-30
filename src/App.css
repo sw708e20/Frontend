@@ -91,3 +91,8 @@ hr {
 .search-btn {
   width: 5em;
 }
+
+.search-selector-btn {
+  background-color: #444b59 !important;
+  border: 0 !important;
+}
