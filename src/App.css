@@ -83,3 +83,11 @@ hr {
 .title {
   text-align: center;
 }
+
+.full-width {
+  width: 100%;
+}
+
+.search-btn {
+  width: 5em;
+}
