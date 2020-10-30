@@ -123,8 +123,8 @@ class QuestionManager {
     return EdufinderDataService.postGuessData({questions: converted_numbers, education: education});
   }
 
-  getEducations() {
-    return EdufinderDataService.getEducations();
+  getEducations(q: string) {
+    return EdufinderDataService.getEducations(q);
   }
 }
 
