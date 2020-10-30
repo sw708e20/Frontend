@@ -17,12 +17,8 @@ jobs:
         node-version: '12.x'
     - run: npm install
     - run: npm run build --if-present
-    - run: npm test
+    - run: npm test -- src --coverage
       env:
         CI: true
-    - name: nyc npm test
-      run: ./node_modules/.bin/nyc npm test
-    - name: nyc report
-      run: ./node_modules/.bin/nyc report --reporter=json > coverage/coverage.json
     - name: Upload coverage to Codecov
       run: ./node_modules/.bin/codecov
