@@ -1,7 +1,9 @@
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import React from 'react';
+import React, { ReactElement, ReactNode } from 'react';
+//import Result from "./Result";
+//import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
 
 interface IRecommenderProps {
@@ -24,7 +26,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         this.state = {answers: [] ,question: undefined};
     }
     
-    componentDidMount() {
+    componentDidMount() : void {
         questionManager.getFirstQuestion().then((qst) => {
             this.setState({
                 answers: this.state.answers,
@@ -33,13 +35,13 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         });
     }
 
-    renderTitle() {
+    renderTitle() : ReactNode {
         return (
             <h1 className={'title'}>Q{this.state.answers.length + 1}: {this.state.question? this.state.question.question: "null"} </h1>
         )
     }
 
-    renderAnswerOptions() {
+    renderAnswerOptions() : ReactNode {
         const elems:React.ReactElement[] = [];
 
         for (let answer of this.answer_options) {
@@ -57,8 +59,8 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         )
     }
 
-    onAnswerGiven(answer_value : Answer_Enum){
-        if(this.state.question === undefined){
+    onAnswerGiven(answer_value : Answer_Enum) : void {
+        if(this.state.question === undefined) {
             return;
         }
         
@@ -73,8 +75,8 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         }
     }
 
-    getNextQuestion(answers: Answer[]){
-        questionManager.getQuestion(answers).then((qst)=>{
+    getNextQuestion(answers: Answer[]) : void {
+        questionManager.getNextQuestion(answers).then((qst)=>{
             this.setState({
                 answers: answers,
                 question: qst
@@ -82,9 +84,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         });
     }
 
-    
-
-    render() {
+    render() : ReactNode {
         return (
             <div>
                 <div className={'row justify-content-center'}>
@@ -99,7 +99,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 }
 
-function Recommender(quizDone: (answers: Answer[]) => void) {
+function Recommender(quizDone: (answers: Answer[]) => void) : ReactElement {
     return (
         <div className="App">
             <header className="App-header">
