@@ -1,0 +1,4 @@
+# codecov.yml
+
+fixes:
+  - "/home/runner/work/frontend/frontend/::" # Correct paths
