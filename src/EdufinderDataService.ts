@@ -47,9 +47,9 @@ class EdufinderDataService {
     });
   }
 
-  getEducations() {
+  getEducations(q: string) {
     return new Promise<Education[]>((resolve, reject) => {
-      http.post("/educations/").then((res) => {
+      http.get("/educations/", {params: {q: q}}).then((res) => {
         console.log(res);
         let list:Education[] = []
         list = res.data
