@@ -18,10 +18,12 @@ export class Education {
 export class EducationType {
   name: string;
   url: string;
+  id: number;
 
-  constructor(name: string, url: string) {
+  constructor(name: string, url: string, id: number) {
     this.name = name;
     this.url = url;
+    this.id = id;
   }
 }
 
@@ -110,6 +112,15 @@ class QuestionManager {
   getRecommendations(answers: Answer[]) : Promise<Education[]> {
     let converted_numbers : AnswerData[] = this.getConvertedArray(answers);
     return EdufinderDataService.getRecommendations(converted_numbers);
+  }
+
+  sendGuessData(answers: Answer[], education: Education) {
+    let converted_numbers = this.getConvertedArray(answers);
+    return EdufinderDataService.postGuessData({questions: converted_numbers, education: education.id});
+  }
+
+  getEducations(q: string) {
+    return EdufinderDataService.getEducations(q);
   }
 }
 
