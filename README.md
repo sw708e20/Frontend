@@ -1,4 +1,4 @@
-# Frontend
+# Frontend [![codecov](https://codecov.io/gh/sw708e20/frontend/branch/master/graph/badge.svg?token=NNDWJ8CAMG)](undefined)
 
 The frontend for edufinder.
 
