@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "EduFinder",
+  "name": "EduFinder - find your education",
   "icons": [
     {
       "src": "favicon.ico",

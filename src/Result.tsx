@@ -1,19 +1,37 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement} from 'react';
-import axios from "axios";
 import {resultPageCommon} from './ResultPageCommon'
-import {Education} from './QuestionManager'
+import { questionManager, Answer, Education, EducationType } from "./QuestionManager";
 
-class ResultPage extends React.Component {
-    state = {list: [], loading: true};
+interface IRecommenderProps {
+    answers: Answer[]
+}
 
-    async getEducations() {
-        if (this.state.loading) {
-            let res = await axios.post(`http://edufinder.dk/recommend/`,
-                {this_should: 'be questions and answers'});
-            let obj = res.data;
-            this.setState({list: obj, loading: false});
-        }
+interface IRecommenderState {
+    loading: boolean
+    list : Education[]
+}
+
+class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
+
+    constructor(props:any) {
+        super(props);
+        
+        this.state = {loading: true, list: []};
+    }
+
+    componentDidMount(){
+        this.getEducations()
+        this.setState({loading: true, list: this.state.list})
+    }
+
+    getEducations() {
+        questionManager.getRecommendations(this.props.answers).then((res)=>{
+            this.setState({loading: false, list: res})
+        })
+        
+        //this.setState({list: null, loading: false});
+        
     }
     renderTitle(t: string) {
         return (
@@ -59,7 +77,6 @@ class ResultPage extends React.Component {
     }
 
     render() {
-        this.getEducations();
         return (
             <div>
                 <div className={'row justify-content-center'}>
@@ -80,11 +97,11 @@ class ResultPage extends React.Component {
     }
 }
 
-function Result() {
+function Result(results: Answer[]) {
     return (
         <div className="App">
             <header className="App-header">
-                <ResultPage />
+                <ResultPage answers={results} />
             </header>
         </div>
     );

@@ -2,15 +2,15 @@ import EdufinderDataService from "./EdufinderDataService";
 
 export class Education {
   id: number;
+  description: string
+  name: string
   education_types: EducationType[];
-  description: string;
-  name: string;
 
-  constructor(id: number, description: string, name: string) {
+  constructor(id: number, name:string, description:string) {
     this.id = id;
+    this.name = name
+    this.description = description
     this.education_types = [];
-    this.description = description;
-    this.name = name;
   }
 }
 
@@ -98,17 +98,6 @@ class QuestionManager {
   }
 
   getConvertedArray(answers : Answer[]) {
-    let converted_numbers: { [key: string]: number } = {};
-
-    
-    for (let element of answers) {
-      let question_key: any = element.question.id.toString();
-      let answer_key = element.value;
-      converted_numbers[question_key] = answer_key;
-    }
-    
-
-    
     let converted_answers: AnswerData[] = answers.map((an) => new AnswerData(an));
     return converted_answers;
   }
