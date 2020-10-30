@@ -120,7 +120,7 @@ class QuestionManager {
 
   sendGuessData(answers: Answer[], education: Education) {
     let converted_numbers = this.getConvertedArray(answers);
-    return EdufinderDataService.postGuessData({questions: converted_numbers, education: education});
+    return EdufinderDataService.postGuessData({questions: converted_numbers, education: education.id});
   }
 
   getEducations(q: string) {
