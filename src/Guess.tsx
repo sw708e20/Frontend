@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {ReactElement} from 'react';
+import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
 import {Education, questionManager, Answer} from './QuestionManager';
 import {resultPageCommon} from "./ResultPageCommon";
@@ -22,6 +22,7 @@ interface ISelectorProps {
 interface ISelectorState {
     educations: Education[];
     loading: boolean;
+    searchTerm: string;
 }
 
 interface ISearchProps {
@@ -131,9 +132,11 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
 }
 
 class SearchField extends React.Component<ISearchProps, ISearchState> {
+    resultElement:RefObject<EducationSelector>;
 
     constructor(props:any) {
         super(props);
+        this.resultElement = React.createRef();
 
         this.state = {
             searchTerm: ''
@@ -179,9 +182,11 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
     }
 
     performSearch() {
+        if (this.resultElement.current) this.resultElement.current.updateSearchTerm(this.state.searchTerm);
+        else
         ReactDOM.render(
             <React.StrictMode>
-                <EducationSelector searchTerm={this.state.searchTerm} logCallback={this.props.logCallback}/>
+                <EducationSelector searchTerm={this.state.searchTerm} logCallback={this.props.logCallback} ref={this.resultElement}/>
             </React.StrictMode>,
             document.getElementById('education-selector'))
     }
@@ -205,14 +210,30 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
         this.state = {
             educations: [],
             loading: true,
+            searchTerm: this.props.searchTerm
         };
     }
 
     componentDidMount() {
-        questionManager.getEducations(this.props.searchTerm).then((data: Education[]) => {
+        this.getEducations(this.props.searchTerm)
+    }
+
+    updateSearchTerm(term: string) {
+        console.log('hello');
+        this.setState({
+            educations: this.state.educations,
+            loading: true,
+            searchTerm: term
+        })
+        this.getEducations(term)
+    }
+
+    getEducations(term: string) {
+        questionManager.getEducations(term).then((data: Education[]) => {
             this.setState({
                 educations: data,
-                loading: false
+                loading: false,
+                searchTerm: this.state.searchTerm
             })
         })
     }
