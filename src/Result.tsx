@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React , {ReactElement, ReactNode} from 'react';
 import {resultPageCommon} from './ResultPageCommon'
 import { questionManager, Answer, Education} from "./QuestionManager";
 
