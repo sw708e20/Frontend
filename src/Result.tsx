@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {resultPageCommon} from './ResultPageCommon'
-import { questionManager, Answer, Education, EducationType } from "./QuestionManager";
+import { questionManager, Answer, Education} from "./QuestionManager";
 
 interface IRecommenderProps {
     answers: Answer[]
