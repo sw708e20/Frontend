@@ -35,6 +35,28 @@ class EdufinderDataService {
     });
   }
 
+  postGuessData(guessData: Object) {
+    return new Promise<Education[]>((resolve, reject) => {
+      http.post("/guess/", guessData).then((res) => {
+        resolve()
+      }).catch((reason) => {
+        reject(reason);
+      });
+    });
+  }
+
+  getEducations(q: string) {
+    return new Promise<Education[]>((resolve, reject) => {
+      http.get("/educations/", {params: {q: q}}).then((res) => {
+        let list:Education[] = []
+        list = res.data
+
+        resolve(list)
+      }).catch((reason) => {
+        reject(reason);
+      });
+    });
+  }
 }
 
 export default new EdufinderDataService();
