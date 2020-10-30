@@ -21,11 +21,11 @@ class Index extends React.Component {
     )
   }
 
-  returnToResults(answers:Answer[]){
+  returnToResults(results :Answer[]){
     
     ReactDOM.render(
       <React.StrictMode>
-          <Result />
+          {Result(results)}
       </React.StrictMode>,
       document.getElementById('root'))
   }

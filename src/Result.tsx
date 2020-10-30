@@ -1,31 +1,32 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {ReactElement, ReactNode} from 'react';
-import axios from "axios";
+import React, {ReactElement} from 'react';
+import { questionManager, Answer, Education, EducationType } from "./QuestionManager";
 
-interface EducationType {
-    readonly id: number;
-    readonly education: number;
-    readonly name: string;
-    readonly url: string;
+interface IRecommenderProps {
+    answers: Answer[]
 }
 
-interface Education {
-    readonly id: number;
-    readonly name: string;
-    readonly description: string;
-    readonly education_types: EducationType[];
+interface IRecommenderState {
+    loading: boolean
+    list : Education[]
 }
 
-class ResultPage extends React.Component {
-    state = {list: [], loading: true};
+class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
+    constructor(props:any) {
+        super(props);
+        
+        this.state = {loading: true, list: []};
+    }
 
-    async getEducations() : Promise<void> {
-        if (this.state.loading) {
-            let res = await axios.post(`http://edufinder.dk/recommend/`,
-                {this_should: 'be questions and answers'});
-            let obj = res.data;
-            this.setState({list: obj, loading: false});
-        }
+    componentDidMount() : void{
+        this.getEducations()
+        this.setState({loading: true, list: this.state.list})
+    }
+
+    getEducations() : void {
+        questionManager.getRecommendations(this.props.answers).then((res)=>{
+            this.setState({loading: false, list: res})
+        })
     }
     renderTitle(t: string) : ReactNode {
         return (
@@ -89,7 +90,7 @@ class ResultPage extends React.Component {
 
         for (let eduType of eduTypes) {
             elems.push(
-                <div key={eduType.id} className={'row justify-content-center'}>
+                <div key={eduType.name} className={'row justify-content-center'}>
                     <div className={'col-6'}><p> {eduType.name} </p></div>
                     <div className={'col-6'}><a href={eduType.url}> Link to www.ug.dk </a></div>
                 </div>
@@ -100,7 +101,6 @@ class ResultPage extends React.Component {
     }
 
     render() : ReactNode {
-        this.getEducations();
         return (
             <div>
                 <div className={'row justify-content-center'}>
@@ -121,11 +121,11 @@ class ResultPage extends React.Component {
     }
 }
 
-function Result() : ReactElement {
+function Result(results: Answer[]) : ReactElement {
     return (
         <div className="App">
             <header className="App-header">
-                <ResultPage />
+                <ResultPage answers={results} />
             </header>
         </div>
     );
