@@ -38,7 +38,6 @@ class EdufinderDataService {
   postGuessData(guessData: Object) {
     return new Promise<Education[]>((resolve, reject) => {
       http.post("/guess/", guessData).then((res) => {
-        console.log(res);
         resolve()
       }).catch((reason) => {
         reject(reason);
@@ -49,7 +48,6 @@ class EdufinderDataService {
   getEducations(q: string) {
     return new Promise<Education[]>((resolve, reject) => {
       http.get("/educations/", {params: {q: q}}).then((res) => {
-        console.log(res);
         let list:Education[] = []
         list = res.data
 

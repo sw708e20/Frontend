@@ -144,7 +144,6 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
     }
 
     updateSearchTerm = (event: any) => {
-        console.log(event.target.value)
         this.setState({
             searchTerm: event.target.value
         })
@@ -219,7 +218,6 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
     }
 
     updateSearchTerm(term: string) {
-        console.log('hello');
         this.setState({
             educations: this.state.educations,
             loading: true,
