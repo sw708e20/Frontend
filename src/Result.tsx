@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 import { questionManager, Answer, Education, EducationType } from "./QuestionManager";
 
 interface IRecommenderProps {
