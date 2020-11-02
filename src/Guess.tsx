@@ -3,13 +3,11 @@ import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
 import {Education, questionManager, Answer} from './QuestionManager';
 import {resultPageCommon} from "./ResultPageCommon";
-import App from "./App";
-
-interface IGuessProps {
-    answers: Answer[];
-}
+import IndexPage from "./HomePage";
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface IGuessState {
+    answers: Answer[];
     guess: Education;
     inputValue: string;
 }
@@ -33,19 +31,20 @@ interface ISearchState {
     searchTerm: string;
 }
 
-class GuessPage extends React.Component<IGuessProps, IGuessState> {
+class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     constructor(props:any) {
         super(props);
 
         this.state = {
+            answers: this.props.location.state as Answer[],
             guess: new Education(-1, 'sadf', 'yeet'),
             inputValue: ""
         };
     }
 
     componentDidMount() {
-        questionManager.getRecommendations(this.props.answers).then((data: Education[]) => {
+        questionManager.getRecommendations(this.state.answers).then((data: Education[]) => {
             this.setState({
                 guess: data[0],
                 inputValue: this.state.inputValue
@@ -54,10 +53,10 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
     }
 
     logData = (edu: Education) => {
-        questionManager.sendGuessData(this.props.answers, edu);
+        questionManager.sendGuessData(this.state.answers, edu);
         ReactDOM.render(
             <React.StrictMode>
-                <App />
+                <IndexPage />
             </React.StrictMode>,
             document.getElementById('root'))
     }
@@ -271,12 +270,4 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
     }
 }
 
-function Guess(answers: Answer[]) {
-    return (
-        <div className="App App-header">
-            <GuessPage answers={answers}/>
-        </div>
-    );
-}
-
-export default Guess;
+export default withRouter(GuessPage);

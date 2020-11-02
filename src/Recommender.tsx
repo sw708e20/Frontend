@@ -3,30 +3,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-interface IRecommenderProps {
-    onQuizDone: (answers: Array<Answer>) => void;
-}
 
 interface IRecommenderState {
+    routeTo: string
     answers: Array<Answer>
     question?: Question;
 }
 
 
-class Page extends React.Component<IRecommenderProps, IRecommenderState> {
+class Recommender extends React.Component<RouteComponentProps, IRecommenderState> {
 
     answer_options: Answer_Enum[] = [Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.PROBABLY_NOT, Answer_Enum.NO];
 
     constructor(props:any) {
         super(props);
         
-        this.state = {answers: [] ,question: undefined};
+        this.state = {routeTo: this.props.location.state as string,answers: [] ,question: undefined};
     }
-    
+
     componentDidMount() {
         questionManager.getFirstQuestion().then((qst) => {
-            this.setState({
+            this.setState({ 
                 answers: this.state.answers,
                 question: qst
             })
@@ -61,13 +60,15 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         if(this.state.question === undefined){
             return;
         }
-        
+
         let new_answer = new Answer(this.state.question, answer_value)
         
         let answers = this.state.answers.concat([new_answer])
         
+        const { history } = this.props
+
         if(answers.length >= 20){
-            this.props.onQuizDone(answers)
+            history.push(this.state.routeTo, answers)
         }else{
             this.getNextQuestion(answers)
         }
@@ -99,14 +100,4 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 }
 
-function Recommender(quizDone: (answers: Answer[]) => void) {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <Page onQuizDone={quizDone}/>
-            </header>
-        </div>
-    );
-}
-
-export default Recommender;
+export default withRouter(Recommender);

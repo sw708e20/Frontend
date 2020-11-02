@@ -2,22 +2,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import {resultPageCommon} from './ResultPageCommon'
 import { questionManager, Answer, Education} from "./QuestionManager";
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-interface IRecommenderProps {
-    answers: Answer[]
-}
 
 interface IRecommenderState {
+    answers: Answer[]
     loading: boolean
     list : Education[]
 }
 
-class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
+class ResultPage extends React.Component<RouteComponentProps, IRecommenderState> {
 
     constructor(props:any) {
         super(props);
         
-        this.state = {loading: true, list: []};
+        this.state = {answers: this.props.location.state as Answer[] ,loading: true, list: []};
     }
 
     componentDidMount(){
@@ -26,7 +25,7 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 
     getEducations() {
-        questionManager.getRecommendations(this.props.answers).then((res)=>{
+        questionManager.getRecommendations(this.state.answers).then((res)=>{
             this.setState({loading: false, list: res})
         })
         
@@ -97,14 +96,4 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
     }
 }
 
-function Result(results: Answer[]) {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <ResultPage answers={results} />
-            </header>
-        </div>
-    );
-}
-
-export default Result;
+export default withRouter(ResultPage);
