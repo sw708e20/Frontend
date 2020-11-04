@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {Education, EducationType} from './QuestionManager'
+import {Education, EducationType} from '../../services/QuestionManager'
 
 
 class ResultPageCommon {
