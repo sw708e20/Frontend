@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React , {ReactElement, ReactNode} from 'react';
 import {resultPageCommon} from './ResultPageCommon'
 import { questionManager, Answer, Education} from "./QuestionManager";
+import { Translation } from "react-i18next";
 
 interface IRecommenderProps {
     answers: Answer[]
@@ -29,9 +30,15 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
             this.setState({loading: false, list: res})
         })
     }
-    renderTitle(t: string) : ReactNode {
+    renderTitle(text_key: string) : ReactNode {
         return (
-            <h1 className={'title'}> {t} </h1>
+            <h1 className={'title'}>
+                <Translation>
+                    {
+                        t => <span>{t(text_key)}</span>
+                    }
+                </Translation>
+            </h1>
         )
     }
 
@@ -76,14 +83,14 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('Anbefalet uddannelse')}
+                    {this.renderTitle('result.rec_title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     {this.state.loading ? '' : this.renderPrimaryRecommendation()}
                 </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('Du vil måske også være interesseret i')}
+                    {this.renderTitle('result.rem_title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     {this.state.loading ? '' : this.renderRemainingRecommendations()}
