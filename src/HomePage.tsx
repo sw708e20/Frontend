@@ -14,7 +14,7 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
       <button className={"btn btn-primary edu-btn next-btn"} onClick={() =>
         {
           const { history } = this.props;
-            history.push("/quiz/", routeTo)
+            history.push("/quiz/", {routeTo: routeTo, state: {routeTo: routeTo, answers: [], question: undefined}})
           }}> {text} </button>
     )
   }

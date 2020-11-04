@@ -12,6 +12,12 @@ interface IRecommenderState {
     question?: Question;
 }
 
+interface IHistoryState{
+    routeTo: string
+    isLoading: boolean
+    state: IRecommenderState    
+}
+
 
 class Recommender extends React.Component<RouteComponentProps, IRecommenderState> {
 
@@ -20,21 +26,36 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     constructor(props:any) {
         super(props);
         
-        this.state = {routeTo: this.props.location.state as string,answers: [] ,question: undefined};
-    }
+        let historicState = this.props.location.state as IHistoryState
 
+        if(historicState.state !== undefined){
+            this.state = historicState.state
+        }
+        else
+            this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined};
+    }
+    
     componentDidMount() {
-        questionManager.getFirstQuestion().then((qst) => {
-            this.setState({ 
-                answers: this.state.answers,
-                question: qst
-            })
-        });
+        if(this.state.answers.length > 0){
+            this.getNextQuestion(this.state.answers)
+        }
+        else{
+            questionManager.getFirstQuestion().then((qst) => {
+                let newState = {
+                    routeTo: this.state.routeTo,
+                    answers: this.state.answers,
+                    question: qst
+                }
+                
+                this.props.history.replace("/quiz/", {routeTo: this.state.routeTo, isLoading: false, state: newState})
+            });
+        }
     }
 
     renderTitle() {
+        let historicState = this.props.location.state as IHistoryState
         return (
-            <h1 className={'title'}>Q{this.state.answers.length + 1}: {this.state.question? this.state.question.question: "null"} </h1>
+            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? historicState.state.question.question: "null"} </h1>
         )
     }
 
@@ -57,29 +78,57 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     }
 
     onAnswerGiven(answer_value : Answer_Enum){
-        if(this.state.question === undefined){
+        let historicState = this.props.location.state as IHistoryState
+        if(!historicState.state.question || historicState.isLoading){
             return;
         }
 
-        let new_answer = new Answer(this.state.question, answer_value)
+
+        let new_answer = new Answer(historicState.state.question, answer_value)
         
-        let answers = this.state.answers.concat([new_answer])
+        let answers = historicState.state.answers.concat([new_answer])
         
         const { history } = this.props
 
         if(answers.length >= 20){
-            history.push(this.state.routeTo, answers)
+            history.push(historicState.state.routeTo, answers)
         }else{
             this.getNextQuestion(answers)
         }
     }
-
     getNextQuestion(answers: Answer[]){
+        let historicState = this.props.location.state as IHistoryState
+        const { history } = this.props
+
+        history.replace("/quiz/",{
+            routeTo: historicState.routeTo,
+            isLoading: true,
+            state:{
+            routeTo: historicState.state.routeTo,
+            answers: historicState.state.answers,
+            question: historicState.state.question
+            }
+        })
+
         questionManager.getQuestion(answers).then((qst)=>{
-            this.setState({
+            
+            history.replace("/quiz/",{
+                routeTo: historicState.routeTo,
+                isLoading: false,
+                state:{
+                routeTo: historicState.state.routeTo,
+                answers: historicState.state.answers,
+                question: historicState.state.question
+                }
+            })
+            
+            let newState = {
+                routeTo: historicState.state.routeTo,
                 answers: answers,
                 question: qst
-            })
+            };
+
+            history.push("/quiz/" ,{routeTo: historicState.state.routeTo, isLoading: false, state: newState })
         });
     }
 
