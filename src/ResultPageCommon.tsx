@@ -1,5 +1,9 @@
 import React, {ReactElement} from "react";
 import {Education, EducationType} from './QuestionManager'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Navbar} from 'react-bootstrap';
+import {Translation} from "react-i18next";
+import logo from './img/logo32.png';
 
 
 class ResultPageCommon {
@@ -30,6 +34,29 @@ class ResultPageCommon {
         }
 
         return elems
+    }
+
+    renderNavbar() {
+        return (
+            <div className={'edu-nav'}>
+                <Navbar bg="dark" variant="dark">
+                    <Navbar.Brand href="#home">
+                        <img
+                            alt=""
+                            src={logo}
+                            width="32"
+                            height="32"
+                            className="d-inline-block align-top"
+                        />{' '}
+                        <Translation>
+                            {
+                                t => <span>{t('index.title')}</span>
+                            }
+                        </Translation>
+                    </Navbar.Brand>
+                </Navbar>
+            </div>
+        )
     }
 }
 

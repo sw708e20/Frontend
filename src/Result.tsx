@@ -103,6 +103,7 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
 function Result(results: Answer[]) : ReactElement {
     return (
         <div className="App">
+            {resultPageCommon.renderNavbar()}
             <header className="App-header">
                 <ResultPage answers={results} />
             </header>

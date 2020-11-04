@@ -6,6 +6,7 @@ import React, { ReactElement, ReactNode } from 'react';
 //import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
 import { Translation } from "react-i18next";
+import {resultPageCommon} from "./ResultPageCommon";
 
 interface IRecommenderProps {
     onQuizDone: (answers: Array<Answer>) => void;
@@ -75,7 +76,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         
         let answers = this.state.answers.concat([new_answer])
         
-        if(answers.length >= 20){
+        if(answers.length >= 1){
             this.props.onQuizDone(answers)
         }else{
             this.getNextQuestion(answers)
@@ -109,6 +110,7 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
 function Recommender(quizDone: (answers: Answer[]) => void) : ReactElement {
     return (
         <div className="App">
+            {resultPageCommon.renderNavbar()}
             <header className="App-header">
                 <Page onQuizDone={quizDone}/>
             </header>

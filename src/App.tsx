@@ -8,6 +8,7 @@ import Result from './Result'
 import Guess from './Guess'
 import { Answer } from './QuestionManager'
 import { Translation } from "react-i18next";
+import {resultPageCommon} from "./ResultPageCommon";
 
 class Index extends React.Component {
 
@@ -95,8 +96,9 @@ class Index extends React.Component {
 function App() {
   return (
     <div className="App">
+        {resultPageCommon.renderNavbar()}
       <header className="App-header">
-        <Index/>
+          <Index/>
       </header>
     </div>
   );
