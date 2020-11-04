@@ -1,7 +1,7 @@
 import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined};
     }
     
-    componentDidMount() {
+    componentDidMount() : void {
         if(this.state.answers.length > 0){
             this.getNextQuestion(this.state.answers)
         }
@@ -52,14 +52,14 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         }
     }
 
-    renderTitle() {
+    renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
         return (
             <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? historicState.state.question.question: "null"} </h1>
         )
     }
 
-    renderAnswerOptions() {
+    renderAnswerOptions() : ReactNode {
         const elems:React.ReactElement[] = [];
 
         for (let answer of this.answer_options) {
@@ -77,7 +77,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         )
     }
 
-    onAnswerGiven(answer_value : Answer_Enum){
+    onAnswerGiven(answer_value : Answer_Enum) : void{
         let historicState = this.props.location.state as IHistoryState
         if(!historicState.state.question || historicState.isLoading){
             return;
@@ -96,7 +96,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             this.getNextQuestion(answers)
         }
     }
-    getNextQuestion(answers: Answer[]){
+    getNextQuestion(answers: Answer[]) : void{
         let historicState = this.props.location.state as IHistoryState
         const { history } = this.props
 
@@ -109,8 +109,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             question: historicState.state.question
             }
         })
-
-        questionManager.getQuestion(answers).then((qst)=>{
+        questionManager.getNextQuestion(answers).then((qst : Question)=>{
             
             history.replace("/quiz/",{
                 routeTo: historicState.routeTo,
@@ -134,7 +133,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     
 
-    render() {
+    render() : ReactNode {
         return (
             <div>
                 <div className={'row justify-content-center'}>

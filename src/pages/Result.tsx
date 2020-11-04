@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {resultPageCommon} from './commons/ResultPageCommon'
 import { questionManager, Answer, Education} from "../services/QuestionManager";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -18,26 +18,23 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
         this.state = {answers: this.props.location.state as Answer[] ,loading: true, list: []};
     }
 
-    componentDidMount(){
+    componentDidMount() : void{
         this.getEducations()
         this.setState({loading: true, list: this.state.list})
     }
 
-    getEducations() {
+    getEducations() : void {
         questionManager.getRecommendations(this.state.answers).then((res)=>{
             this.setState({loading: false, list: res})
         })
-        
-        //this.setState({list: null, loading: false});
-        
     }
-    renderTitle(t: string) {
+    renderTitle(t: string) : ReactNode {
         return (
             <h1 className={'title'}> {t} </h1>
         )
     }
 
-    renderPrimaryRecommendation() {
+    renderPrimaryRecommendation() : ReactNode {
         const elems:React.ReactElement[] = [];
         const primary:Education = this.state.list[0];
 
@@ -54,7 +51,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
         )
     }
 
-    renderRemainingRecommendations() {
+    renderRemainingRecommendations() : ReactNode {
         const elems:React.ReactElement[] = [];
 
         for (let edu2 of this.state.list.slice(1, this.state.list.length)) {
