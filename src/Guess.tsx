@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {Education, questionManager, Answer} from './QuestionManager';
 import {resultPageCommon} from "./ResultPageCommon";
 import App from "./App";
+import {getI18n, Translation} from "react-i18next";
 
 interface IGuessProps {
     answers: Answer[];
@@ -62,9 +63,15 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
             document.getElementById('root'))
     }
 
-    renderTitle(t: string) {
+    renderTitle(text_key: string) {
         return (
-            <h1 className={'title'}> { t } </h1>
+            <h1 className={'title'}>
+                <Translation>
+                    {
+                        t => <span>{t(text_key)}</span>
+                    }
+                </Translation>
+            </h1>
         )
     }
 
@@ -80,7 +87,7 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
 
     renderYesButton() {
         return this.renderButton(
-            'Ja',
+            'guess.yes_btn',
             () => {
                 this.logData(this.state.guess)
             }
@@ -89,7 +96,7 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
 
     renderNoButton() {
         return this.renderButton(
-            'Nej',
+            'guess.no_btn',
             () => {
                 ReactDOM.render(
                     <React.StrictMode>
@@ -101,9 +108,15 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
         )
     }
 
-    renderButton(t: string, callback: () => void) {
+    renderButton(text_key: string, callback: () => void) {
         return (
-            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}> { t } </button>
+            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                <Translation>
+                    {
+                        t => <span>{t(text_key)}</span>
+                    }
+                </Translation>
+            </button>
         )
     }
 
@@ -111,14 +124,14 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('Vi tror din uddannelse er...')}
+                    {this.renderTitle('guess.guess_title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     {this.state.guess ? this.renderGuess() : ''}
                 </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('Er dette korrekt?')}
+                    {this.renderTitle('guess.is_correct_title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     <div className={'col-4'}>{this.renderYesButton()}</div>
@@ -157,7 +170,13 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderTitle() {
         return (
-            <h1 className={'title'}> Angiv venligst din egentlige uddannelse </h1>
+            <h1 className={'title'}>
+                <Translation>
+                    {
+                        t => <span>{t('guess.feedback_title')}</span>
+                    }
+                </Translation>
+            </h1>
         )
     }
 
@@ -165,7 +184,7 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         return (
             <div className={'row justify-content-center'}>
                 <div className={'col-10'}>
-                    <input type={'text'} placeholder={'Søg'} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
+                    <input type={'text'} placeholder={getI18n().t('guess.search')} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
                 </div>
                 <div className={'col-2'}>
                     {this.renderSearchButton()}
@@ -176,7 +195,13 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderSearchButton() {
         return (
-            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}> Søg </button>
+            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}>
+                <Translation>
+                    {
+                        t => <span>{t('guess.search')}</span>
+                    }
+                </Translation>
+            </button>
         )
     }
 
@@ -244,7 +269,11 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
         if (education_count === 0) {
             elems.push(
                 <div className={'row justify-content-center'}>
-                    <p className={'title'}> Vi fandt desværre ikke nogen resultater </p>
+                    <Translation>
+                        {
+                            t => <p className={'title'}> {t('guess.search_error')} </p>
+                        }
+                    </Translation>
                 </div>
             )
         } else {
