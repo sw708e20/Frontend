@@ -1,9 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import {resultPageCommon} from './ResultPageCommon'
-import { questionManager, Answer, Education} from "./QuestionManager";
+import {resultPageCommon} from './commons/ResultPageCommon'
+import { questionManager, Answer, Education} from "../services/QuestionManager";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-
 
 interface IRecommenderState {
     answers: Answer[]

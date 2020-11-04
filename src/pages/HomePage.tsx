@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './img/breen.jpg';
-import './HomePage.css';
+import logo from '../img/breen.jpg';
+import '../styling/HomePage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { RouteComponentProps, withRouter } from "react-router"
 

@@ -2,7 +2,7 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
-import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
+import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 

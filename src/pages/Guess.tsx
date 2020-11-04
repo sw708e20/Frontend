@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
-import {Education, questionManager, Answer} from './QuestionManager';
-import {resultPageCommon} from "./ResultPageCommon";
-import IndexPage from "./HomePage";
+import {Education, questionManager, Answer} from '../services/QuestionManager';
+import {resultPageCommon} from "./commons/ResultPageCommon";
+import IndexPage from './HomePage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface IGuessState {

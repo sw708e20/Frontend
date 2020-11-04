@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Index  from './HomePage';
-import * as serviceWorker from './serviceWorker';
+import './styling/index.css';
+import Index  from './pages/HomePage';
+import * as serviceWorker from './services/serviceWorker';
 import { Route, Switch , BrowserRouter as Router} from 'react-router-dom'
-import Recommender from './Recommender';
-import Result from './Result'
-import Guess from './Guess'
+import Recommender from './pages/Recommender';
+import Result from './pages/Result'
+import Guess from './pages/Guess'
 
 
 const Routes = () => {
