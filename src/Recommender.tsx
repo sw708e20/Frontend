@@ -5,6 +5,7 @@ import React, { ReactElement, ReactNode } from 'react';
 //import Result from "./Result";
 //import ReactDOM from "react-dom";
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "./QuestionManager";
+import { Translation } from "react-i18next";
 
 interface IRecommenderProps {
     onQuizDone: (answers: Array<Answer>) => void;
@@ -47,7 +48,13 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}> {stringvalue} </button>
+                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                    <Translation>
+                        {
+                            t => <span>{t(stringvalue)}</span>
+                        }
+                    </Translation>
+                </button>
             )
             elems.push(<br/>)
         }

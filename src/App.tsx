@@ -7,9 +7,11 @@ import Recommender from "./Recommender";
 import Result from './Result'
 import Guess from './Guess'
 import { Answer } from './QuestionManager'
+import { Translation } from "react-i18next";
 
 class Index extends React.Component {
-  renderButton(text: string, callback: (answers: Answer[]) => void) {
+
+  renderButton(text_key: string, callback: (answers: Answer[]) => void) {
     return (
         <button className={"btn btn-primary edu-btn next-btn"} onClick={() =>
           ReactDOM.render(
@@ -18,7 +20,13 @@ class Index extends React.Component {
             </React.StrictMode>,
             document.getElementById('root')
         )
-        }> {text} </button>
+        }>
+            <Translation>
+                {
+                    t => <span>{t(text_key)}</span>
+                }
+            </Translation>
+        </button>
     )
   }
 
@@ -48,9 +56,13 @@ class Index extends React.Component {
       document.getElementById('root'))
   }
 
-  renderTitle(text: string) {
+  renderTitle(text_key: string) {
     return (
-        <h1> {text} </h1>
+        <Translation>
+            {
+                t => <h1> {t(text_key)} </h1>
+            }
+        </Translation>
     )
   }
 
@@ -61,19 +73,19 @@ class Index extends React.Component {
   }
 
   render() {
-    return (
+      return (
         <div>
           <div className={'row justify-content-center div-spacing'}>
             {this.renderLogo()}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderTitle('EduFinder')}
+            {this.renderTitle('index.title')}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Uddannelsesforslag', this.returnToResults)}
+            {this.renderButton('index.rec_btn', this.returnToResults)}
           </div>
           <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Udannelsesgætter', this.returnToGuess)}
+            {this.renderButton('index.guess_btn', this.returnToGuess)}
           </div>
         </div>
     )

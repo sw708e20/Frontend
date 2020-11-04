@@ -47,22 +47,22 @@ export enum Answer_Enum {
 
 // Get the answer string based on the provided enum
 export function getAnswerString(value: Answer_Enum) : string {
-  let result: string = "";
+  let result: string = "recommender.answer_opts.";
   switch (value) {
     case Answer_Enum.YES:
-      result = "Ja";
+      result += 'yes';
       break;
     case Answer_Enum.PROBABLY:
-      result = "Måske";
+      result += "probably";
       break;
     case Answer_Enum.DONT_KNOW:
-      result = "Ved ikke";
+      result += "dont_know";
       break;
     case Answer_Enum.PROBABLY_NOT:
-      result = "Måske ikke";
+      result += "probably_not";
       break;
     case Answer_Enum.NO:
-      result = "Nej";
+      result += "no";
       break;
   }
   return result;
