@@ -40,7 +40,7 @@ class ResultPageCommon {
         return (
             <div className={'edu-nav'}>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="#home">
+                    <Navbar.Brand href="/">
                         <img
                             alt=""
                             src={logo}
