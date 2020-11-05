@@ -4,13 +4,11 @@ import ReactDOM from 'react-dom';
 import {Education, questionManager, Answer} from '../services/QuestionManager';
 import {resultPageCommon} from "./commons/ResultPageCommon";
 import SearchField from "./commons/SearchField"
-import IndexPage from './HomePage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface IGuessState {
     answers: Answer[];
     guess: Education;
-    inputValue: string;
 }
 
 class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
@@ -20,16 +18,14 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
         this.state = {
             answers: this.props.location.state as Answer[],
-            guess: new Education(-1, 'sadf', 'yeet'),
-            inputValue: ""
+            guess: new Education(-1, 'sadf', 'yeet')
         };
     }
 
     componentDidMount() {
         questionManager.getRecommendations(this.state.answers).then((data: Education[]) => {
             this.setState({
-                guess: data[0],
-                inputValue: this.state.inputValue
+                guess: data[0]
             })
         })
     }
