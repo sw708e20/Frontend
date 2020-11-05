@@ -30,10 +30,12 @@ export class EducationType {
 // Question class containing the id of the question, and the string that is the question.
 export class Question {
   id: number;
-  question: string;
-  constructor(id: number, question: string) {
+  en: string;
+  da: string;
+  constructor(id: number, en: string, da: string) {
     this.id = id;
-    this.question = question;
+    this.en = en;
+    this.da = da;
   }
 }
 
