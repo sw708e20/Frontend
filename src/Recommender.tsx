@@ -15,7 +15,6 @@ interface IRecommenderProps {
 interface IRecommenderState {
     answers: Array<Answer>
     question?: Question;
-    lang: string;
 }
 
 
@@ -29,7 +28,6 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
         this.state = {
             answers: [] ,
             question: undefined,
-            lang: resultPageCommon.getLang()
         };
     }
     
@@ -38,17 +36,8 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
             this.setState({
                 answers: this.state.answers,
                 question: qst,
-                lang: this.state.lang
             })
         });
-    }
-
-    updateLang = (lang: string) => {
-        this.setState({
-            answers: this.state.answers,
-            question: this.state.question,
-            lang: lang
-        })
     }
 
     renderTitle() : ReactNode {
@@ -109,15 +98,12 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
     render() : ReactNode {
         return (
             <div>
-                {resultPageCommon.renderNavbar(this.updateLang)}
-                <header className="App-header">
-                    <div className={'row justify-content-center'}>
-                        {this.renderTitle()}
-                    </div>
-                    <div className={'row justify-content-center'}>
-                        {this.renderAnswerOptions()}
-                    </div>
-                </header>
+                <div className={'row justify-content-center'}>
+                    {this.renderTitle()}
+                </div>
+                <div className={'row justify-content-center'}>
+                    {this.renderAnswerOptions()}
+                </div>
             </div>
 
         )
@@ -127,7 +113,10 @@ class Page extends React.Component<IRecommenderProps, IRecommenderState> {
 function Recommender(quizDone: (answers: Answer[]) => void) : ReactElement {
     return (
         <div className="App">
-            <Page onQuizDone={quizDone}/>
+            {resultPageCommon.renderNavbar()}
+            <header className="App-header">
+                <Page onQuizDone={quizDone}/>
+            </header>
         </div>
     );
 }

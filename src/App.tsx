@@ -11,19 +11,6 @@ import { Translation } from "react-i18next";
 import {resultPageCommon} from "./ResultPageCommon";
 
 class Index extends React.Component {
-    constructor(props: any) {
-        super(props);
-
-        this.state = {
-            lang: resultPageCommon.getLang()
-        }
-    }
-
-    updateLang = (lang: string) => {
-        this.setState({
-            lang: lang
-        })
-    };
 
   renderButton(text_key: string, callback: (answers: Answer[]) => void) {
     return (
@@ -89,8 +76,6 @@ class Index extends React.Component {
   render() {
       return (
         <div>
-            {resultPageCommon.renderNavbar(this.updateLang)}
-            <header className={'App-header'}>
               <div className={'row justify-content-center div-spacing'}>
                 {this.renderLogo()}
               </div>
@@ -103,7 +88,6 @@ class Index extends React.Component {
               <div className={'row justify-content-center div-spacing'}>
                 {this.renderButton('index.guess_btn', this.returnToGuess)}
               </div>
-            </header>
         </div>
     )
   }
@@ -112,7 +96,10 @@ class Index extends React.Component {
 function App() {
   return (
     <div className="App">
+        {resultPageCommon.renderNavbar()}
+        <header className={'App-header'}>
           <Index/>
+        </header>
     </div>
   );
 }

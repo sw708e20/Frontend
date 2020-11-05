@@ -11,7 +11,6 @@ interface IRecommenderProps {
 interface IRecommenderState {
     loading: boolean
     list : Education[]
-    lang: string
 }
 
 class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
@@ -21,7 +20,6 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
         this.state = {
             loading: true,
             list: [],
-            lang: resultPageCommon.getLang()
         };
     }
 
@@ -30,15 +28,6 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
         this.setState({
             loading: true,
             list: this.state.list,
-            lang: this.state.lang
-        })
-    }
-
-    updateLang = (lang: string) => {
-        this.setState({
-            loading: this.state.loading,
-            list: this.state.list,
-            lang: lang
         })
     }
 
@@ -47,7 +36,6 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
             this.setState({
                 loading: false,
                 list: res,
-                lang: this.state.lang
             })
         })
     }
@@ -103,22 +91,19 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
     render() {
         return (
             <div>
-                {resultPageCommon.renderNavbar(this.updateLang)}
-                <header className="App-header">
-                    <div className={'row justify-content-center'}>
-                        {this.renderTitle('result.rec_title')}
-                    </div>
-                    <div className={'row justify-content-center'}>
-                        {this.state.loading ? '' : this.renderPrimaryRecommendation()}
-                    </div>
-                    <hr/>
-                    <div className={'row justify-content-center'}>
-                        {this.renderTitle('result.rem_title')}
-                    </div>
-                    <div className={'row justify-content-center'}>
-                        {this.state.loading ? '' : this.renderRemainingRecommendations()}
-                    </div>
-                </header>
+                <div className={'row justify-content-center'}>
+                    {this.renderTitle('result.rec_title')}
+                </div>
+                <div className={'row justify-content-center'}>
+                    {this.state.loading ? '' : this.renderPrimaryRecommendation()}
+                </div>
+                <hr/>
+                <div className={'row justify-content-center'}>
+                    {this.renderTitle('result.rem_title')}
+                </div>
+                <div className={'row justify-content-center'}>
+                    {this.state.loading ? '' : this.renderRemainingRecommendations()}
+                </div>
             </div>
         )
     }
@@ -127,7 +112,10 @@ class ResultPage extends React.Component<IRecommenderProps, IRecommenderState> {
 function Result(results: Answer[]) : ReactElement {
     return (
         <div className="App">
-            <ResultPage answers={results} />
+            {resultPageCommon.renderNavbar()}
+            <header className="App-header">
+                <ResultPage answers={results} />
+            </header>
         </div>
     );
 }
