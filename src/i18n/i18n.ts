@@ -4,9 +4,10 @@ import enMessages from './en'
 import daMessages from './da'
 import cookie from "react-cookies";
 
-export function changeLang(lang: string) {
+export function changeLang(lang: string, updateLang: (lang: string) => void) {
     i18n.changeLanguage(lang).then(() => {
         cookie.save('lang', lang, {path: '/'});
+        updateLang(lang)
     })
 }
 
@@ -30,5 +31,3 @@ i18n.use(initReactI18next).init({
         escapeValue: false
     }
 })
-
-export default i18n;
