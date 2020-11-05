@@ -6,6 +6,7 @@ import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from 
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Translation } from "react-i18next";
 import '../styling/HomePage.css'
+import {getLang} from "../i18n/i18n";
 
 
 interface IRecommenderState {
@@ -54,10 +55,21 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         }
     }
 
+    getQuestionWithLocale(q: Question) {
+        switch(getLang()) {
+            case 'en':
+                return q.en
+            case 'da':
+                return q.da
+            default:
+                return q.en
+        }
+    }
+
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
         return (
-            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? historicState.state.question.question: "null"} </h1>
+            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
         )
     }
 
