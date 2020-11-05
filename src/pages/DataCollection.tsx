@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {ReactElement, RefObject} from 'react';
+import React from 'react';
 import {Education, questionManager, Answer} from '../services/QuestionManager';
 import SearchField from "./commons/SearchField";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
