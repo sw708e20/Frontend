@@ -4,10 +4,18 @@ import enMessages from './en'
 import daMessages from './da'
 import cookie from "react-cookies";
 
+// you did not see this spaghet, carry on
+let recChangeHandler: (lang: string) => void = (lang: string) => {};
+
+export function setRecChangeHandler(f: (lang: string) => void) {
+    recChangeHandler = f;
+}
+
 export function changeLang(lang: string, updateLang: (lang: string) => void) {
     i18n.changeLanguage(lang).then(() => {
         cookie.save('lang', lang, {path: '/'});
         updateLang(lang)
+        recChangeHandler(lang)
     })
 }
 

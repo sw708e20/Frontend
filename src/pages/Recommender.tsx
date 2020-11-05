@@ -6,13 +6,14 @@ import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from 
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Translation } from "react-i18next";
 import '../styling/HomePage.css'
-import {getLang} from "../i18n/i18n";
+import {getLang, setRecChangeHandler} from "../i18n/i18n";
 
 
 interface IRecommenderState {
     routeTo: string
     answers: Array<Answer>
     question?: Question;
+    lang: string;
 }
 
 interface IHistoryState{
@@ -28,6 +29,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     constructor(props:any) {
         super(props);
+
+        setRecChangeHandler(this.updateLang);
         
         let historicState = this.props.location.state as IHistoryState
 
@@ -35,7 +38,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             this.state = historicState.state
         }
         else
-            this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined};
+            this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined, lang: getLang()};
     }
     
     componentDidMount() : void {
@@ -47,7 +50,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
                 let newState = {
                     routeTo: this.state.routeTo,
                     answers: this.state.answers,
-                    question: qst
+                    question: qst,
+                    lang: this.state.lang
                 }
                 
                 this.props.history.replace("/quiz/", {routeTo: this.state.routeTo, isLoading: false, state: newState})
@@ -55,8 +59,18 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         }
     }
 
+    updateLang = (lang: string) => {
+        this.setState({
+            routeTo: this.state.routeTo,
+            answers: this.state.answers,
+            question: this.state.question,
+            lang: lang
+        })
+    }
+
     getQuestionWithLocale(q: Question) {
-        switch(getLang()) {
+        let lang = getLang()
+        switch(lang) {
             case 'en':
                 return q.en
             case 'da':
