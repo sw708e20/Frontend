@@ -1,10 +1,10 @@
 import React, {ReactElement} from "react";
 import {Education, EducationType} from './QuestionManager'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar} from 'react-bootstrap';
-import {Translation} from "react-i18next";
+import {Navbar, NavDropdown} from 'react-bootstrap';
+import {getI18n, Translation} from "react-i18next";
 import logo from './img/logo32.png';
-
+import cookie from 'react-cookies';
 
 class ResultPageCommon {
     renderEducationInfo(edu: Education) {
@@ -36,7 +36,23 @@ class ResultPageCommon {
         return elems
     }
 
-    renderNavbar() {
+    saveLang(lang: string, stateCallback: (lang: string) => void) {
+        getI18n().changeLanguage(lang).then(() => {
+            cookie.save('lang', lang, {path: '/'});
+            stateCallback(lang);
+            console.log('hi')
+        })
+    }
+
+    getLang(): string {
+        let lang = cookie.load('lang');
+
+        if (lang === undefined) lang = 'en';
+
+        return lang
+    }
+
+    renderNavbar(stateCallback: (lang: string) => void) {
         return (
             <div className={'edu-nav'}>
                 <Navbar bg="dark" variant="dark">
@@ -54,6 +70,12 @@ class ResultPageCommon {
                             }
                         </Translation>
                     </Navbar.Brand>
+                    <Navbar.Collapse className="justify-content-end">
+                        <NavDropdown id={'lang-drop'} title={this.getLang().toUpperCase()}>
+                            <NavDropdown.Item onClick={() => {this.saveLang('en', stateCallback)}}>EN</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {this.saveLang('da', stateCallback)}}>DA</NavDropdown.Item>
+                        </NavDropdown>
+                    </Navbar.Collapse>
                 </Navbar>
             </div>
         )

@@ -13,6 +13,7 @@ interface IGuessProps {
 interface IGuessState {
     guess: Education;
     inputValue: string;
+    lang: string;
 }
 
 interface ISelectorProps {
@@ -41,7 +42,8 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
 
         this.state = {
             guess: new Education(-1, 'sadf', 'yeet'),
-            inputValue: ""
+            inputValue: "",
+            lang: resultPageCommon.getLang()
         };
     }
 
@@ -49,7 +51,8 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
         questionManager.getRecommendations(this.props.answers).then((data: Education[]) => {
             this.setState({
                 guess: data[0],
-                inputValue: this.state.inputValue
+                inputValue: this.state.inputValue,
+                lang: this.state.lang
             })
         })
     }
@@ -61,6 +64,14 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
                 <App />
             </React.StrictMode>,
             document.getElementById('root'))
+    }
+
+    updateLang = (lang: string) => {
+        this.setState({
+            guess: this.state.guess,
+            inputValue: this.state.inputValue,
+            lang: lang
+        })
     }
 
     renderTitle(text_key: string) {
@@ -123,22 +134,25 @@ class GuessPage extends React.Component<IGuessProps, IGuessState> {
     render() {
         return (
             <div>
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.guess_title')}
-                </div>
-                <div className={'row justify-content-center'}>
-                    {this.state.guess ? this.renderGuess() : ''}
-                </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.is_correct_title')}
-                </div>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-4'}>{this.renderYesButton()}</div>
-                    <div className={'col-4'}>{this.renderNoButton()}</div>
-                </div>
-                <div id={'search-field'}></div>
-                <div id={'education-selector'}></div>
+                {resultPageCommon.renderNavbar(this.updateLang)}
+                <header className="App-header">
+                    <div className={'row justify-content-center'}>
+                        {this.renderTitle('guess.guess_title')}
+                    </div>
+                    <div className={'row justify-content-center'}>
+                        {this.state.guess ? this.renderGuess() : ''}
+                    </div>
+                    <hr/>
+                    <div className={'row justify-content-center'}>
+                        {this.renderTitle('guess.is_correct_title')}
+                    </div>
+                    <div className={'row justify-content-center'}>
+                        <div className={'col-4'}>{this.renderYesButton()}</div>
+                        <div className={'col-4'}>{this.renderNoButton()}</div>
+                    </div>
+                    <div id={'search-field'}></div>
+                    <div id={'education-selector'}></div>
+                </header>
             </div>
         )
     }
@@ -303,10 +317,7 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
 function Guess(answers: Answer[]) {
     return (
         <div className="App App-header">
-            {resultPageCommon.renderNavbar()}
-            <header className="App-header">
-                <GuessPage answers={answers}/>
-            </header>
+            <GuessPage answers={answers}/>
         </div>
     );
 }
