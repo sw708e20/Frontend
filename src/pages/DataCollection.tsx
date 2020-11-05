@@ -31,7 +31,7 @@ interface ISearchState {
     searchTerm: string;
 }
 
-class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
+class DataCollectionPage extends React.Component<RouteComponentProps, IGuessState> {
 
     constructor(props:any) {
         super(props);
@@ -63,39 +63,6 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         )
     }
 
-    renderGuess() {
-        return (
-            <div className={'primary-edu-block div-spacing'}>
-                { resultPageCommon.renderEducationInfo(this.state.guess) }
-                <hr/>
-                { resultPageCommon.renderEducationTypes(this.state.guess.education_types) }
-            </div>
-        )
-    }
-
-    renderYesButton() {
-        return this.renderButton(
-            'Ja',
-            () => {
-                this.logData(this.state.guess)
-            }
-        )
-    }
-
-    renderNoButton() {
-        return this.renderButton(
-            'Nej',
-            () => {
-                ReactDOM.render(
-                    <React.StrictMode>
-                        <SearchField logCallback={this.logData}/>
-                    </React.StrictMode>,
-                    document.getElementById('search-field')
-                )
-            }
-        )
-    }
-
     renderButton(t: string, callback: () => void) {
         return (
             <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}> { t } </button>
@@ -105,21 +72,11 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
     render() {
         return (
             <div>
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle('Vi tror din uddannelse er...')}
+                <div id={'search-field'}>
+                    <React.StrictMode>
+                        <SearchField logCallback={this.logData}/>
+                    </React.StrictMode>
                 </div>
-                <div className={'row justify-content-center'}>
-                    {this.state.guess ? this.renderGuess() : ''}
-                </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle('Er dette korrekt?')}
-                </div>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-4'}>{this.renderYesButton()}</div>
-                    <div className={'col-4'}>{this.renderNoButton()}</div>
-                </div>
-                <div id={'search-field'}></div>
                 <div id={'education-selector'}></div>
             </div>
         )
@@ -266,4 +223,4 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
     }
 }
 
-export default withRouter(GuessPage);
+export default withRouter(DataCollectionPage);
