@@ -40,12 +40,6 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
           <div className={'row justify-content-center div-spacing'}>
             {this.renderTitle('EduFinder')}
           </div>
-          {/* <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Uddannelsesforslag', "/results/")}
-          </div>
-          <div className={'row justify-content-center div-spacing'}>
-            {this.renderButton('Udannelsesgætter', "/guess/")}
-          </div> */}
           <div className={'row justify-content-center div-spacing'}>
             {this.renderButton('Dataindsamling', "/datacollection/")}
           </div>
