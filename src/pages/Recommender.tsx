@@ -4,6 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { ReactNode } from 'react';
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Translation } from "react-i18next";
+import '../styling/HomePage.css'
 
 
 interface IRecommenderState {
@@ -65,7 +67,13 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}> {stringvalue} </button>
+                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                    <Translation>
+                        {
+                            t => <span>{t(stringvalue)}</span>
+                        }
+                    </Translation>
+                </button>
             )
             elems.push(<br/>)
         }
