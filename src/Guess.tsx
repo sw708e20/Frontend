@@ -302,7 +302,7 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
 
 function Guess(answers: Answer[]) {
     return (
-        <div className="App App-header">
+        <div className="App">
             {resultPageCommon.renderNavbar()}
             <header className="App-header">
                 <GuessPage answers={answers}/>
