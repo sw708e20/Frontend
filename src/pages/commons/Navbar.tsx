@@ -43,7 +43,7 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
                         </Translation>
                     </Navbar.Brand>
                     <Navbar.Collapse className="justify-content-end">
-                        <NavDropdown id={'lang-drop'} title={getLang().toUpperCase()}>
+                        <NavDropdown id={'lang-drop'} title={this.state.lang}>
                             <NavDropdown.Item onClick={() => {changeLang('en', this.updateLang)}}>EN</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => {changeLang('da', this.updateLang)}}>DA</NavDropdown.Item>
                         </NavDropdown>
