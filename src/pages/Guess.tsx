@@ -1,11 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
-import {getI18n, Translation} from "react-i18next";
+import {Translation} from "react-i18next";
 import {Education, questionManager, Answer} from '../services/QuestionManager';
 import {resultPageCommon} from "./commons/ResultPageCommon";
 import IndexPage from './HomePage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import i18n, {getLang, setGuessChangeHandler} from '../i18n/i18n'
 
 interface IGuessState {
     answers: Answer[];
@@ -30,6 +31,7 @@ interface ISearchProps {
 
 interface ISearchState {
     searchTerm: string;
+    lang: string;
 }
 
 class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
@@ -47,6 +49,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
     componentDidMount() {
         questionManager.getRecommendations(this.state.answers).then((data: Education[]) => {
             this.setState({
+                answers: this.state.answers,
                 guess: data[0],
                 inputValue: this.state.inputValue,
             })
@@ -149,9 +152,11 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
     constructor(props:any) {
         super(props);
         this.resultElement = React.createRef();
+        setGuessChangeHandler(this.updateLang)
 
         this.state = {
-            searchTerm: ''
+            searchTerm: '',
+            lang: getLang()
         }
     }
 
@@ -165,6 +170,13 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         if (event.key === 'Enter') {
             this.performSearch()
         }
+    }
+
+    updateLang = (lang: string) => {
+        this.setState({
+            searchTerm: this.state.searchTerm,
+            lang: lang
+        })
     }
 
     renderTitle() {
@@ -183,7 +195,7 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         return (
             <div className={'row justify-content-center'}>
                 <div className={'col-10'}>
-                    <input type={'text'} placeholder={getI18n().t('guess.search')} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
+                    <input type={'text'} placeholder={i18n.t('guess.search')} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
                 </div>
                 <div className={'col-2'}>
                     {this.renderSearchButton()}

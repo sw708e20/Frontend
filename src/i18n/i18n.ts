@@ -6,16 +6,22 @@ import cookie from "react-cookies";
 
 // you did not see this spaghet, carry on
 let recChangeHandler: (lang: string) => void = (lang: string) => {};
+let guessChangeHandler: (lang: string) => void = (lang: string) => {};
 
 export function setRecChangeHandler(f: (lang: string) => void) {
     recChangeHandler = f;
 }
 
+export function setGuessChangeHandler(f: (lang: string) => void) {
+    guessChangeHandler = f;
+}
+
 export function changeLang(lang: string, updateLang: (lang: string) => void) {
     i18n.changeLanguage(lang).then(() => {
         cookie.save('lang', lang, {path: '/'});
-        updateLang(lang)
-        recChangeHandler(lang)
+        updateLang(lang);
+        recChangeHandler(lang);
+        guessChangeHandler(lang);
     })
 }
 
@@ -39,3 +45,5 @@ i18n.use(initReactI18next).init({
         escapeValue: false
     }
 })
+
+export default i18n;
