@@ -8,7 +8,7 @@ class EdufinderDataService {
   getFirstQuestion() : Promise<Question> {
     return new Promise<Question>((resolve, reject) => {
       http.get("/question/").then((res) => {
-        resolve(new Question(res.data.id, res.data.question));
+        resolve(new Question(res.data.id, res.data.en, res.data.da));
       }).catch((res) => {
         reject(res);
       });
@@ -18,7 +18,7 @@ class EdufinderDataService {
   getNextQuestion(answers: Object) : Promise<Question> {
     return new Promise<Question>((resolve, reject) => {
       http.post("/question/", answers).then((res) => {
-        resolve(new Question(res.data.id, res.data.question));
+        resolve(new Question(res.data.id, res.data.en, res.data.da));
       }).catch((reason) => {
         reject(reason);
       });
