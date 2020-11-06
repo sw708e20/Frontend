@@ -25,18 +25,6 @@ class DataCollectionPage extends React.Component<RouteComponentProps, IGuessStat
         this.props.history.push("/", undefined)
     }
 
-    renderTitle(t: string) {
-        return (
-            <h1 className={'title'}> { t } </h1>
-        )
-    }
-
-    renderButton(t: string, callback: () => void) {
-        return (
-            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}> { t } </button>
-        )
-    }
-
     render() {
         return (
             <div>
