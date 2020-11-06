@@ -101,3 +101,7 @@ hr {
   display: block;
   width: 100% !important;
 }
+
+.header-logo {
+  margin-bottom: 3em;
+}
