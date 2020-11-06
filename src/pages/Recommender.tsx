@@ -4,12 +4,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { ReactNode } from 'react';
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Translation } from "react-i18next";
+import '../styling/HomePage.css'
+import {getLang, setRecChangeHandler} from "../i18n/i18n";
 
 
 interface IRecommenderState {
     routeTo: string
     answers: Array<Answer>
     question?: Question;
+    lang: string;
 }
 
 interface IHistoryState{
@@ -25,6 +29,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     constructor(props:any) {
         super(props);
+
+        setRecChangeHandler(this.updateLang);
         
         let historicState = this.props.location.state as IHistoryState
 
@@ -32,7 +38,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             this.state = historicState.state
         }
         else
-            this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined};
+            this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined, lang: getLang()};
     }
     
     componentDidMount() : void {
@@ -44,7 +50,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
                 let newState = {
                     routeTo: this.state.routeTo,
                     answers: this.state.answers,
-                    question: qst
+                    question: qst,
+                    lang: this.state.lang
                 }
                 
                 this.props.history.replace("/quiz/", {routeTo: this.state.routeTo, isLoading: false, state: newState})
@@ -52,10 +59,31 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         }
     }
 
+    updateLang = (lang: string) => {
+        this.setState({
+            routeTo: this.state.routeTo,
+            answers: this.state.answers,
+            question: this.state.question,
+            lang: lang
+        })
+    }
+
+    getQuestionWithLocale(q: Question) {
+        let lang = getLang()
+        switch(lang) {
+            case 'en':
+                return q.en
+            case 'da':
+                return q.da
+            default:
+                return q.en
+        }
+    }
+
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
         return (
-            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? historicState.state.question.question: "null"} </h1>
+            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
         )
     }
 
@@ -65,7 +93,13 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}> {stringvalue} </button>
+                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                    <Translation>
+                        {
+                            t => <span>{t(stringvalue)}</span>
+                        }
+                    </Translation>
+                </button>
             )
             elems.push(<br/>)
         }

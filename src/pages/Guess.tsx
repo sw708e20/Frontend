@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Translation} from "react-i18next";
 import {Education, questionManager, Answer} from '../services/QuestionManager';
 import {resultPageCommon} from "./commons/ResultPageCommon";
 import SearchField from "./commons/SearchField"
@@ -35,9 +36,15 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         this.props.history.push("/", undefined)
     }
 
-    renderTitle(t: string) {
+    renderTitle(text_key: string) {
         return (
-            <h1 className={'title'}> { t } </h1>
+            <h1 className={'title'}>
+                <Translation>
+                    {
+                        t => <span>{t(text_key)}</span>
+                    }
+                </Translation>
+            </h1>
         )
     }
 
@@ -53,7 +60,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderYesButton() {
         return this.renderButton(
-            'Ja',
+            'guess.yes_btn',
             () => {
                 this.logData(this.state.guess)
             }
@@ -62,7 +69,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderNoButton() {
         return this.renderButton(
-            'Nej',
+            'guess.no_btn',
             () => {
                 ReactDOM.render(
                     <React.StrictMode>
@@ -74,9 +81,15 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         )
     }
 
-    renderButton(t: string, callback: () => void) {
+    renderButton(text_key: string, callback: () => void) {
         return (
-            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}> { t } </button>
+            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                <Translation>
+                    {
+                        t => <span>{t(text_key)}</span>
+                    }
+                </Translation>
+            </button>
         )
     }
 
@@ -84,14 +97,14 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('Vi tror din uddannelse er...')}
+                    {this.renderTitle('guess.guess_title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     {this.state.guess ? this.renderGuess() : ''}
                 </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('Er dette korrekt?')}
+                    {this.renderTitle('guess.is_correct_title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     <div className={'col-4'}>{this.renderYesButton()}</div>

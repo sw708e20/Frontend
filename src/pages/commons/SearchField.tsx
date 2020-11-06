@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
+import {getI18n, Translation} from "react-i18next";
 import {Education, questionManager} from '../../services/QuestionManager';
 
 
@@ -49,7 +50,13 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderTitle() {
         return (
-            <h1 className={'title'}> Angiv venligst din egentlige uddannelse </h1>
+            <h1 className={'title'}>
+                <Translation>
+                    {
+                        t => <span>{t('guess.feedback_title')}</span>
+                    }
+                </Translation>
+            </h1>
         )
     }
 
@@ -57,7 +64,7 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         return (
             <div className={'row justify-content-center'}>
                 <div className={'col-10'}>
-                    <input type={'text'} placeholder={'Søg'} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
+                    <input type={'text'} placeholder={getI18n().t('guess.search')} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
                 </div>
                 <div className={'col-2'}>
                     {this.renderSearchButton()}
@@ -68,7 +75,13 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderSearchButton() {
         return (
-            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}> Søg </button>
+            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}>
+                <Translation>
+                    {
+                        t => <span>{t('guess.search')}</span>
+                    }
+                </Translation>
+            </button>
         )
     }
 
@@ -136,7 +149,11 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
         if (education_count === 0) {
             elems.push(
                 <div className={'row justify-content-center'}>
-                    <p className={'title'}> Vi fandt desværre ikke nogen resultater </p>
+                    <Translation>
+                        {
+                            t => <p className={'title'}> {t('guess.search_error')} </p>
+                        }
+                    </Translation>
                 </div>
             )
         } else {
@@ -156,8 +173,10 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
 
     render() {
         return (
-            <div className={'container justify-content-center'}>
-                {this.state.loading ? '' : this.renderEducations()}
+            <div>
+                <div className={'container justify-content-center'}>
+                    {this.state.loading ? '' : this.renderEducations()}
+                </div>
             </div>
         )
     }

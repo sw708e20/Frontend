@@ -96,3 +96,8 @@ hr {
   background-color: #444b59 !important;
   border: 0 !important;
 }
+
+.edu-nav {
+  display: block;
+  width: 100% !important;
+}

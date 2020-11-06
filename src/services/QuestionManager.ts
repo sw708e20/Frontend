@@ -30,10 +30,12 @@ export class EducationType {
 // Question class containing the id of the question, and the string that is the question.
 export class Question {
   id: number;
-  question: string;
-  constructor(id: number, question: string) {
+  en: string;
+  da: string;
+  constructor(id: number, en: string, da: string) {
     this.id = id;
-    this.question = question;
+    this.en = en;
+    this.da = da;
   }
 }
 
@@ -47,22 +49,22 @@ export enum Answer_Enum {
 
 // Get the answer string based on the provided enum
 export function getAnswerString(value: Answer_Enum) : string {
-  let result: string = "";
+  let result: string = "recommender.answer_opts.";
   switch (value) {
     case Answer_Enum.YES:
-      result = "Ja";
+      result += 'yes';
       break;
     case Answer_Enum.PROBABLY:
-      result = "Måske";
+      result += "probably";
       break;
     case Answer_Enum.DONT_KNOW:
-      result = "Ved ikke";
+      result += "dont_know";
       break;
     case Answer_Enum.PROBABLY_NOT:
-      result = "Måske ikke";
+      result += "probably_not";
       break;
     case Answer_Enum.NO:
-      result = "Nej";
+      result += "no";
       break;
   }
   return result;

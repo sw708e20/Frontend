@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './i18n/i18n';
 import './styling/index.css';
 import Index  from './pages/HomePage';
 import * as serviceWorker from './services/serviceWorker';
@@ -8,6 +9,7 @@ import Recommender from './pages/Recommender';
 import Result from './pages/Result'
 import Guess from './pages/Guess'
 import DataCollection from './pages/DataCollection';
+import NavbarComponent from "./pages/commons/Navbar";
 
 
 const Routes = () => {
@@ -31,18 +33,16 @@ const Routes = () => {
         </Route>
       </Switch>
     </Router>
-
   )
 }
 
 ReactDOM.render(
-  <React.StrictMode>
     <div className="App">
-      <header className="App-header">
-        <Routes />
-      </header>
-    </div>
-  </React.StrictMode>,
+        <NavbarComponent />
+        <header className="App-header">
+            <Routes />
+        </header>
+    </div>,
   document.getElementById('root')
 );
 

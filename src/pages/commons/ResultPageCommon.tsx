@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {Education, EducationType} from '../../services/QuestionManager'
-
 
 class ResultPageCommon {
     renderEducationInfo(edu: Education) {
