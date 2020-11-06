@@ -7,6 +7,7 @@ import cookie from "react-cookies";
 // you did not see this spaghet, carry on
 let recChangeHandler: (lang: string) => void = (lang: string) => {};
 let guessChangeHandler: (lang: string) => void = (lang: string) => {};
+let navbarChangeHandler: (lang: string) => void = (lang: string) => {};
 
 export function setRecChangeHandler(f: (lang: string) => void) {
     recChangeHandler = f;
@@ -16,10 +17,14 @@ export function setGuessChangeHandler(f: (lang: string) => void) {
     guessChangeHandler = f;
 }
 
-export function changeLang(lang: string, updateLang: (lang: string) => void) {
+export function setNavbarChangeHandler(f: (lang: string) => void) {
+    navbarChangeHandler = f;
+}
+
+export function changeLang(lang: string) {
     i18n.changeLanguage(lang).then(() => {
         cookie.save('lang', lang, {path: '/'});
-        updateLang(lang);
+        navbarChangeHandler(lang);
         recChangeHandler(lang);
         guessChangeHandler(lang);
     })

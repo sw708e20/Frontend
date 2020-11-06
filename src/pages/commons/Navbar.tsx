@@ -1,7 +1,7 @@
 import logo from "../../img/logo32.png";
 import {Translation} from "react-i18next";
 import {Navbar, NavDropdown} from "react-bootstrap";
-import {changeLang, getLang} from "../../i18n/i18n";
+import {changeLang, getLang, setNavbarChangeHandler} from "../../i18n/i18n";
 import React from "react";
 
 interface NavbarComponentState {
@@ -12,6 +12,7 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
 
     constructor(props:any) {
         super(props);
+        setNavbarChangeHandler(this.updateLang);
 
         this.state = {
             lang: getLang().toUpperCase()
@@ -44,8 +45,8 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
                     </Navbar.Brand>
                     <Navbar.Collapse className="justify-content-end">
                         <NavDropdown id={'lang-drop'} title={this.state.lang}>
-                            <NavDropdown.Item onClick={() => {changeLang('en', this.updateLang)}}>EN</NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => {changeLang('da', this.updateLang)}}>DA</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {changeLang('en')}}>EN</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {changeLang('da')}}>DA</NavDropdown.Item>
                         </NavDropdown>
                     </Navbar.Collapse>
                 </Navbar>
