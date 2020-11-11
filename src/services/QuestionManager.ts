@@ -80,17 +80,6 @@ export class Answer {
   }
 }
 
-class AnswerData{
-  id: number;
-  answer: number;
-
-  constructor(answer: Answer){
-    this.id = answer.question.id
-    this.answer = answer.value
-  }
-}
-
-
 class QuestionManager {
 
   // Get the first question from the backend
@@ -99,26 +88,17 @@ class QuestionManager {
   }
 
   // Get the next question from the backend using the current answers
-  getNextQuestion(answers: Answer[]) : Promise<Question> {
-    let converted_numbers : AnswerData[] = this.getConvertedArray(answers);
-    return EdufinderDataService.getNextQuestion(converted_numbers);
-  }
-
-  // Create an AnswerData array from an Answer array
-  getConvertedArray(answers : Answer[]) : AnswerData[] {
-    let converted_answers: AnswerData[] = answers.map((an) => new AnswerData(an));
-    return converted_answers;
+  getNextQuestion(answers: { [key: number]: number; }) : Promise<Question> {
+    return EdufinderDataService.getNextQuestion(answers);
   }
 
   // Get recomendations from the backend
-  getRecommendations(answers: Answer[]) : Promise<Education[]> {
-    let converted_numbers : AnswerData[] = this.getConvertedArray(answers);
-    return EdufinderDataService.getRecommendations(converted_numbers);
+  getRecommendations(answers: { [key: number]: number; }) : Promise<Education[]> {
+    return EdufinderDataService.getRecommendations(answers);
   }
 
-  sendGuessData(answers: Answer[], education: Education) {
-    let converted_numbers = this.getConvertedArray(answers);
-    return EdufinderDataService.postGuessData({questions: converted_numbers, education: education.id});
+  sendGuessData(answers: { [key: number]: number; }, education: Education) {
+    return EdufinderDataService.postGuessData({questions: answers, education: education.id});
   }
 
   getEducations(q: string) {

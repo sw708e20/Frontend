@@ -2,7 +2,7 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { ReactNode } from 'react';
-import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
+import { Question, questionManager, Answer_Enum, getAnswerString } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Translation } from "react-i18next";
 import '../styling/HomePage.css'
@@ -11,7 +11,7 @@ import {getLang, setRecChangeHandler} from "../i18n/i18n";
 
 interface IRecommenderState {
     routeTo: string
-    answers: Array<Answer>
+    answers: { [key: number]: number; };
     question?: Question;
     lang: string;
 }
@@ -38,11 +38,11 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             this.state = historicState.state
         }
         else
-            this.state = {routeTo: historicState.routeTo, answers: [] ,question: undefined, lang: getLang()};
+            this.state = {routeTo: historicState.routeTo, answers: {}, question: undefined, lang: getLang()};
     }
     
     componentDidMount() : void {
-        if(this.state.answers.length > 0){
+        if(Object.keys(this.state.answers).length > 0){
             this.getNextQuestion(this.state.answers)
         }
         else{
@@ -83,7 +83,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
         return (
-            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
+            <h1 className={'title'}>Q{Object.keys(historicState.state.answers).length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
         )
     }
 
@@ -116,21 +116,19 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         if(!historicState.state.question || historicState.isLoading){
             return;
         }
-
-
-        let new_answer = new Answer(historicState.state.question, answer_value)
         
-        let answers = historicState.state.answers.concat([new_answer])
+        historicState.state.answers[historicState.state.question.id] = answer_value
+        let answers = historicState.state.answers
         
         const { history } = this.props
 
-        if(answers.length >= 20){
+        if(Object.keys(answers).length >= 20){
             history.push(historicState.state.routeTo, answers)
         }else{
             this.getNextQuestion(answers)
         }
     }
-    getNextQuestion(answers: Answer[]) : void{
+    getNextQuestion(answers: { [key: number]: number; }) : void{
         let historicState = this.props.location.state as IHistoryState
         const { history } = this.props
 

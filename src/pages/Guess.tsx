@@ -2,14 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
 import {Translation} from "react-i18next";
-import {Education, questionManager, Answer} from '../services/QuestionManager';
+import {Education, questionManager} from '../services/QuestionManager';
 import {resultPageCommon} from "./commons/ResultPageCommon";
 import IndexPage from './HomePage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import i18n, {getLang, setGuessChangeHandler} from '../i18n/i18n'
 
 interface IGuessState {
-    answers: Answer[];
+    answers: { [key: number]: number; };
     guess: Education;
     inputValue: string;
 }
@@ -40,7 +40,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         super(props);
 
         this.state = {
-            answers: this.props.location.state as Answer[],
+            answers: this.props.location.state as { [key: number]: number; },
             guess: new Education(-1, 'sadf', 'yeet'),
             inputValue: "",
         };

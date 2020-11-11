@@ -2,11 +2,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Translation } from "react-i18next";
 import React, { ReactNode } from 'react';
 import {resultPageCommon} from './commons/ResultPageCommon'
-import { questionManager, Answer, Education} from "../services/QuestionManager";
+import { questionManager, Education} from "../services/QuestionManager";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface IRecommenderState {
-    answers: Answer[]
+    answers: { [key: number]: number; };
     loading: boolean
     list : Education[]
 }
@@ -17,7 +17,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
         super(props);
 
         this.state = {
-            answers: this.props.location.state as Answer[],
+            answers: this.props.location.state as { [key: number]: number; },
             loading: true,
             list: []
         };

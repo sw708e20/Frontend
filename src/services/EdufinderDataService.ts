@@ -15,7 +15,7 @@ class EdufinderDataService {
     });
   }
 
-  getNextQuestion(answers: Object) : Promise<Question> {
+  getNextQuestion(answers: { [key: number]: number; }) : Promise<Question> {
     return new Promise<Question>((resolve, reject) => {
       http.post("/question/", answers).then((res) => {
         resolve(new Question(res.data.id, res.data.en, res.data.da));
@@ -25,7 +25,7 @@ class EdufinderDataService {
     });
   }
 
-  getRecommendations(answers: Object) : Promise<Education[]> {
+  getRecommendations(answers: { [key: number]: number; }) : Promise<Education[]> {
     return new Promise<Education[]>((resolve, reject) => {
       http.post("/recommend/", answers).then((res) => {
         let list:Education[] = []
