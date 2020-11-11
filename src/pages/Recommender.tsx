@@ -117,8 +117,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             return;
         }
         
-        historicState.state.answers[historicState.state.question.id] = answer_value
-        let answers = historicState.state.answers
+        let answers = (JSON.parse(JSON.stringify(historicState.state.answers)));
+        answers[historicState.state.question.id] = answer_value
         
         const { history } = this.props
 
