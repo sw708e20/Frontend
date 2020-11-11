@@ -65,9 +65,9 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             document.getElementById('root'))
     }
 
-    renderTitle(text_key: string) {
+    renderTitle(text_key: string, htmlId: string) {
         return (
-            <h1 className={'title'}>
+            <h1 className={'title'} id={htmlId}>
                 <Translation>
                     {
                         t => <span>{t(text_key)}</span>
@@ -92,7 +92,8 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             'guess.yes_btn',
             () => {
                 this.logData(this.state.guess)
-            }
+            },
+            'yes-btn'
         )
     }
 
@@ -106,13 +107,14 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                     </React.StrictMode>,
                     document.getElementById('search-field')
                 )
-            }
+            },
+            'no-btn'
         )
     }
 
-    renderButton(text_key: string, callback: () => void) {
+    renderButton(text_key: string, callback: () => void, htmlId: string) {
         return (
-            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'} id={htmlId}>
                 <Translation>
                     {
                         t => <span>{t(text_key)}</span>
@@ -126,14 +128,14 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.guess_title')}
+                    {this.renderTitle('guess.guess_title', 'guess-title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     {this.state.guess ? this.renderGuess() : ''}
                 </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.is_correct_title')}
+                    {this.renderTitle('guess.is_correct_title', 'is-correct-title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     <div className={'col-4'}>{this.renderYesButton()}</div>
