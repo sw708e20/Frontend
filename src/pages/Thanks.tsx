@@ -5,10 +5,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 class ThanksPage extends React.Component<RouteComponentProps> {
 
-    constructor(props:any) {
-        super(props);
-    }
-
     renderTitle(text_key: string) : ReactNode {
         return (
             <h1 className={'title'}>
