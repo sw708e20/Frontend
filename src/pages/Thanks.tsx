@@ -36,6 +36,18 @@ class ThanksPage extends React.Component<RouteComponentProps> {
         )
     }
 
+    renderContent(text_key: string) : ReactNode {
+        return (
+            <h4 className={'title'}>
+                <Translation>
+                    {
+                        t => <span>{t(text_key)}</span>
+                    }
+                </Translation>
+            </h4>
+        )
+    }
+
     render() {
         return (
             
@@ -47,12 +59,9 @@ class ThanksPage extends React.Component<RouteComponentProps> {
                 <div className={'row justify-content-center'}>
                     <div className={'primary-edu-block div-spacing'}>
                     <div>
-                <div className={'row justify-content-center'}>
-                    <h3 className={'education-header'}> {"Awaer"} </h3>
-                </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    <div className={'col-10'}> {"Test2"} </div>
+                    <div className={'col-10'}> {this.renderContent('thanks.thanks_content')} </div>
                 </div>
             </div>
                     <hr/>
