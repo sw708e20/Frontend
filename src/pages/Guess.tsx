@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import {Translation} from "react-i18next";
 import {Education, questionManager, Answer} from '../services/QuestionManager';
 import {resultPageCommon} from "./commons/ResultPageCommon";
-import IndexPage from './HomePage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import i18n, {getLang, setGuessChangeHandler} from '../i18n/i18n'
 
@@ -58,11 +57,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     logData = (edu: Education) => {
         questionManager.sendGuessData(this.state.answers, edu);
-        ReactDOM.render(
-            <React.StrictMode>
-                <IndexPage />
-            </React.StrictMode>,
-            document.getElementById('root'))
+        this.props.history.push("/", undefined);
     }
 
     renderTitle(text_key: string) {
