@@ -42,10 +42,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     }
     
     componentDidMount() : void {
-        if(this.state.answers.length > 0){
-            this.getNextQuestion(this.state.answers)
-        }
-        else{
+        if(this.state.answers.length === 0){
             questionManager.getFirstQuestion().then((qst) => {
                 let newState = {
                     routeTo: this.state.routeTo,
