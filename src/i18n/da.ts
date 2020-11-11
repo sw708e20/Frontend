@@ -29,6 +29,11 @@ const daMessages = {
             no_btn: 'Nej',
             search: 'Søg',
             search_error: 'Vi fandt desværre ikke nogen resultater'
+        },
+
+        thanks: {
+            thanks_title: 'Tak',
+            thanks_content: 'Mange tak for din besvarelse'
         }
     }
 }

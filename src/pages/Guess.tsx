@@ -57,7 +57,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     logData = (edu: Education) => {
         questionManager.sendGuessData(this.state.answers, edu);
-        this.props.history.push("/", undefined);
+        this.props.history.push("/thanks", undefined);
     }
 
     renderTitle(text_key: string) {

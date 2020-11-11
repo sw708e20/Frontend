@@ -5,13 +5,7 @@ import {resultPageCommon} from './commons/ResultPageCommon'
 import { questionManager, Answer, Education} from "../services/QuestionManager";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-interface IRecommenderState {
-    answers: Answer[]
-    loading: boolean
-    list : Education[]
-}
-
-class ThanksPage extends React.Component<RouteComponentProps, IRecommenderState> {
+class ThanksPage extends React.Component<RouteComponentProps> {
 
     constructor(props:any) {
         super(props);
@@ -24,21 +18,11 @@ class ThanksPage extends React.Component<RouteComponentProps, IRecommenderState>
     }
 
     componentDidMount() : void{
-        this.getEducations()
         this.setState({
-            loading: true,
-            list: this.state.list,
+            loading: true
         })
     }
 
-    getEducations() : void {
-        questionManager.getRecommendations(this.state.answers).then((res)=>{
-            this.setState({
-                loading: false,
-                list: res,
-            })
-        })
-    }
 
     renderTitle(text_key: string) : ReactNode {
         return (
@@ -52,58 +36,27 @@ class ThanksPage extends React.Component<RouteComponentProps, IRecommenderState>
         )
     }
 
-    renderPrimaryRecommendation() : ReactNode {
-        const elems:React.ReactElement[] = [];
-        const primary:Education = this.state.list[0];
-
-        elems.push(
-            <div className={'primary-edu-block div-spacing'}>
-                { resultPageCommon.renderEducationInfo(primary) }
-                <hr/>
-                { resultPageCommon.renderEducationTypes(primary.education_types) }
-            </div>
-        )
-
-        return (
-            <div> { elems } </div>
-        )
-    }
-
-    renderRemainingRecommendations() : ReactNode {
-        const elems:React.ReactElement[] = [];
-
-        for (let edu2 of this.state.list.slice(1, this.state.list.length)) {
-            let edu:Education = edu2;
-
-            elems.push(
-                <div className={'edu-block div-spacing'}>
-                    { resultPageCommon.renderEducationInfo(edu) }
-                    <hr/>
-                    { resultPageCommon.renderEducationTypes(edu.education_types) }
-                </div>
-            )
-        }
-
-        return (
-            <div> {elems} </div>
-        )
-    }
-
     render() {
         return (
+            
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('result.rec_title')}
-                </div>
-                <div className={'row justify-content-center'}>
-                    {this.state.loading ? '' : this.renderPrimaryRecommendation()}
+                    {this.renderTitle('thanks.thanks_title')}
                 </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('result.rem_title')}
-                </div>
+                    <div className={'primary-edu-block div-spacing'}>
+                    <div>
                 <div className={'row justify-content-center'}>
-                    {this.state.loading ? '' : this.renderRemainingRecommendations()}
+                    <h3 className={'education-header'}> {"Awaer"} </h3>
+                </div>
+                <hr/>
+                <div className={'row justify-content-center'}>
+                    <div className={'col-10'}> {"Test2"} </div>
+                </div>
+            </div>
+                    <hr/>
+                </div>
                 </div>
             </div>
         )

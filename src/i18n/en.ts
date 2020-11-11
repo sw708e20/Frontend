@@ -30,6 +30,11 @@ const enMessages = {
             no_btn: 'No',
             search: 'Search',
             search_error: 'Unfortunately we did not find any results with your query'
+        },
+
+        thanks: {
+            thanks_title: 'Thanks',
+            thanks_content: 'Thank you for your answer'
         }
     }
 }
