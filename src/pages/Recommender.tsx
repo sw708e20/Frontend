@@ -6,6 +6,7 @@ import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from 
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Translation } from "react-i18next";
 import '../styling/HomePage.css'
+import '../styling/recommender.css'
 import {getLang, setRecChangeHandler} from "../i18n/i18n";
 
 
@@ -81,6 +82,13 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         let historicState = this.props.location.state as IHistoryState
         return (
             <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
+        )
+    }
+
+    renderProgressBar() : ReactNode{
+        let historicState = this.props.location.state as IHistoryState
+        return(
+            <progress value={historicState.state.answers.length} max="19"></progress>
         )
     }
 
@@ -167,6 +175,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     render() : ReactNode {
         return (
             <div>
+                {this.renderProgressBar()}
                 <div className={'row justify-content-center'}>
                     {this.renderTitle()}
                 </div>
