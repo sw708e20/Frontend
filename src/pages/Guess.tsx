@@ -10,7 +10,7 @@ import SearchField from "./commons/SearchField"
 interface IGuessState {
     answers: Answer[];
     guess: Education;
-    inputValue: string;
+    show_dialog: boolean;
 }
 
 class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
@@ -21,7 +21,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         this.state = {
             answers: this.props.location.state as Answer[],
             guess: new Education(-1, 'sadf', 'yeet'),
-            inputValue: "",
+            show_dialog: true,
         };
     }
 
@@ -30,7 +30,6 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             this.setState({
                 answers: this.state.answers,
                 guess: data[0],
-                inputValue: this.state.inputValue,
             })
         })
     }
@@ -81,6 +80,9 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                     </React.StrictMode>,
                     document.getElementById('search-field')
                 )
+                this.setState({
+                    show_dialog: false,
+                })
             }
         )
     }
@@ -97,6 +99,21 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         )
     }
 
+    renderGuessCorrectDialog() {
+        return(
+            <div>
+                <hr/>
+                <div className={'row justify-content-center'}>
+                    {this.renderTitle('guess.is_correct_title')}
+                </div>
+                <div className={'row justify-content-center'}>
+                    <div className={'col-4'}>{this.renderYesButton()}</div>
+                    <div className={'col-4'}>{this.renderNoButton()}</div>
+                </div>
+            </div>
+        )
+    }
+
     render() {
         return (
             <div>
@@ -106,14 +123,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                 <div className={'row justify-content-center'}>
                     {this.state.guess ? this.renderGuess() : ''}
                 </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.is_correct_title')}
-                </div>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-4'}>{this.renderYesButton()}</div>
-                    <div className={'col-4'}>{this.renderNoButton()}</div>
-                </div>
+                {this.state.show_dialog ? this.renderGuessCorrectDialog() : null}
                 <div id={'search-field'}></div>
                 <div id={'education-selector'}></div>
             </div>
