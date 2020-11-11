@@ -7,7 +7,6 @@ import {resultPageCommon} from "./commons/ResultPageCommon";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import i18n, {getLang, setGuessChangeHandler} from '../i18n/i18n'
 
-
 interface IGuessState {
     answers: Answer[];
     guess: Education;
