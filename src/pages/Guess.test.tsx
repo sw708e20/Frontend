@@ -2,6 +2,7 @@ import React from "react";
 import GuessPage from './Guess';
 import EducationSelector from './Guess';
 import SearchField from './Guess';
+import Education from '../services/QuestionManager'
 import { Router } from 'react-router-dom';
 import '../i18n/i18n';
 import {changeLang} from '../i18n/i18n'
@@ -10,6 +11,8 @@ import Enzyme, {shallow, mount, render as enzymeRender} from 'enzyme';
 import { createMemoryHistory } from 'history'
 import Adapter from 'enzyme-adapter-react-16'
 import { render } from '@testing-library/react';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -44,6 +47,10 @@ const renderGuessPage = () => {
 
 const enzymeRenderGuessPage = () => {
     return enzymeRender(<Router history={history} ><GuessPage /></Router>);
+}
+
+const mountGuessPage = () => {
+    return mount(<Router history={history}><GuessPage /></Router>)
 }
 
 const renderEducationSelector = () => {
@@ -172,7 +179,6 @@ test('guess container description', () => {
     expect(description).toBeInTheDocument();
 })
 
-/* shit dont work
 test('guess container with mount', async () => {
     const education: Education[] = [{
         id: -1,
@@ -180,12 +186,14 @@ test('guess container with mount', async () => {
         name: 'Anvendt filosofi',
         education_types: []
     }];
+    let mock = new MockAdapter(axios);
+    mock.onPost('https://api.edufinder.dk/guess').reply(200, education);
 
-    jest.spyOn(axios, "post").mockImplementation((url, data, config) => {
+    /*jest.spyOn(axios, "post").mockImplementation((url, data, config) => {
         return Promise.resolve({
             json: () => Promise.resolve(education)
         })
-    });
+    });*/
 
     await act(async () => {
         //renderContainerGuessPage();
@@ -196,4 +204,4 @@ test('guess container with mount', async () => {
     })
 
     //expect(container?.querySelector('.education-header')).toBe('yeet')
-})*/
+})
