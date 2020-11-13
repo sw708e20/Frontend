@@ -42,7 +42,7 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
 
   renderLogo() {
       return (
-          <img alt={'EduFinder'} className={'header-logo ' + this.state.logoClass} src={this.state.logo}/>
+        <img alt={'EduFinder'} className={'header-logo img-fluid ' + this.state.logoClass} src={this.state.logo}/>
       )
   }
 
@@ -68,7 +68,9 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
         <div>
             <EventListener target={"window"} onKeyPress={this.detectEasterBreen}/>
             <div className={'row justify-content-center div-spacing'}>
+              <div className={'col-10'}>
               {this.renderLogo()}
+              </div>
             </div>
             <div className={'row justify-content-center div-spacing'}>
               {this.renderButton('index.rec_btn', "/results/")}

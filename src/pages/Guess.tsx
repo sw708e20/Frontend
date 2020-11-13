@@ -53,7 +53,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderGuess() {
         return (
-            <div className={'primary-edu-block div-spacing'}>
+            <div className={'col-md-6 primary-edu-block'}>
                 { resultPageCommon.renderEducationInfo(this.state.guess) }
                 <hr/>
                 { resultPageCommon.renderEducationTypes(this.state.guess.education_types) }
@@ -89,7 +89,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderButton(text_key: string, callback: () => void) {
         return (
-            <button onClick={callback} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+            <button onClick={callback} className={'btn btn-primary edu-btn btn-block div-spacing'}>
                 <Translation>
                     {
                         t => <span>{t(text_key)}</span>
@@ -104,11 +104,13 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             <div>
                 <hr/>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.is_correct_title')}
+                    <div className={'col'}>
+                        {this.renderTitle('guess.is_correct_title')}
+                    </div>
                 </div>
                 <div className={'row justify-content-center'}>
-                    <div className={'col-4'}>{this.renderYesButton()}</div>
-                    <div className={'col-4'}>{this.renderNoButton()}</div>
+                    <div className={'col-md-2'}>{this.renderYesButton()}</div>
+                    <div className={'col-md-2'}>{this.renderNoButton()}</div>
                 </div>
             </div>
         )
@@ -118,7 +120,9 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    {this.renderTitle('guess.guess_title')}
+                    <div className={'col'}>
+                        {this.renderTitle('guess.guess_title')}
+                    </div>
                 </div>
                 <div className={'row justify-content-center'}>
                     {this.state.guess ? this.renderGuess() : ''}
