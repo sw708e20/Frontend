@@ -7,7 +7,9 @@ class ResultPageCommon {
         return (
             <div>
                 <div className={'row justify-content-center'}>
-                    <h3 className={'education-header'}> {edu.name} </h3>
+                    <div className={'col'}>
+                        <h3 className={'education-header'}> {edu.name} </h3>
+                    </div>
                 </div>
                 <hr/>
                 <div className={'row justify-content-center'}>
