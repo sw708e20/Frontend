@@ -90,10 +90,11 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     renderAnswerOptions() : ReactNode {
         const elems:React.ReactElement[] = [];
 
+        let key = 0
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                <button key={key++} onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
                     <Translation>
                         {
                             t => <span>{t(stringvalue)}</span>
@@ -101,7 +102,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
                     </Translation>
                 </button>
             )
-            elems.push(<br/>)
+            elems.push(<br key={key++}/>)
         }
 
         return (
