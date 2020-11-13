@@ -53,7 +53,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderGuess() {
         return (
-            <div className={'col-10 col-md-6 primary-edu-block'}>
+            <div className={'col-11 col-md-6 primary-edu-block'}>
                 { resultPageCommon.renderEducationInfo(this.state.guess) }
                 <hr/>
                 { resultPageCommon.renderEducationTypes(this.state.guess.education_types) }
@@ -109,8 +109,8 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                     </div>
                 </div>
                 <div className={'row justify-content-center'}>
-                    <div className={'col-10 col-md-2'}>{this.renderYesButton()}</div>
-                    <div className={'col-10 col-md-2'}>{this.renderNoButton()}</div>
+                    <div className={'col-md-2'}>{this.renderYesButton()}</div>
+                    <div className={'col-md-2'}>{this.renderNoButton()}</div>
                 </div>
             </div>
         )
@@ -118,7 +118,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     render() {
         return (
-            <div>
+            <div className={'container'}>
                 <div className={'row justify-content-center'}>
                     <div className={'col'}>
                         {this.renderTitle('guess.guess_title')}
