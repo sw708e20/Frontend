@@ -53,7 +53,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderGuess() {
         return (
-            <div className={'col-11 col-md-6 primary-edu-block'}>
+            <div className={'col-11 col-md-8 primary-edu-block'}>
                 { resultPageCommon.renderEducationInfo(this.state.guess) }
                 <hr/>
                 { resultPageCommon.renderEducationTypes(this.state.guess.education_types) }

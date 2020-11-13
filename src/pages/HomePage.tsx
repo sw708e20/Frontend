@@ -68,7 +68,7 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
         <div>
             <EventListener target={"window"} onKeyPress={this.detectEasterBreen}/>
             <div className={'row justify-content-center div-spacing'}>
-              <div className={'col-10'}>
+              <div className={'col-11'}>
               {this.renderLogo()}
               </div>
             </div>
