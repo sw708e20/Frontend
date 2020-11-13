@@ -12,7 +12,9 @@ import { createMemoryHistory } from 'history'
 import Adapter from 'enzyme-adapter-react-16'
 import { render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
+import axios from '../services/http-common';
+import { wrap } from "module";
+import { skipPartiallyEmittedExpressions } from "typescript";
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -179,6 +181,8 @@ test('guess container description', () => {
     expect(description).toBeInTheDocument();
 })
 
+const runAllPromises = () => new Promise(setImmediate)
+
 test('guess container with mount', async () => {
     const education: Education[] = [{
         id: -1,
@@ -187,21 +191,20 @@ test('guess container with mount', async () => {
         education_types: []
     }];
     let mock = new MockAdapter(axios);
-    mock.onPost('https://api.edufinder.dk/guess').reply(200, education);
+    mock.onPost('/recommend/').reply(200, education);
 
     /*jest.spyOn(axios, "post").mockImplementation((url, data, config) => {
         return Promise.resolve({
             json: () => Promise.resolve(education)
         })
     });*/
+    const wrapper = mountGuessPage();
+    
+    await runAllPromises();
 
-    await act(async () => {
-        //renderContainerGuessPage();
-        const wrapper = mountGuessPage();
-        const title = wrapper.find('.education-header')
-        expect(title.length).toBe(1);
-        expect(title.get(0).props).toBe('sjdhf');
-    })
-
+    wrapper.update()
+    const title = wrapper.find('.education-header')
+    expect(title.length).toBe(1);
+    expect(title.get(0).props["children"][1]).toBe('Anvendt filosofi');
     //expect(container?.querySelector('.education-header')).toBe('yeet')
 })
