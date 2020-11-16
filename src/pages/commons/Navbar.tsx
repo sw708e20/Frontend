@@ -26,7 +26,9 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
 
     render() {
         return (
-            {/* <div className={'edu-nav'}>
+            
+            < div ></div >
+                /* <div className={'edu-nav'}>
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="/">
                         <img
@@ -49,7 +51,8 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
                         </NavDropdown>
                     </Navbar.Collapse>
                 </Navbar>
-            </div> */}
+            </div> */
+            
         )
     }
 }
