@@ -37,7 +37,7 @@ const Routes = () => {
 }
 
 ReactDOM.render(
-        <div>
+        <div className="h-100">
         <NavbarComponent />
         <Routes />
         </div>,

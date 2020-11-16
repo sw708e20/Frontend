@@ -63,12 +63,14 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
   render() {
     return (
       <div className={'container h-100'}>
+        <div className='row h-100 justify-content-center align-items-center'>
+          <div className='col'>
         <EventListener target={"window"} onKeyPress={this.detectEasterBreen} />
         <div className={'row div-spacing justify-content-center'}>
           {this.renderLogo()}
         </div>
         <div className="row">
-
+          
           <div className="col">
             <div className={'row justify-content-center'}>
               {this.renderButton('index.rec_btn', "/results/")}
@@ -78,6 +80,8 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
             </div>
           </div>
         </div>
+        </div>
+          </div>
       </div>
     )
   }
