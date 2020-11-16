@@ -38,7 +38,6 @@ const Routes = () => {
 
 ReactDOM.render(
         <div>
-
         <NavbarComponent />
         <Routes />
         </div>,
