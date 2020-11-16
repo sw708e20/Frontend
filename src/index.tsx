@@ -37,10 +37,10 @@ const Routes = () => {
 }
 
 ReactDOM.render(
-        <div className="h-100">
-        <NavbarComponent />
+        [
+        <NavbarComponent />,
         <Routes />
-        </div>,
+        ],
   document.getElementById('root')
 );
 

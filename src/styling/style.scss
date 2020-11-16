@@ -8,6 +8,9 @@ $theme-colors: (
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";
 
-body, html, #root{
-  height: 100vh;
+body {
+  /*  expand body to fill page heigth  */
+	min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
