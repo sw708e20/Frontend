@@ -1,6 +1,5 @@
 import logo from "../../img/logo32.png";
 import {Translation} from "react-i18next";
-import {Navbar, NavDropdown} from "react-bootstrap";
 import {changeLang, getLang, setNavbarChangeHandler} from "../../i18n/i18n";
 import React from "react";
 
@@ -27,7 +26,7 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
 
     render() {
         return (
-            <div className={'edu-nav'}>
+            {/* <div className={'edu-nav'}>
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="/">
                         <img
@@ -50,7 +49,7 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
                         </NavDropdown>
                     </Navbar.Collapse>
                 </Navbar>
-            </div>
+            </div> */}
         )
     }
 }

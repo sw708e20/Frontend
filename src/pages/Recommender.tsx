@@ -1,12 +1,8 @@
 import 'jquery/dist/jquery.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { ReactNode } from 'react';
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Translation } from "react-i18next";
-import '../styling/HomePage.css'
-import '../styling/recommender.css'
 import {getLang, setRecChangeHandler} from "../i18n/i18n";
 
 

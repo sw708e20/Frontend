@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Translation } from "react-i18next";
 import React, { ReactNode } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';

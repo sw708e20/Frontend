@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './i18n/i18n';
-import './styling/index.css';
 import Index  from './pages/HomePage';
 import * as serviceWorker from './services/serviceWorker';
 import { Route, Switch , BrowserRouter as Router} from 'react-router-dom'
