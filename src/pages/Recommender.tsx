@@ -94,7 +94,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button key={key++} onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+                <button id={Answer_Enum[answer].toLowerCase() + "_btn"} key={key++} onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
                     <Translation>
                         {
                             t => <span>{t(stringvalue)}</span>
