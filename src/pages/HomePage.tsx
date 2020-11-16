@@ -65,16 +65,38 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
     return (
         <div className={'container'}>
             <EventListener target={"window"} onKeyPress={this.detectEasterBreen}/>
-            <div className={'row justify-content-center div-spacing'}>
-              <div className={'col-11'}>
+            <div className={'row div-spacing justify-content-center'}>
               {this.renderLogo()}
-              </div>
             </div>
-            <div className={'row justify-content-center div-spacing'}>
+
+            <div className="row align-items-start">
+    <div className="col">
+      One of three columns
+    </div>
+    <div className="col">
+      One of three columns
+    </div>
+    <div className="col">
+      One of three columns
+    </div>
+  </div>
+            
+            <div className="row align-items-center">
+              <div className="col">
+                One of three columns
+              </div>
+              <div className="col">
+                
+            <div className={'row justify-content-center'}>
               {this.renderButton('index.rec_btn', "/results/")}
             </div>
-            <div className={'row justify-content-center div-spacing'}>
+            <div className={'row justify-content-center'}>
               {this.renderButton('index.guess_btn', "/guess/")}
+            </div>
+              </div>
+              <div className="col">
+                One of three columns
+              </div>
             </div>
         </div>
     )
