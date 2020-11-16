@@ -53,19 +53,14 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
     }
 
     renderPrimaryRecommendation() : ReactNode {
-        const elems:React.ReactElement[] = [];
         const primary:Education = this.state.list[0];
 
-        elems.push(
-            <div className={'primary-edu-block div-spacing'}>
-                { resultPageCommon.renderEducationInfo(primary) }
-                <hr/>
-                { resultPageCommon.renderEducationTypes(primary.education_types) }
-            </div>
-        )
-
         return (
-            <div> { elems } </div>
+            <div className={'primary-edu-block div-spacing col-lg-7'}>
+                { resultPageCommon.renderEducationInfo(primary)}
+                <hr />
+                { resultPageCommon.renderEducationTypes(primary.education_types)}
+            </div>
         )
     }
 
@@ -76,7 +71,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
             let edu:Education = edu2;
 
             elems.push(
-                <div className={'edu-block div-spacing'}>
+                <div className={'edu-block div-spacing col-lg-7'}>
                     { resultPageCommon.renderEducationInfo(edu) }
                     <hr/>
                     { resultPageCommon.renderEducationTypes(edu.education_types) }
@@ -84,9 +79,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
             )
         }
 
-        return (
-            <div> {elems} </div>
-        )
+        return elems;
     }
 
     render() {
@@ -102,7 +95,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
                 <div className={'row justify-content-center'}>
                     {this.renderTitle('result.rem_title')}
                 </div>
-                <div className={'row justify-content-center'}>
+                <div className={'row justify-content-center align-items-center'}>
                     {this.state.loading ? '' : this.renderRemainingRecommendations()}
                 </div>
             </div>
