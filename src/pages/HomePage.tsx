@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../img/logo-header-med.png';
 import breen from '../img/breen.jpg';
 import '../styling/HomePage.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { RouteComponentProps, withRouter } from "react-router"
 import { Translation } from "react-i18next";
 import EventListener from "react-event-listener";
