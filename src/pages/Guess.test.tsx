@@ -2,7 +2,7 @@ import React from "react";
 import GuessPage from './Guess';
 import EducationSelector from './Guess';
 import SearchField from './Guess';
-import Education from '../services/QuestionManager'
+import {Education} from '../services/QuestionManager'
 import { Router } from 'react-router-dom';
 import '../i18n/i18n';
 import {changeLang} from '../i18n/i18n'
@@ -13,8 +13,6 @@ import Adapter from 'enzyme-adapter-react-16'
 import { render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from '../services/http-common';
-import { wrap } from "module";
-import { skipPartiallyEmittedExpressions } from "typescript";
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -27,14 +25,24 @@ const answerData = [
 ]
 
 let history = createMemoryHistory();
+let mock = new MockAdapter(axios)
+
 
 beforeEach(() => {
+    const education: Education[] = [{
+        id: -1,
+        description: 'meget spændende uddannelse',
+        name: 'Anvendt filosofi',
+        education_types: []
+    }];
+    mock.onPost('/recommend/').reply(200, education);
     history.push('/guess', answerData);
     changeLanguage('en');
 })
 
 afterEach(() => {
     history = createMemoryHistory();
+    mock.reset()
 })
 
 const changeLanguage = (lang: string) => {
@@ -162,49 +170,24 @@ test('no button DA', () => {
     expect(noBtn).toBeInTheDocument();
 })
 
-test('guess container without mount (component)', () => {
-    const wrapper = enzymeRenderGuessPage();
-    const elem = wrapper.find('.education-header');
-    expect(elem.length).toBe(1);
-    expect(elem.get(0).type).toBe('tag')
-})
-
-test('guess container title', () => {
-    const {getByText} = renderGuessPage();
-    const title = getByText(/sadf/i);
-    expect(title).toBeInTheDocument();
-})
-
-test('guess container description', () => {
-    const {getByText} = renderGuessPage();
-    const description = getByText(/yeet/i);
-    expect(description).toBeInTheDocument();
-})
-
 const runAllPromises = () => new Promise(setImmediate)
 
 test('guess container with mount', async () => {
     const education: Education[] = [{
         id: -1,
         description: 'meget spændende uddannelse',
-        name: 'Anvendt filosofi',
+        name: 'Datalogi',
         education_types: []
     }];
-    let mock = new MockAdapter(axios);
     mock.onPost('/recommend/').reply(200, education);
 
-    /*jest.spyOn(axios, "post").mockImplementation((url, data, config) => {
-        return Promise.resolve({
-            json: () => Promise.resolve(education)
-        })
-    });*/
     const wrapper = mountGuessPage();
     
     await runAllPromises();
-
     wrapper.update()
+
     const title = wrapper.find('.education-header')
     expect(title.length).toBe(1);
-    expect(title.get(0).props["children"][1]).toBe('Anvendt filosofi');
+    expect(title.get(0).props["children"][1]).toBe('Datalogi');
     //expect(container?.querySelector('.education-header')).toBe('yeet')
 })
