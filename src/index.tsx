@@ -9,7 +9,7 @@ import Result from './pages/Result'
 import Guess from './pages/Guess'
 import Thanks from './pages/Thanks'
 import NavbarComponent from "./pages/commons/Navbar";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './styling/style.scss'
 
 
 const Routes = () => {
