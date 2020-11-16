@@ -37,12 +37,11 @@ const Routes = () => {
 }
 
 ReactDOM.render(
-    <div className="App">
+        <div>
+
         <NavbarComponent />
-        <header className="App-header">
-            <Routes />
-        </header>
-    </div>,
+        <Routes />
+        </div>,
   document.getElementById('root')
 );
 
