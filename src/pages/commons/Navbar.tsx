@@ -43,7 +43,7 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
         }
         
         return (
-            <span className={'flag-icon flag-icon-'+countryCode}></span>
+            <span className={'flag-icon flag-icon-'+countryCode}/>
         )
     };
 
