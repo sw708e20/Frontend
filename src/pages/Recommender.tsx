@@ -50,6 +50,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
                 
                 this.props.history.replace("/quiz/", {routeTo: this.state.routeTo, isLoading: false, state: newState})
             });
+        } else {
+            this.getNextQuestion(this.state.answers);
         }
     }
 
@@ -92,12 +94,13 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     renderAnswerOptions() : ReactNode {
         const elems:React.ReactElement[] = [];
 
+        let key = 0
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
               <div className='d-flex justify-content-center'>
 
-                    <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-secondary mt-3 recommender-btn'}>
+                    <button id={Answer_Enum[answer].toLowerCase() + "_btn"} onClick={() => this.onAnswerGiven(answer)} key={key++} className={'btn btn-secondary mt-3 recommender-btn'}>
                     <Translation>
                         {
                           t => t(stringvalue)

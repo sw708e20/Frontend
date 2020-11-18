@@ -1,5 +1,6 @@
 import http from "./http-common";
 import { Question, Education } from "./QuestionManager";
+import {AxiosResponse} from "axios";
 
 // Class for communicating with the backend service
 // Communication is facilitated used HTTP GET and POST requests
@@ -39,9 +40,9 @@ class EdufinderDataService {
   }
 
   postGuessData(guessData: Object) {
-    return new Promise<Education[]>((resolve, reject) => {
+    return new Promise<AxiosResponse<any>>((resolve, reject) => {
       http.post("/guess/", guessData).then((res) => {
-        resolve()
+        resolve(res)
       }).catch((reason) => {
         reject(reason);
       });
