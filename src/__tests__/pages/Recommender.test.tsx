@@ -153,17 +153,17 @@ test('quiz answer dont know DA', () => {
     }
 })
 
-test("guiz inital guestion EN", async ()=>{
+test("quiz initial guestion EN", async ()=>{
     const wrapper = mountRecommenderPage();
 
     await runAllPromises()
     wrapper.update()
 
     const title = wrapper.find(".title");   
-    expect(title.get(0).props["children"][3]).toBe('Some initial question?');
+    expect(title.get(0).props["children"]).toBe('Q1: Some initial question?');
 })
 
-test("guiz inital guestion DA", async ()=>{
+test("quiz initial guestion DA", async ()=>{
     const wrapper = mountRecommenderPage();
 
     changeLanguage("da");
@@ -172,7 +172,7 @@ test("guiz inital guestion DA", async ()=>{
     wrapper.update()
 
     const title = wrapper.find(".title");   
-    expect(title.get(0).props["children"][3]).toBe('Et udgangspunkt spørgsmål?');
+    expect(title.get(0).props["children"]).toBe('Q1: Et udgangspunkt spørgsmål?');
 })
 
 
@@ -197,7 +197,7 @@ each([Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.
         wrapper.update()
         
         const title = wrapper.find(".title");   
-        expect(title.get(0).props["children"][3]).toBe('andet spørgsmål?');
+        expect(title.get(0).props["children"]).toBe('Q2: andet spørgsmål?');
     })
 
 
@@ -207,7 +207,7 @@ each([Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.
             id: 6,
             en: "second question?",
             da: "andet spørgsmål?"
-        };
+        };  
         mock.onPost("/question/").reply(200, secondQuestion)
 
         let wrapper = mountRecommenderPage()
@@ -220,8 +220,8 @@ each([Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.
         await runAllPromises()
         wrapper.update()
         
-        const title = wrapper.find(".title");   
-        expect(title.get(0).props["children"][3]).toBe('second question?');
+        const title = wrapper.find(".title");
+        expect(title.get(0).props["children"]).toBe('Q2: second question?');
     })
 
 test("Answer redirects on 20th question", async () =>{

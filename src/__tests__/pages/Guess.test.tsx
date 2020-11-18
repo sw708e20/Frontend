@@ -186,7 +186,7 @@ test('guess container with mount', async () => {
     await runAllPromises();
     wrapper.update()
 
-    const title = wrapper.find('.education-header')
+    const title = wrapper.find("div.card-header")
     expect(title.length).toBe(1);
-    expect(title.get(0).props["children"][1]).toBe('Datalogi');
+    expect(title.childAt(0).get(0).props["children"]).toBe('Datalogi');
 })
