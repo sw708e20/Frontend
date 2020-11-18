@@ -189,5 +189,4 @@ test('guess container with mount', async () => {
     const title = wrapper.find('.education-header')
     expect(title.length).toBe(1);
     expect(title.get(0).props["children"][1]).toBe('Datalogi');
-    //expect(container?.querySelector('.education-header')).toBe('yeet')
 })
