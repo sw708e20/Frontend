@@ -81,9 +81,11 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         let answers = historicState.state.answers;
         let question = historicState.state.question;
         
-        return (
-            <h1 className={'title'}>Q{answers.length + 1}: {question ? this.getQuestionWithLocale(question) : <Translation>{t => t('result.loading_placeholder')}</Translation>}</h1>
-        )
+        if (question !== undefined) {
+            return (<h1 className={'title'}>{`Q${answers.length + 1}: ${this.getQuestionWithLocale(question)}`}</h1>);
+        } else {
+            return (<Translation>{t => <h1 className={'title'}>{t('result.loading_placeholder')}</h1>}</Translation>);
+        }
     }
 
     renderAnswerOptions() : ReactNode {
