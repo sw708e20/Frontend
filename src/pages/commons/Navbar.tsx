@@ -5,6 +5,7 @@ import React from "react";
 import 'bootstrap/dist/js/bootstrap.bundle'
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import "flag-icon-css/sass/flag-icon.scss";
 
 interface NavbarComponentState {
     lang: string;
@@ -27,6 +28,25 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
         })
     };
 
+    getButtonText(lang: String) {
+        let countryCode;
+        switch (lang.toLowerCase()) {
+            case "da":
+                countryCode = 'dk';
+                break;
+            case "en":
+                countryCode = 'gb';
+                break;
+            default:
+                countryCode = 'gb';
+                break;
+        }
+        
+        return (
+            <span className={'flag-icon flag-icon-'+countryCode}></span>
+        )
+    };
+
     render() {
         return (
             <Navbar bg="dark" variant="dark" className='justify-content-between'>
@@ -38,9 +58,9 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
                         }
                     </Translation>
                 </Navbar.Brand>
-                <NavDropdown style={{minWidth:0}} id={'lang-drop'} title={this.state.lang}>
-                        <NavDropdown.Item className='dropdown-menu-right' onClick={() => { changeLang('en') }}>EN</NavDropdown.Item>
-                        <NavDropdown.Item className='dropdown-menu-right' onClick={() => { changeLang('da') }}>DA</NavDropdown.Item>
+                <NavDropdown style={{minWidth:0}} id={'lang-drop'} title={this.getButtonText(this.state.lang)}>
+                    <NavDropdown.Item className='dropdown-menu-right' onClick={() => { changeLang('en') }}>{this.getButtonText('en')}</NavDropdown.Item>
+                    <NavDropdown.Item className='dropdown-menu-right' onClick={() => { changeLang('da') }}>{this.getButtonText('da')}</NavDropdown.Item>
                     </NavDropdown>
             </Navbar>
         )
