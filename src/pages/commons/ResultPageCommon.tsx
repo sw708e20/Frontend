@@ -4,22 +4,20 @@ import {Education, EducationType} from '../../services/QuestionManager'
 class ResultPageCommon {
     renderEducationInfo(edu: Education) {
         return (
-            <div>
-                <div className={'row justify-content-center'}>
-                    <div className={'col'}>
-                        <h3 className={'education-header'}> {edu.name} </h3>
-                    </div>
+            [
+                <div className={'card-header'}>
+                        <h3>{edu.name}</h3>
+                </div>,
+                <div className={'card-body'}>
+                    <p className={'card-text'}> {edu.description}</p>
                 </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-10'}> {edu.description} </div>
-                </div>
-            </div>
+                ]
         )
     }
 
     renderEducationTypes(eduTypes: EducationType[]) {
         let elems: ReactElement[] = []
+        
 
         for (let eduType of eduTypes) {
             elems.push(
@@ -30,7 +28,11 @@ class ResultPageCommon {
             )
         }
 
-        return elems
+        return (
+            <div className={'card-footer'}>
+                {elems}
+            </div>
+        )
     }
 }
 

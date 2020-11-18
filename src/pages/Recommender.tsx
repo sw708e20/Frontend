@@ -171,7 +171,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
     return (
       <div className={'container-fluid d-flex flex-grow-1  align-items-center'}>
         <div className='d-flex flex-column flex-grow-1'>
-          <div className={'d-flex justify-content-center'}>
+          <div className={'d-flex justify-content-center text-center'}>
             {this.renderTitle()}
           </div>
           <div className='d-flex flex-column'>

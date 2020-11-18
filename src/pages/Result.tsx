@@ -55,10 +55,13 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
         const primary:Education = this.state.list[0];
 
         return (
-            <div className={'col-lg-7'}>
-                { resultPageCommon.renderEducationInfo(primary)}
-                <hr />
-                { resultPageCommon.renderEducationTypes(primary.education_types)}
+            <div className={'row justify-content-center'}>
+                <div className={'col-lg-6'}>
+                    <div className={'card text-center bg-info'}>
+                        { resultPageCommon.renderEducationInfo(primary)}
+                        { resultPageCommon.renderEducationTypes(primary.education_types)}
+                    </div>
+                </div>
             </div>
         )
     }
@@ -70,12 +73,14 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
             let edu:Education = edu2;
 
             elems.push(
-                <div className={'d-flex justify-content-center'}>
-                    <div className='col-lg-7'>
 
-                    { resultPageCommon.renderEducationInfo(edu) }
-                    <hr/>
-                    { resultPageCommon.renderEducationTypes(edu.education_types) }
+                <div className='row justify-content-center mt-4'>
+                    <div className={'col-lg-6'}>
+
+                    <div className={'card text-center bg-info'}>
+                        { resultPageCommon.renderEducationInfo(edu) }
+                        { resultPageCommon.renderEducationTypes(edu.education_types) }
+                    </div>
                     </div>
                 </div>
             )
@@ -87,14 +92,11 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
     render() {
         return (
             <div className='d-flex flex-column'>
-                <div className='d-flex justify-content-center'>
+                <div className='d-flex justify-content-center text-center'>
                     {this.renderTitle('result.rec_title')}
                 </div>
-                <div className='d-flex justify-content-center'>
-                    {this.state.loading ? '' : this.renderPrimaryRecommendation()}
-                </div>
-                <hr/>
-                <div className='d-flex justify-content-center'>
+                {this.state.loading ? '' : this.renderPrimaryRecommendation()}
+                <div className='d-flex justify-content-center text-center'>
                     {this.renderTitle('result.rem_title')}
                 </div>
                 {this.state.loading ? '' : this.renderRemainingRecommendations()}
