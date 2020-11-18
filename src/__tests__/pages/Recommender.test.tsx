@@ -51,11 +51,22 @@ const mountRecommenderPage = () => {
 
 const runAllPromises = () => new Promise(setImmediate)
 
-test('quiz title', () => {
-    const {getByText} = renderRecommenderPage();
-    const title = getByText(/Q/i);
+test('quiz loading en', () => {
+    const { getByText } = renderRecommenderPage();
+    const title = getByText(/Loading\.\./i);
     expect(title).toBeInTheDocument();
     expect(title.nodeName).toBe('H1');
+
+    runAllPromises();
+})
+
+test('quiz loading da', () => {
+    changeLanguage('da');
+    const { getByText } = renderRecommenderPage();
+    const title = getByText(/Indlæser\.\./i);
+    expect(title).toBeInTheDocument();
+    expect(title.nodeName).toBe('H1')
+    runAllPromises();
 })
 
 test('quiz answer yes EN', () => {
