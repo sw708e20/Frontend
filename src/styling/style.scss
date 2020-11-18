@@ -1,6 +1,7 @@
 /* The following block can be included in a custom.scss */
 
 /* make the customizations */
+$body-color: #fff;
 $body-bg: #444b59;
 $theme-colors: (
 );
@@ -13,4 +14,8 @@ body {
 	min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.recommender-btn {
+  width: 15rem;
 }

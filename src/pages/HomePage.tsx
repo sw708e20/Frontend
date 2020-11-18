@@ -63,7 +63,7 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
   render() {
     return (
       <div className={'container-fluid d-flex flex-grow-1  align-items-center'}>
-        <div className='row d-flex flex-column flex-grow-1'>
+        <div className='d-flex flex-column flex-grow-1'>
 
         <EventListener target={"window"} onKeyPress={this.detectEasterBreen} />
         <div className={'d-flex justify-content-center'}>

@@ -28,7 +28,6 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
     };
 
     render() {
-        const { t } = this.props;
         return (
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/">

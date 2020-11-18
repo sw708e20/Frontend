@@ -76,8 +76,9 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
+        const str = `Q${ historicState.state.answers.length + 1}: ${ historicState.state.question ? this.getQuestionWithLocale(historicState.state.question) : "null" }`;
         return (
-            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
+            <h1 className={'title'}>{str}</h1>
         )
     }
 
@@ -94,22 +95,20 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
+              <div className='d-flex justify-content-center'>
+
+                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary mt-3 recommender-btn'}>
                     <Translation>
                         {
-                            t => <span>{t(stringvalue)}</span>
+                          t => t(stringvalue)
                         }
                     </Translation>
                 </button>
+              </div>
             )
-            elems.push(<br/>)
         }
 
-        return (
-            <div>
-                {elems}
-            </div>
-        )
+        return (elems)
     }
 
     onAnswerGiven(answer_value : Answer_Enum) : void{
@@ -168,20 +167,21 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     
 
-    render() : ReactNode {
-        return (
-            <div>
-                {this.renderProgressBar()}
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle()}
-                </div>
-                <div className={'row justify-content-center'}>
-                    {this.renderAnswerOptions()}
-                </div>
-            </div>
+  render(): ReactNode {
+    return (
+      <div className={'container-fluid d-flex flex-grow-1  align-items-center'}>
+        <div className='d-flex flex-column flex-grow-1'>
+          <div className={'d-flex justify-content-center'}>
+            {this.renderTitle()}
+          </div>
+          <div className='d-flex flex-column'>
+            {this.renderAnswerOptions()}
+          </div>
+        </div>
+      </div>
 
-        )
-    }
+    )
+  }
 }
 
 export default withRouter(Recommender);
