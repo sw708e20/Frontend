@@ -15,7 +15,7 @@ test('logo', () => {
     const { getByAltText } = renderPage();
     const logo = getByAltText(/EduFinder/i);
     expect(logo).toBeInTheDocument();
-    expect(logo.className).toBe('header-logo ')
+    expect(logo.className).toBe('header-logo img-fluid ')
 })
 
 test('recommender button EN', () => {
