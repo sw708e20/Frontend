@@ -107,7 +107,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                 <hr/>
                 <div className={'row justify-content-center'}>
                     <div className={'col'}>
-                        {this.renderTitle('guess.is_correct_title')}
+                        {this.renderTitle('guess.is_correct_title', 'is-correct-title')}
                     </div>
                 </div>
                 <div className={'row justify-content-center'}>
@@ -123,7 +123,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             <div className={'container'}>
                 <div className={'row justify-content-center'}>
                     <div className={'col'}>
-                        {this.renderTitle('guess.guess_title')}
+                        {this.renderTitle('guess.guess_title', 'guess-title')}
                     </div>
                 </div>
                 <div className={'row justify-content-center'}>
