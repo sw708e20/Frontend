@@ -54,6 +54,8 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
                 
                 this.props.history.replace("/quiz/", {routeTo: this.state.routeTo, isLoading: false, state: newState})
             });
+        } else {
+            this.getNextQuestion(this.state.answers);
         }
     }
 

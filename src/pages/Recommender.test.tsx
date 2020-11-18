@@ -256,7 +256,7 @@ test("Answer redirects on 20th question", async () =>{
     await runAllPromises()
     wrapper.update()
     
-    const title = wrapper.find("h1");   
+    const title = wrapper.find("h1");
     expect(title.get(0).props["children"] as string).toBe('Done');
     
 })
