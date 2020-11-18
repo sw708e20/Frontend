@@ -31,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && npm run sync",
+    "sync": "rsync -avz --delete -e ssh -r ./build/* p7.dk:/var/www/frontend/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,6 +51,12 @@
     ]
   },
   "devDependencies": {
-    "codecov": "^3.8.0"
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "axios-mock-adapter": "^1.19.0",
+    "codecov": "^3.8.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "jest-each": "^26.6.2"
   }
 }

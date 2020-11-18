@@ -39,9 +39,9 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         this.props.history.push("/thanks", undefined);
     }
 
-    renderTitle(text_key: string) {
+    renderTitle(text_key: string, htmlId: string) {
         return (
-            <h1 className={'title'}>
+            <h1 className={'title'} id={htmlId}>
                 <Translation>
                     {
                         t => <span>{t(text_key)}</span>
@@ -66,7 +66,8 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             'guess.yes_btn',
             () => {
                 this.logData(this.state.guess)
-            }
+            },
+            'yes-btn'
         )
     }
 
@@ -83,13 +84,14 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                 this.setState({
                     show_dialog: false,
                 })
-            }
+            },
+            'no-btn'
         )
     }
 
-    renderButton(text_key: string, callback: () => void) {
+    renderButton(text_key: string, callback: () => void, htmlId: string) {
         return (
-            <button onClick={callback} className={'btn btn-primary edu-btn btn-block div-spacing'}>
+            <button onClick={callback} className={'btn btn-primary edu-btn btn-block div-spacing'} id={htmlId}>
                 <Translation>
                     {
                         t => <span>{t(text_key)}</span>
@@ -105,7 +107,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
                 <hr/>
                 <div className={'row justify-content-center'}>
                     <div className={'col'}>
-                        {this.renderTitle('guess.is_correct_title')}
+                        {this.renderTitle('guess.is_correct_title', 'is-correct-title')}
                     </div>
                 </div>
                 <div className={'row justify-content-center'}>
@@ -121,7 +123,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
             <div className={'container'}>
                 <div className={'row justify-content-center'}>
                     <div className={'col'}>
-                        {this.renderTitle('guess.guess_title')}
+                        {this.renderTitle('guess.guess_title', 'guess-title')}
                     </div>
                 </div>
                 <div className={'row justify-content-center'}>
