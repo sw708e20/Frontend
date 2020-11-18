@@ -55,7 +55,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
         const primary:Education = this.state.list[0];
 
         return (
-            <div className={'row justify-content-center'}>
+            <div className={'row justify-content-center my-4'}>
                 <div className={'col-lg-6'}>
                     <div className={'card text-center bg-info'}>
                         { resultPageCommon.renderEducationInfo(primary)}
