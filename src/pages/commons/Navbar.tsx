@@ -29,7 +29,7 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
 
     render() {
         return (
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" className='justify-content-between'>
                 <Navbar.Brand href="/">
                     <img alt="" src={logo} width="32" height="32" className="d-inline-block align-top" />{' '}
                     <Translation>
@@ -38,12 +38,10 @@ class NavbarComponent extends React.Component<any, NavbarComponentState> {
                         }
                     </Translation>
                 </Navbar.Brand>
-                <Navbar.Collapse className="justify-content-end">
-                    <NavDropdown id={'lang-drop'} title={this.state.lang}>
-                        <NavDropdown.Item onClick={() => { changeLang('en') }}>EN</NavDropdown.Item>
-                        <NavDropdown.Item onClick={() => { changeLang('da') }}>DA</NavDropdown.Item>
+                <NavDropdown style={{minWidth:0}} id={'lang-drop'} title={this.state.lang}>
+                        <NavDropdown.Item className='dropdown-menu-right' onClick={() => { changeLang('en') }}>EN</NavDropdown.Item>
+                        <NavDropdown.Item className='dropdown-menu-right' onClick={() => { changeLang('da') }}>DA</NavDropdown.Item>
                     </NavDropdown>
-                </Navbar.Collapse>
             </Navbar>
         )
     }

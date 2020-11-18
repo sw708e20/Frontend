@@ -91,12 +91,12 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
 
     render() {
         return (
-            <div className='d-flex flex-column'>
-                <div className='d-flex justify-content-center text-center'>
+            <div className='container-fluid'>
+                <div className='row justify-content-center text-center'>
                     {this.renderTitle('result.rec_title')}
                 </div>
                 {this.state.loading ? '' : this.renderPrimaryRecommendation()}
-                <div className='d-flex justify-content-center text-center'>
+                <div className='row justify-content-center text-center'>
                     {this.renderTitle('result.rem_title')}
                 </div>
                 {this.state.loading ? '' : this.renderRemainingRecommendations()}
