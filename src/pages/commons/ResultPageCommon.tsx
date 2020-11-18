@@ -23,7 +23,7 @@ class ResultPageCommon {
             elems.push(
                 <div key={eduType.id} className={'row justify-content-center'}>
                     <div className={'col-6'}><p> {eduType.name} </p></div>
-                    <div className={'col-6'}><a href={eduType.url}> Link to www.ug.dk </a></div>
+                    <div className={'col-6'}><a href={eduType.url} target='_blank' rel="noopener noreferrer"> Link to www.ug.dk </a></div>
                 </div>
             )
         }

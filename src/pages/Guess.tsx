@@ -19,7 +19,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
         this.state = {
             answers: this.props.location.state as Answer[],
-            guess: new Education(-1, 'sadf', 'yeet'),
+            guess: new Education(-1, 'Loading', 'Loading'),
             show_dialog: true,
         };
     }
@@ -52,10 +52,13 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderGuess() {
         return (
-            <div className={'col-11 col-md-8 primary-edu-block'}>
-                { resultPageCommon.renderEducationInfo(this.state.guess) }
-                <hr/>
-                { resultPageCommon.renderEducationTypes(this.state.guess.education_types) }
+            <div className={'row justify-content-center'}>
+                <div className={'col-lg-6'}>
+                    <div className={'card text-center bg-info'}>
+                        { resultPageCommon.renderEducationInfo(this.state.guess) }
+                        { resultPageCommon.renderEducationTypes(this.state.guess.education_types) }
+                    </div>
+                </div>
             </div>
         )
     }
@@ -88,7 +91,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
     renderButton(text_key: string, callback: () => void) {
         return (
-            <button onClick={callback} className={'btn btn-primary edu-btn btn-block div-spacing'}>
+            <button onClick={callback} className={'btn btn-secondary btn-block'}>
                 <Translation>
                     {
                         t => <span>{t(text_key)}</span>
@@ -98,36 +101,22 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         )
     }
 
-    renderGuessCorrectDialog() {
-        return(
-            <div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    <div className={'col'}>
-                        {this.renderTitle('guess.is_correct_title')}
-                    </div>
-                </div>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-md-2'}>{this.renderYesButton()}</div>
-                    <div className={'col-md-2'}>{this.renderNoButton()}</div>
-                </div>
-            </div>
-        )
-    }
-
     render() {
         return (
-            <div className={'container'}>
-                <div className={'row justify-content-center'}>
-                    <div className={'col'}>
-                        {this.renderTitle('guess.guess_title')}
-                    </div>
+            <div className='d-flex flex-column'>
+                <div className='d-flex justify-content-center text-center'>
+                    {this.renderTitle('guess.guess_title')}
+                </div>
+
+                {this.state.guess ? this.renderGuess() : ''}
+                <div className='d-flex justify-content-center text-center'>
+                    {this.renderTitle('guess.is_correct_title')}
                 </div>
                 <div className={'row justify-content-center'}>
-                    {this.state.guess ? this.renderGuess() : ''}
+                    <div className={'col-5 col-md-2'}>{this.renderYesButton()}</div>
+                    <div className={'col-5 col-md-2'}>{this.renderNoButton()}</div>
                 </div>
-                {this.state.show_dialog ? this.renderGuessCorrectDialog() : null}
-                <div id={'search-field'}></div>
+                <div id={'search-field'} className={''}></div>
                 <div id={'education-selector'}></div>
             </div>
         )

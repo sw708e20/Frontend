@@ -97,7 +97,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
             elems.push(
               <div className='d-flex justify-content-center'>
 
-                <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary mt-3 recommender-btn'}>
+                    <button onClick={() => this.onAnswerGiven(answer)} className={'btn btn-secondary mt-3 recommender-btn'}>
                     <Translation>
                         {
                           t => t(stringvalue)
@@ -169,7 +169,7 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
   render(): ReactNode {
     return (
-      <div className={'container-fluid d-flex flex-grow-1  align-items-center'}>
+      <div className={'container-fluid d-flex flex-grow-1 align-items-center'}>
         <div className='d-flex flex-column flex-grow-1'>
           <div className={'d-flex justify-content-center text-center'}>
             {this.renderTitle()}

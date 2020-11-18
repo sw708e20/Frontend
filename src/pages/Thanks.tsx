@@ -21,7 +21,7 @@ class ThanksPage extends React.Component<RouteComponentProps> {
             <h4 className={'title'}>
                 <Translation>
                     {
-                        t => <span>{t(text_key)}</span>
+                        t => t(text_key)
                     }
                 </Translation>
             </h4>
@@ -30,10 +30,13 @@ class ThanksPage extends React.Component<RouteComponentProps> {
 
     render() : ReactNode {
         return (
-                <div>
-                    <div>{this.renderTitle('thanks.thanks_title')}</div>
+            <div className={'container-fluid d-flex flex-grow-1 align-items-center'}>
+                <div className='d-flex flex-column flex-grow-1'>
+
+                    <div className={'text-center'}>{this.renderTitle('thanks.thanks_title')}</div>
                     <hr/>
-                    <div>{this.renderContent('thanks.thanks_content')}</div>
+                    <div className={'text-center'}>{this.renderContent('thanks.thanks_content')}</div>
+                </div>
                 </div>
         )
     }

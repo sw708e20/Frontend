@@ -59,24 +59,28 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderTitle() {
         return (
-            <h1 className={'title'}>
+            <div className='d-flex justify-content-center text-center'>
+                <h1 className={'title'}>
                 <Translation>
-                    {
-                        t => <span>{t('guess.feedback_title')}</span>
-                    }
+                {
+                    t => t('guess.feedback_title')
+                }
                 </Translation>
-            </h1>
+                </h1>
+            </div>
         )
     }
 
     renderSearchField() {
         return (
             <div className={'row justify-content-center'}>
-                <div className={'col-10'}>
-                    <input type={'text'} placeholder={i18n.t('guess.search')} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
-                </div>
-                <div className={'col-2'}>
-                    {this.renderSearchButton()}
+                <div className={'col-lg-6'}>
+                    <div className="input-group">
+                        <input type="text" className="form-control" placeholder={i18n.t('guess.search')} aria-label="Recipient's username" aria-describedby="basic-addon2" onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm}/>
+                        <div className="input-group-append">
+                            {this.renderSearchButton()}
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -84,10 +88,10 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderSearchButton() {
         return (
-            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}>
+            <button onClick={() => { this.performSearch() }} className={'btn btn-secondary'}>
                 <Translation>
                     {
-                        t => <span>{t('guess.search')}</span>
+                        t => t('guess.search')
                     }
                 </Translation>
             </button>
@@ -105,12 +109,9 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
     }
 
     render() {
-        return (
-            <div>
-                <hr/>
-                {this.renderTitle()}
-                {this.renderSearchField()}
-            </div>
+        return ([
+                this.renderTitle(),
+                this.renderSearchField()]
         );
     }
 }
@@ -166,12 +167,12 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
                 </div>
             )
         } else {
-            for (let i = 0; i < education_count; i++) {
+            for (let education of this.state.educations) {
                 elems.push(
                     <div className={'row justify-content-center'}>
-                        <button onClick={() => this.props.logCallback(this.state.educations[i])}
-                                className={'btn btn-primary search-selector-btn edu-btn div-spacing'}>
-                        {this.state.educations[i].name}</button>
+                        <button onClick={() => this.props.logCallback(education)}
+                            className={'btn btn-secondary mt-3'}>
+                            {education.name}</button>
                     </div>
                 )
             }
