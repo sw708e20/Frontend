@@ -19,7 +19,8 @@ const enMessages = {
 
         result: {
             rec_title: 'Recommended education',
-            rem_title: 'You may also be interested in'
+            rem_title: 'You may also be interested in',
+            loading_placeholder: 'Loading..'
         },
 
         guess: {

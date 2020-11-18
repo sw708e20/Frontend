@@ -78,16 +78,11 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
-        const questionText = `Q${ historicState.state.answers.length + 1}: ${ historicState.state.question ? this.getQuestionWithLocale(historicState.state.question) : "null" }`;
+        let answers = historicState.state.answers;
+        let question = historicState.state.question;
+        
         return (
-            <h1 className={'title'}>{questionText}</h1>
-        )
-    }
-
-    renderProgressBar() : ReactNode{
-        let historicState = this.props.location.state as IHistoryState
-        return(
-            <progress value={historicState.state.answers.length} max="19"></progress>
+            <h1 className={'title'}>Q{answers.length + 1}: {question ? this.getQuestionWithLocale(question) : <Translation>{t => t('result.loading_placeholder')}</Translation>}</h1>
         )
     }
 
