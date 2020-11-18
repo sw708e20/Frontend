@@ -5,10 +5,10 @@ class ResultPageCommon {
     renderEducationInfo(edu: Education) {
         return (
             [
-                <div className={'card-header'}>
+                <div className={'card-header'} key={'header'}>
                         <h3>{edu.name}</h3>
                 </div>,
-                <div className={'card-body'}>
+                <div className={'card-body'} key={'body'}>
                     <p className={'card-text'}> {edu.description}</p>
                 </div>
                 ]

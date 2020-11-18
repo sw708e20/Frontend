@@ -74,7 +74,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
 
             elems.push(
 
-                <div className='row justify-content-center mt-4'>
+                <div className='row justify-content-center mt-4' key={edu.id + '_card'}>
                     <div className={'col-lg-6'}>
 
                     <div className={'card text-center bg-info'}>

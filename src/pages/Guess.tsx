@@ -107,18 +107,18 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
         return (
             <div className='d-flex flex-column'>
                 <div className='d-flex justify-content-center text-center'>
-                    {this.renderTitle('guess.guess_title', '1')}
+                    {this.renderTitle('guess.guess_title', 'is-correct-title')}
                 </div>
 
                 {this.state.guess ? this.renderGuess() : ''}
                 <div className='d-flex justify-content-center text-center'>
-                    {this.renderTitle('guess.is_correct_title', '2')}
+                    {this.renderTitle('guess.is_correct_title', 'guess-title')}
                 </div>
                 <div className={'row justify-content-center'}>
                     <div className={'col-5 col-md-2'}>{this.renderYesButton()}</div>
                     <div className={'col-5 col-md-2'}>{this.renderNoButton()}</div>
                 </div>
-                <div id={'search-field'} className={''}></div>
+                <div id={'search-field'}></div>
                 <div id={'education-selector'}></div>
             </div>
         )
