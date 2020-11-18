@@ -39,7 +39,7 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
 
   renderLogo() {
     return (
-      <img alt={'EduFinder'} className={'header-logo img-fluid ' + this.state.logoClass} src={this.state.logo} />
+      <img alt={'EduFinder'} className={'header-logo img-fluid ' + this.state.logoClass} src={this.state.logo}/>
     )
   }
 

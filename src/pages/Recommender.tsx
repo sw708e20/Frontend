@@ -76,9 +76,9 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
-        const str = `Q${ historicState.state.answers.length + 1}: ${ historicState.state.question ? this.getQuestionWithLocale(historicState.state.question) : "null" }`;
+        const questionText = `Q${ historicState.state.answers.length + 1}: ${ historicState.state.question ? this.getQuestionWithLocale(historicState.state.question) : "null" }`;
         return (
-            <h1 className={'title'}>{str}</h1>
+            <h1 className={'title'}>{questionText}</h1>
         )
     }
 

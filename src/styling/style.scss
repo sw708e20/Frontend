@@ -4,16 +4,16 @@
 $body-color: #fff;
 $body-bg: #444b59;
 $theme-colors: (
-  "secondary":#1c2f39, 
+  "secondary":#1c2f39,
   "info": #3a6277
-);
+  );
 
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";
 
 body {
   /*  expand body to fill page heigth  */
-	min-height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -23,5 +23,5 @@ body {
 }
 
 .dropdown-menu {
-	min-width: 0; 
+  min-width: 0;
 }

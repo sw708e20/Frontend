@@ -88,7 +88,7 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderSearchButton() {
         return (
-            <button onClick={() => { this.performSearch() }} className={'btn btn-secondary'}>
+            <button onClick={() => {this.performSearch()}} className={'btn btn-secondary'}>
                 <Translation>
                     {
                         t => t('guess.search')
