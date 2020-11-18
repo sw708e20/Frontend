@@ -8,6 +8,7 @@ import { Route, Switch , BrowserRouter as Router} from 'react-router-dom'
 import Recommender from './pages/Recommender';
 import Result from './pages/Result'
 import Guess from './pages/Guess'
+import Thanks from './pages/Thanks'
 import NavbarComponent from "./pages/commons/Navbar";
 
 
@@ -26,6 +27,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/guess/">
           <Guess />
+        </Route>
+        <Route exact path="/thanks/">
+          <Thanks />
         </Route>
       </Switch>
     </Router>
