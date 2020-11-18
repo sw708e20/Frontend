@@ -1,16 +1,16 @@
 import {createMemoryHistory} from "history";
-import '../i18n/i18n';
-import {changeLang} from '../i18n/i18n'
+import '../../i18n/i18n';
+import {changeLang} from '../../i18n/i18n'
 import {act} from "react-dom/test-utils";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { render } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
-import Recommender from "./Recommender";
+import Recommender from "../../pages/Recommender";
 import MockAdapter from "axios-mock-adapter"
 import React from "react";
-import axios from "../services/http-common"
-import { Answer, Answer_Enum, Question } from "../services/QuestionManager";
+import axios from "../../services/http-common"
+import { Answer, Answer_Enum, Question } from "../../services/QuestionManager";
 import each from "jest-each"
 
 

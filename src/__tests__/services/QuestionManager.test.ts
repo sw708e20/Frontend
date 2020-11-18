@@ -1,6 +1,6 @@
-import {Answer_Enum, Education, EducationType, getAnswerString, Question, Answer, questionManager} from "./QuestionManager";
+import {Answer_Enum, Education, EducationType, getAnswerString, Question, Answer, questionManager} from "../../services/QuestionManager";
 import MockAdapter from "axios-mock-adapter";
-import axios from "./http-common";
+import axios from "../../services/http-common";
 
 const educations: Education[] = [
     {

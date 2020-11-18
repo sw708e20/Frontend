@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
-import axios from "./http-common";
-import {Answer, Answer_Enum, Education, EducationType, Question} from "./QuestionManager";
-import EdufinderDataService from "./EdufinderDataService";
+import axios from "../../services/http-common";
+import {Answer, Answer_Enum, Education, EducationType, Question} from "../../services/QuestionManager";
+import EdufinderDataService from "../../services/EdufinderDataService";
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 import {ServerResponse} from "http";
 

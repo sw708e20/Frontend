@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import ThanksPage from './Thanks';
+import ThanksPage from '../../pages/Thanks';
 import {act} from "react-dom/test-utils";
-import {changeLang} from "../i18n/i18n";
+import {changeLang} from "../../i18n/i18n";
 import React from "react";
-import '../i18n/i18n';
+import '../../i18n/i18n';
 import { Router } from 'react-router-dom';
 import {createMemoryHistory} from "history";
 

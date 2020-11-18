@@ -1,16 +1,16 @@
 import React from "react";
-import ResultPage from './Result';
-import {Education} from '../services/QuestionManager'
+import ResultPage from '../../pages/Result';
+import {Education} from '../../services/QuestionManager'
 import { Router } from 'react-router-dom';
-import '../i18n/i18n';
-import {changeLang} from '../i18n/i18n'
+import '../../i18n/i18n';
+import {changeLang} from '../../i18n/i18n'
 import {act} from "react-dom/test-utils";
 import Enzyme, {mount, render as enzymeRender} from 'enzyme';
 import { createMemoryHistory } from 'history'
 import Adapter from 'enzyme-adapter-react-16'
 import { render } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
-import axios from '../services/http-common';
+import axios from '../../services/http-common';
 
 Enzyme.configure({adapter: new Adapter()});
 

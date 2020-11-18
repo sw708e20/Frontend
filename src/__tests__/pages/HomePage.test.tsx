@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from '@testing-library/react';
-import IndexPage from './HomePage';
+import IndexPage from '../../pages/HomePage';
 import { BrowserRouter as Router } from 'react-router-dom';
-import '../i18n/i18n';
-import {changeLang} from '../i18n/i18n'
+import '../../i18n/i18n';
+import {changeLang} from '../../i18n/i18n'
 import {act} from "react-dom/test-utils";
 
 
