@@ -51,6 +51,40 @@ const mountRecommenderPage = () => {
 
 const runAllPromises = () => new Promise(setImmediate)
 
+
+test('quiz loading en', async () => {
+    mock.onGet('/question/').reply(function(config) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+              resolve([201, null])
+          }, 5500)
+        })
+      })
+
+    const wrapper = mountRecommenderPage();
+
+    
+
+    const title = wrapper.find(".title");   
+    expect(title.text()).toBe('Loading..');
+})
+
+test('quiz loading da', async () => {
+    changeLanguage("da");
+    mock.onGet('/question/').reply(function(config) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+              resolve([201, null])
+          }, 5500)
+        })
+      })
+    const wrapper = mountRecommenderPage();
+
+
+    const title = wrapper.find(".title");   
+    expect(title.text()).toBe('Indlæser..');
+})
+
 test('quiz answer yes EN', async () => {
     const wrapper = mountRecommenderPage()
     

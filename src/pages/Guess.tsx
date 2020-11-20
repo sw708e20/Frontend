@@ -19,7 +19,7 @@ class GuessPage extends React.Component<RouteComponentProps, IGuessState> {
 
         this.state = {
             answers: this.props.location.state as Answer[],
-            guess: new Education(-1, 'Loading', 'Loading'),
+            guess: new Education(-1, "", ""),
             show_dialog: true,
         };
     }

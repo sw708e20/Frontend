@@ -1,4 +1,5 @@
 import React, {ReactElement} from "react";
+import { Translation } from "react-i18next";
 import {Education, EducationType} from '../../services/QuestionManager'
 
 class ResultPageCommon {
@@ -6,7 +7,7 @@ class ResultPageCommon {
         return (
             [
                 <div className={'card-header'} key={'header'}>
-                        <h3>{edu.name}</h3>
+                    <h3>{edu.name === "" ? <Translation>{t => t('result.loading_placeholder')}</Translation>: edu.name}</h3>
                 </div>,
                 <div className={'card-body'} key={'body'}>
                     <p className={'card-text'}> {edu.description}</p>
