@@ -2,14 +2,12 @@ import breen from '../../img/breen.jpg';
 
 let Breen = function() {
     var v = document.createElement('img');
-    var s = document.createElement('source');
     var z = document.createElement('div');
     var zs = z.style;
     var a = window.innerWidth * Math.random();
     var b = window.innerHeight * Math.random();
     z.classList.add("breen");
     z.appendChild(v);
-    v.appendChild(s);
     v.width = 48;
     v.height = 70;
     v.src = breen;
