@@ -1,0 +1,36 @@
+.breen-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.breen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition-property: top, left, opacity;
+    transition-delay: 0s;
+    transition-timing-function: linear;
+}
+
+.breen img {
+    image-rendering: pixelated;
+}
+
+.rotate {
+    animation: rotation 5s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
