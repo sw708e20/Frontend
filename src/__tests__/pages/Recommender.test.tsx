@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
 import { Route, Router } from 'react-router-dom';
 import Recommender from "../../pages/Recommender";
 import MockAdapter from "axios-mock-adapter"
-import React from "react";
+import React, { Children } from "react";
 import axios from "../../services/http-common"
 import { Answer, Answer_Enum, Question } from "../../services/QuestionManager";
 import each from "jest-each"
@@ -51,119 +51,182 @@ const mountRecommenderPage = () => {
 
 const runAllPromises = () => new Promise(setImmediate)
 
-test('quiz title', () => {
-    const {getByText} = renderRecommenderPage();
-    const title = getByText(/Q/i);
-    expect(title).toBeInTheDocument();
-    expect(title.nodeName).toBe('H1');
+
+test('quiz loading en', async () => {
+    mock.onGet('/question/').reply(function(config) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+              resolve([201, null])
+          }, 5500)
+        })
+      })
+
+    const wrapper = mountRecommenderPage();
+
+    
+
+    const title = wrapper.find(".title");   
+    expect(title.text()).toBe('Loading..');
 })
 
-test('quiz answer yes EN', () => {
-    const {getAllByText} = renderRecommenderPage();
-    const obj = getAllByText(/Yes/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+test('quiz loading da', async () => {
+    changeLanguage("da");
+    mock.onGet('/question/').reply(function(config) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+              resolve([201, null])
+          }, 5500)
+        })
+      })
+    const wrapper = mountRecommenderPage();
+
+
+    const title = wrapper.find(".title");   
+    expect(title.text()).toBe('Indlæser..');
 })
 
-test('quiz answer yes DA', () => {
-    const {getAllByText} = renderRecommenderPage();
+test('quiz answer yes EN', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#yes_btn") 
+    expect(button.text()).toBe("Yes")
+})
+
+test('quiz answer yes DA', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
 
     changeLanguage('da');
 
-    const obj = getAllByText(/Ja/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#yes_btn") 
+    expect(button.text()).toBe("Ja")
+    
 })
 
-test('quiz answer no EN', () => {
-    const {getAllByText} = renderRecommenderPage();
-    const obj = getAllByText(/No/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+test('quiz answer no EN', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#no_btn") 
+    expect(button.text()).toBe("No")
 })
 
-test('quiz answer no DA', () => {
-    const {getAllByText} = renderRecommenderPage();
+test('quiz answer no DA', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
 
     changeLanguage('da');
 
-    const obj = getAllByText(/Nej/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#no_btn") 
+    expect(button.text()).toBe("Nej")
 })
 
-test('quiz answer probably EN', () => {
-    const {getAllByText} = renderRecommenderPage();
-    const obj = getAllByText(/Probably/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+test('quiz answer probably EN', async () => {
+    const wrapper = mountRecommenderPage()
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#probably_btn") 
+    expect(button.text()).toBe("Probably")
 })
 
-test('quiz answer probably DA', () => {
-    const {getAllByText} = renderRecommenderPage();
+test('quiz answer probably DA', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
 
     changeLanguage('da');
 
-    const obj = getAllByText(/Måske/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#probably_btn") 
+    expect(button.text()).toBe("Måske")
 })
 
-test('quiz answer probably not EN', () => {
-    const {getAllByText} = renderRecommenderPage();
-    const obj = getAllByText(/Probably not/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+test('quiz answer probably not EN', async () => {
+    const wrapper = mountRecommenderPage()
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#probably_not_btn") 
+    expect(button.text()).toBe("Probably not")
 })
 
-test('quiz answer probably not DA', () => {
-    const {getAllByText} = renderRecommenderPage();
+test('quiz answer probably not DA', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
 
     changeLanguage('da');
 
-    const obj = getAllByText(/Måske ikke/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#probably_not_btn") 
+    expect(button.text()).toBe("Måske ikke")
 })
 
-test('quiz answer dont know EN', () => {
-    const {getAllByText} = renderRecommenderPage();
-    const obj = getAllByText(/Don't know/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+test('quiz answer dont know EN', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#dont_know_btn") 
+    expect(button.text()).toBe("Don't know")
 })
 
-test('quiz answer dont know DA', () => {
-    const {getAllByText} = renderRecommenderPage();
+test('quiz answer dont know DA', async () => {
+    const wrapper = mountRecommenderPage()
+    
+    await runAllPromises();
+    wrapper.update();
 
     changeLanguage('da');
 
-    const obj = getAllByText(/Ved ikke/i);
-    for (let o of obj) {
-        expect(o).toBeInTheDocument();
-    }
+
+    await runAllPromises();
+    wrapper.update();
+
+    const button = wrapper.find("button#dont_know_btn") 
+    expect(button.text()).toBe("Ved ikke")
 })
 
-test("guiz inital guestion EN", async ()=>{
+test("quiz initial guestion EN", async ()=>{
     const wrapper = mountRecommenderPage();
 
     await runAllPromises()
     wrapper.update()
 
     const title = wrapper.find(".title");   
-    expect(title.get(0).props["children"][3]).toBe('Some initial question?');
+    expect(title.get(0).props["children"]).toBe('Q1: Some initial question?');
 })
 
-test("guiz inital guestion DA", async ()=>{
+test("quiz initial guestion DA", async ()=>{
     const wrapper = mountRecommenderPage();
 
     changeLanguage("da");
@@ -172,7 +235,7 @@ test("guiz inital guestion DA", async ()=>{
     wrapper.update()
 
     const title = wrapper.find(".title");   
-    expect(title.get(0).props["children"][3]).toBe('Et udgangspunkt spørgsmål?');
+    expect(title.get(0).props["children"]).toBe('Q1: Et udgangspunkt spørgsmål?');
 })
 
 
@@ -197,7 +260,7 @@ each([Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.
         wrapper.update()
         
         const title = wrapper.find(".title");   
-        expect(title.get(0).props["children"][3]).toBe('andet spørgsmål?');
+        expect(title.get(0).props["children"]).toBe('Q2: andet spørgsmål?');
     })
 
 
@@ -207,7 +270,7 @@ each([Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.
             id: 6,
             en: "second question?",
             da: "andet spørgsmål?"
-        };
+        };  
         mock.onPost("/question/").reply(200, secondQuestion)
 
         let wrapper = mountRecommenderPage()
@@ -220,8 +283,8 @@ each([Answer_Enum.YES, Answer_Enum.PROBABLY, Answer_Enum.DONT_KNOW, Answer_Enum.
         await runAllPromises()
         wrapper.update()
         
-        const title = wrapper.find(".title");   
-        expect(title.get(0).props["children"][3]).toBe('second question?');
+        const title = wrapper.find(".title");
+        expect(title.get(0).props["children"]).toBe('Q2: second question?');
     })
 
 test("Answer redirects on 20th question", async () =>{

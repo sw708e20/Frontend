@@ -1,12 +1,8 @@
 import 'jquery/dist/jquery.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { ReactNode } from 'react';
 import { Question, questionManager, Answer_Enum, getAnswerString, Answer } from "../services/QuestionManager";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Translation } from "react-i18next";
-import '../styling/HomePage.css'
-import '../styling/recommender.css'
 import {getLang, setRecChangeHandler} from "../i18n/i18n";
 
 
@@ -82,16 +78,14 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     renderTitle() : ReactNode {
         let historicState = this.props.location.state as IHistoryState
-        return (
-            <h1 className={'title'}>Q{historicState.state.answers.length + 1}: {historicState.state.question? this.getQuestionWithLocale(historicState.state.question): "null"} </h1>
-        )
-    }
-
-    renderProgressBar() : ReactNode{
-        let historicState = this.props.location.state as IHistoryState
-        return(
-            <progress value={historicState.state.answers.length} max="19"></progress>
-        )
+        let answers = historicState.state.answers;
+        let question = historicState.state.question;
+        
+        if (question !== undefined) {
+            return (<h1 className={'title'}>{`Q${answers.length + 1}: ${this.getQuestionWithLocale(question)}`}</h1>);
+        } else {
+            return (<Translation>{t => <h1 className={'title'}>{t('result.loading_placeholder')}</h1>}</Translation>);
+        }
     }
 
     renderAnswerOptions() : ReactNode {
@@ -101,22 +95,19 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
         for (let answer of this.answer_options) {
             let stringvalue = getAnswerString(answer);
             elems.push(
-                <button id={Answer_Enum[answer].toLowerCase() + "_btn"} key={key++} onClick={() => this.onAnswerGiven(answer)} className={'btn btn-primary next-btn edu-btn div-spacing'}>
-                    <Translation>
-                        {
-                            t => <span>{t(stringvalue)}</span>
-                        }
-                    </Translation>
-                </button>
+                <div className='d-flex justify-content-center' key={key++}>
+                        <button id={Answer_Enum[answer].toLowerCase() + "_btn"} onClick={() => this.onAnswerGiven(answer)} className={'btn btn-secondary mt-3 recommender-btn'}>
+                        <Translation>
+                            {
+                            t => t(stringvalue)
+                            }
+                        </Translation>
+                    </button>
+                </div>
             )
-            elems.push(<br key={key++}/>)
         }
 
-        return (
-            <div>
-                {elems}
-            </div>
-        )
+        return (elems)
     }
 
     onAnswerGiven(answer_value : Answer_Enum) : void{
@@ -175,20 +166,21 @@ class Recommender extends React.Component<RouteComponentProps, IRecommenderState
 
     
 
-    render() : ReactNode {
-        return (
-            <div>
-                {this.renderProgressBar()}
-                <div className={'row justify-content-center'}>
-                    {this.renderTitle()}
-                </div>
-                <div className={'row justify-content-center'}>
-                    {this.renderAnswerOptions()}
-                </div>
-            </div>
+  render(): ReactNode {
+    return (
+      <div className={'container-fluid d-flex flex-grow-1 align-items-center'}>
+        <div className='d-flex flex-column flex-grow-1'>
+          <div className={'d-flex justify-content-center text-center'}>
+            {this.renderTitle()}
+          </div>
+          <div className='d-flex flex-column'>
+            {this.renderAnswerOptions()}
+          </div>
+        </div>
+      </div>
 
-        )
-    }
+    )
+  }
 }
 
 export default withRouter(Recommender);

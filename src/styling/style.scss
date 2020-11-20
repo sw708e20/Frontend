@@ -1,0 +1,27 @@
+/* The following block can be included in a custom.scss */
+
+/* make the customizations */
+$body-color: #fff;
+$body-bg: #444b59;
+$theme-colors: (
+  "secondary":#1c2f39,
+  "info": #3a6277
+  );
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  /*  expand body to fill page heigth  */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.recommender-btn {
+  width: 15rem;
+}
+
+.dropdown-menu {
+  min-width: 0;
+}

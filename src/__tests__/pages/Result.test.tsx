@@ -85,7 +85,7 @@ test('recommended education title EN', () => {
     const title = getAllByText(/Recommended education/i);
     for (let t of title) {
         expect(t).toBeInTheDocument();
-        expect(t.nodeName).toBe('SPAN');
+        expect(t.nodeName).toBe('H1');
     }
 })
 
@@ -97,7 +97,7 @@ test('recommended education title DA', () => {
     const title = getAllByText(/Anbefalet uddannelse/i);
     for (let t of title) {
         expect(t).toBeInTheDocument();
-        expect(t.nodeName).toBe('SPAN');
+        expect(t.nodeName).toBe('H1');
     }
 })
 
@@ -106,7 +106,7 @@ test('other educations title EN', () => {
     const title = getAllByText(/You may also be interested in/i);
     for (let t of title) {
         expect(t).toBeInTheDocument();
-        expect(t.nodeName).toBe('SPAN');
+        expect(t.nodeName).toBe('H1');
     }
 })
 
@@ -118,7 +118,7 @@ test('other educations title DA', () => {
     const title = getAllByText(/Du vil måske også være interesseret i/i);
     for (let t of title) {
         expect(t).toBeInTheDocument();
-        expect(t.nodeName).toBe('SPAN');
+        expect(t.nodeName).toBe('H1');
     }
 })
 
@@ -129,7 +129,7 @@ test('render educations', async () => {
     await runAllPromises();
     wrapper.update();
 
-    const titles = wrapper.find('.education-header');
-    expect(titles.get(0).props.children[1]).toBe('Anvendt filosofi');
-    expect(titles.get(1).props.children[1]).toBe('Software');
+    const titles = wrapper.find('div.card-header');
+    expect(titles.children().at(0).children().text()).toBe('Anvendt filosofi');
+    expect(titles.children().at(1).children().text()).toBe('Software');
 })

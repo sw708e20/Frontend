@@ -44,7 +44,7 @@ test('thanks content EN', () => {
     const {getByText} = renderThanksPage();
     const text = getByText(/Thank you for your answer/i);
     expect(text).toBeInTheDocument();
-    expect(text.nodeName).toBe('SPAN');
+    expect(text.nodeName).toBe('H4');
 })
 
 test('thanks content DA', () => {
@@ -54,5 +54,5 @@ test('thanks content DA', () => {
 
     const text = getByText(/Mange tak for din besvarelse/i);
     expect(text).toBeInTheDocument();
-    expect(text.nodeName).toBe('SPAN');
+    expect(text.nodeName).toBe('H4');
 })
