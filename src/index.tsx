@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './i18n/i18n';
-import './styling/index.css';
 import Index  from './pages/HomePage';
 import * as serviceWorker from './services/serviceWorker';
 import { Route, Switch , BrowserRouter as Router} from 'react-router-dom'
@@ -9,6 +8,7 @@ import Recommender from './pages/Recommender';
 import DataCollection from './pages/DataCollection';
 import Thanks from './pages/Thanks'
 import NavbarComponent from "./pages/commons/Navbar";
+import './styling/style.scss'
 
 
 const Routes = () => {
@@ -33,12 +33,10 @@ const Routes = () => {
 }
 
 ReactDOM.render(
-    <div className="App">
-        <NavbarComponent />
-        <header className="App-header">
-            <Routes />
-        </header>
-    </div>,
+        [
+        <NavbarComponent />,
+        <Routes />
+        ],
   document.getElementById('root')
 );
 

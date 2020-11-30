@@ -1,35 +1,39 @@
 import React, {ReactElement} from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Translation } from "react-i18next";
 import {Education, EducationType} from '../../services/QuestionManager'
 
 class ResultPageCommon {
     renderEducationInfo(edu: Education) {
         return (
-            <div>
-                <div className={'row justify-content-center'}>
-                    <h3 className={'education-header'}> {edu.name} </h3>
+            [
+                <div className={'card-header'} key={'header'}>
+                    <h3>{edu.name === "" ? <Translation>{t => t('result.loading_placeholder')}</Translation>: edu.name}</h3>
+                </div>,
+                <div className={'card-body'} key={'body'}>
+                    <p className={'card-text'}> {edu.description}</p>
                 </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
-                    <div className={'col-10'}> {edu.description} </div>
-                </div>
-            </div>
+                ]
         )
     }
 
     renderEducationTypes(eduTypes: EducationType[]) {
         let elems: ReactElement[] = []
+        
 
         for (let eduType of eduTypes) {
             elems.push(
-                <div key={eduType.id} className={'row justify-content-center'}>
-                    <div className={'col-6'}><p> {eduType.name} </p></div>
-                    <div className={'col-6'}><a href={eduType.url}> Link to www.ug.dk </a></div>
+                <div key={eduType.id} className={'row'}>
+                    <div className={'col-6'}><span>{eduType.name}</span></div>
+                    <div className={'col-6'}><a href={eduType.url} target='_blank' rel="noopener noreferrer"> Link to www.ug.dk </a></div>
                 </div>
             )
         }
 
-        return elems
+        return (
+            <div className={'card-footer'}>
+                {elems}
+            </div>
+        )
     }
 }
 

@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Translation } from "react-i18next";
 import React, { ReactNode } from 'react';
 import {resultPageCommon} from './commons/ResultPageCommon'
@@ -45,7 +44,7 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
             <h1 className={'title'}>
                 <Translation>
                     {
-                        t => <span>{t(text_key)}</span>
+                        t => t(text_key)
                     }
                 </Translation>
             </h1>
@@ -53,58 +52,54 @@ class ResultPage extends React.Component<RouteComponentProps, IRecommenderState>
     }
 
     renderPrimaryRecommendation() : ReactNode {
-        const elems:React.ReactElement[] = [];
         const primary:Education = this.state.list[0];
 
-        elems.push(
-            <div className={'primary-edu-block div-spacing'}>
-                { resultPageCommon.renderEducationInfo(primary) }
-                <hr/>
-                { resultPageCommon.renderEducationTypes(primary.education_types) }
-            </div>
-        )
-
         return (
-            <div> { elems } </div>
+            <div className={'row justify-content-center my-4'}>
+                <div className={'col-lg-6'}>
+                    <div className={'card text-center bg-info'}>
+                        { resultPageCommon.renderEducationInfo(primary)}
+                        { resultPageCommon.renderEducationTypes(primary.education_types)}
+                    </div>
+                </div>
+            </div>
         )
     }
 
-    renderRemainingRecommendations() : ReactNode {
+    renderRemainingRecommendations() : ReactNode[] {
         const elems:React.ReactElement[] = [];
 
         for (let edu2 of this.state.list.slice(1, this.state.list.length)) {
             let edu:Education = edu2;
 
             elems.push(
-                <div className={'edu-block div-spacing'}>
-                    { resultPageCommon.renderEducationInfo(edu) }
-                    <hr/>
-                    { resultPageCommon.renderEducationTypes(edu.education_types) }
+
+                <div className='row justify-content-center mt-4' key={edu.id + '_card'}>
+                    <div className={'col-lg-6'}>
+
+                    <div className={'card text-center bg-info'}>
+                        { resultPageCommon.renderEducationInfo(edu) }
+                        { resultPageCommon.renderEducationTypes(edu.education_types) }
+                    </div>
+                    </div>
                 </div>
             )
         }
 
-        return (
-            <div> {elems} </div>
-        )
+        return elems;
     }
 
     render() {
         return (
-            <div>
-                <div className={'row justify-content-center'}>
+            <div className='container-fluid'>
+                <div className='row justify-content-center text-center'>
                     {this.renderTitle('result.rec_title')}
                 </div>
-                <div className={'row justify-content-center'}>
-                    {this.state.loading ? '' : this.renderPrimaryRecommendation()}
-                </div>
-                <hr/>
-                <div className={'row justify-content-center'}>
+                {this.state.loading ? '' : this.renderPrimaryRecommendation()}
+                <div className='row justify-content-center text-center'>
                     {this.renderTitle('result.rem_title')}
                 </div>
-                <div className={'row justify-content-center'}>
-                    {this.state.loading ? '' : this.renderRemainingRecommendations()}
-                </div>
+                {this.state.loading ? '' : this.renderRemainingRecommendations()}
             </div>
         )
     }

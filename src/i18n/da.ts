@@ -19,7 +19,8 @@ const daMessages = {
 
         result: {
             rec_title: 'Anbefalet uddannelse',
-            rem_title: 'Du vil måske også være interesseret i'
+            rem_title: 'Du vil måske også være interesseret i',
+            loading_placeholder: 'Indlæser..'
         },
 
         guess: {

@@ -1,17 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {ReactElement, RefObject} from 'react';
 import ReactDOM from 'react-dom';
-import {getI18n, Translation} from "react-i18next";
+import {Translation} from "react-i18next";
 import {Education, questionManager} from '../../services/QuestionManager';
-
-
-interface ISearchProps {
-    logCallback: (edu: Education) => void;
-}
-
-interface ISearchState {
-    searchTerm: string;
-}
+import i18n, {getLang, setGuessChangeHandler} from '../../i18n/i18n'
 
 interface ISelectorProps {
     searchTerm: string;
@@ -24,15 +15,26 @@ interface ISelectorState {
     searchTerm: string;
 }
 
+interface ISearchProps {
+    logCallback: (edu: Education) => void;
+}
+
+interface ISearchState {
+    searchTerm: string;
+    lang: string;
+}
+
 class SearchField extends React.Component<ISearchProps, ISearchState> {
     resultElement:RefObject<EducationSelector>;
 
     constructor(props:any) {
         super(props);
         this.resultElement = React.createRef();
+        setGuessChangeHandler(this.updateLang)
 
         this.state = {
-            searchTerm: ''
+            searchTerm: '',
+            lang: getLang()
         }
     }
 
@@ -48,26 +50,37 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
         }
     }
 
+    updateLang = (lang: string) => {
+        this.setState({
+            searchTerm: this.state.searchTerm,
+            lang: lang
+        })
+    }
+
     renderTitle() {
         return (
-            <h1 className={'title'}>
+            <div className='d-flex justify-content-center text-center' key={'search-title'}>
+                <h1 className={'title'}>
                 <Translation>
-                    {
-                        t => <span>{t('guess.feedback_title')}</span>
-                    }
+                {
+                    t => t('guess.feedback_title')
+                }
                 </Translation>
-            </h1>
+                </h1>
+            </div>
         )
     }
 
     renderSearchField() {
         return (
-            <div className={'row justify-content-center'}>
-                <div className={'col-10'}>
-                    <input type={'text'} placeholder={getI18n().t('guess.search')} className={'full-width'} onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm} />
-                </div>
-                <div className={'col-2'}>
-                    {this.renderSearchButton()}
+            <div className={'row justify-content-center'} key={'search-field'}>
+                <div className={'col-lg-6'}>
+                    <div className="input-group">
+                        <input type="text" className="form-control" placeholder={i18n.t('guess.search')} aria-label="Recipient's username" aria-describedby="basic-addon2" onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm}/>
+                        <div className="input-group-append">
+                            {this.renderSearchButton()}
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -75,10 +88,10 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
 
     renderSearchButton() {
         return (
-            <button onClick={() => {this.performSearch()}} className={'btn btn-primary search-btn edu-btn div-spacing'}>
+            <button onClick={() => {this.performSearch()}} className={'btn btn-secondary'}>
                 <Translation>
                     {
-                        t => <span>{t('guess.search')}</span>
+                        t => t('guess.search')
                     }
                 </Translation>
             </button>
@@ -96,12 +109,9 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
     }
 
     render() {
-        return (
-            <div>
-                <hr/>
-                {this.renderTitle()}
-                {this.renderSearchField()}
-            </div>
+        return ([
+                this.renderTitle(),
+                this.renderSearchField()]
         );
     }
 }
@@ -157,12 +167,12 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
                 </div>
             )
         } else {
-            for (let i = 0; i < education_count; i++) {
+            for (let education of this.state.educations) {
                 elems.push(
-                    <div className={'row justify-content-center'}>
-                        <button onClick={() => this.props.logCallback(this.state.educations[i])}
-                                className={'btn btn-primary search-selector-btn edu-btn div-spacing'}>
-                        {this.state.educations[i].name}</button>
+                    <div className={'row justify-content-center'} key={'id_' + education.id}>
+                        <button onClick={() => this.props.logCallback(education)}
+                            className={'btn btn-secondary mt-3'}>
+                            {education.name}</button>
                     </div>
                 )
             }
@@ -173,11 +183,9 @@ class EducationSelector extends React.Component<ISelectorProps, ISelectorState> 
 
     render() {
         return (
-            <div>
                 <div className={'container justify-content-center'}>
                     {this.state.loading ? '' : this.renderEducations()}
                 </div>
-            </div>
         )
     }
 }
