@@ -4,7 +4,7 @@ const daMessages = {
         index: {
             title: "EduFinder",
             rec_btn: "Uddannelsesforslag",
-            guess_btn: "Uddannelsesgætter",
+            guess_btn: "Start quiz",
             data_collection: "Dataindsamling"
         },
         recommender: {
