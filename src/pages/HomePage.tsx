@@ -12,18 +12,12 @@ interface IIndexState {
   data_collection: boolean;
 }
 
-interface Params {
-  data?: string;
-}
 
 class Index extends React.Component<RouteComponentProps, IIndexState> {
   constructor(props: any) {
     super(props);
 
-    let data_collection: boolean = false;
-    const params: Params = this.props.match.params;
-
-    if (params.data) data_collection = true;
+    let data_collection: boolean = /\/data\/?/.exec(this.props.location.pathname) != null;
 
     this.state = {
       easterBreen: '',
