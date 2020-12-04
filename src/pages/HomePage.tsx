@@ -12,7 +12,6 @@ interface IIndexState {
   data_collection: boolean;
 }
 
-
 class Index extends React.Component<RouteComponentProps, IIndexState> {
   constructor(props: any) {
     super(props);
