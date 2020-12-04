@@ -20,7 +20,7 @@ const Routes = () => {
         <Route exact path="/">
           <Index />
         </Route>
-        <Route exact path="/data/">
+        <Route exact path="/:data/" >
           <Index />
         </Route>
         <Route exact path="/quiz/">
