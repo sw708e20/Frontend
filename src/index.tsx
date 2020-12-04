@@ -9,6 +9,8 @@ import DataCollection from './pages/DataCollection';
 import Thanks from './pages/Thanks'
 import NavbarComponent from "./pages/commons/Navbar";
 import './styling/style.scss'
+import Result from "./pages/Result";
+import Guess from "./pages/Guess";
 
 
 const Routes = () => {
@@ -18,8 +20,17 @@ const Routes = () => {
         <Route exact path="/">
           <Index />
         </Route>
+        <Route exact path="/:data/" >
+          <Index />
+        </Route>
         <Route exact path="/quiz/">
           <Recommender />
+        </Route>
+        <Route exact path="/results/">
+          <Result />
+        </Route>
+        <Route exact path="/guess/">
+          <Guess />
         </Route>
         <Route exact path="/datacollection/">
           <DataCollection />

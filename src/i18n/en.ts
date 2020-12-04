@@ -4,7 +4,8 @@ const enMessages = {
         index: {
             title: "EduFinder",
             rec_btn: "Education recommender",
-            guess_btn: "Start quiz",
+            guess_btn: "Guessing game",
+            data_btn: "Start quiz",
             data_collection: "Data collection"
         },
 
