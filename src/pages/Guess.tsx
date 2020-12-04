@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import {Translation} from "react-i18next";
 import {Education, questionManager, Answer} from '../services/QuestionManager';
 import {resultPageCommon} from "./commons/ResultPageCommon";
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import SearchField from "./commons/SearchField"
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface IGuessState {
     answers: Answer[];

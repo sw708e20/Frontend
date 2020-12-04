@@ -74,7 +74,7 @@ class SearchField extends React.Component<ISearchProps, ISearchState> {
     renderSearchField() {
         return (
             <div className={'row justify-content-center'} key={'search-field'}>
-                <div className={'col-lg-6'}>
+                <div className={'col-lg-6 mx-5'}>
                     <div className="input-group">
                         <input type="text" className="form-control" placeholder={i18n.t('guess.search')} aria-label="Recipient's username" aria-describedby="basic-addon2" onKeyPress={this.handleKeyPress} value={this.state.searchTerm} onChange={this.updateSearchTerm}/>
                         <div className="input-group-append">

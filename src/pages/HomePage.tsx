@@ -9,15 +9,19 @@ import '../styling/breen.css'
 interface IIndexState {
   easterBreen: string;
   logo: string;
+  data_collection: boolean;
 }
 
 class Index extends React.Component<RouteComponentProps, IIndexState> {
   constructor(props: any) {
     super(props);
 
+    let data_collection: boolean = /\/data\/?/.exec(this.props.location.pathname) != null;
+
     this.state = {
       easterBreen: '',
       logo: logo,
+      data_collection: data_collection
     }
   }
 
@@ -40,6 +44,25 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
     return (
       <img alt={'EduFinder'} className={'header-logo img-fluid '} src={this.state.logo}/>
     )
+  }
+
+  renderButtonSegment() {
+    if (this.state.data_collection) {
+      return (
+        <div className={'d-flex justify-content-center mt-4'}>
+          {this.renderButton('index.data_btn', "/datacollection/")}
+        </div>
+      )
+    } else {
+      return [
+        <div className={'d-flex justify-content-center mt-4'}>
+          {this.renderButton('index.rec_btn', "/results/")}
+        </div>,
+        <div className={'d-flex justify-content-center mt-4'}>
+          {this.renderButton('index.guess_btn', "/guess/")}
+        </div>
+      ]
+    }
   }
 
   setEasterBreen = (easterBreen: string) => {
@@ -69,12 +92,7 @@ class Index extends React.Component<RouteComponentProps, IIndexState> {
         <div className={'d-flex justify-content-center'}>
           {this.renderLogo()}
         </div>
-          <div className={'d-flex justify-content-center mt-4'}>
-          {this.renderButton('index.rec_btn', "/results/")}
-        </div>
-        <div className={'d-flex justify-content-center mt-4'}>
-          {this.renderButton('index.guess_btn', "/guess/")}
-        </div>
+          {this.renderButtonSegment()}
         <div className={'breen-container'}></div>
         </div>
       </div>

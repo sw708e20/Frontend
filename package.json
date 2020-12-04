@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build && npm run sync",
-    "sync": "rsync -avz --delete -e ssh -r ./build/* p7.dk:/var/www/frontend/"
+    "sync": "rsync -avz --delete -e ssh -r ./build/* p7:/var/www/frontend/"
   },
   "eslintConfig": {
     "extends": "react-app"

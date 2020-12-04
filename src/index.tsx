@@ -5,11 +5,12 @@ import Index  from './pages/HomePage';
 import * as serviceWorker from './services/serviceWorker';
 import { Route, Switch , BrowserRouter as Router} from 'react-router-dom'
 import Recommender from './pages/Recommender';
-import Result from './pages/Result'
-import Guess from './pages/Guess'
+import DataCollection from './pages/DataCollection';
 import Thanks from './pages/Thanks'
 import NavbarComponent from "./pages/commons/Navbar";
 import './styling/style.scss'
+import Result from "./pages/Result";
+import Guess from "./pages/Guess";
 
 
 const Routes = () => {
@@ -17,6 +18,9 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/">
+          <Index />
+        </Route>
+        <Route exact path="/data/" >
           <Index />
         </Route>
         <Route exact path="/quiz/">
@@ -27,6 +31,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/guess/">
           <Guess />
+        </Route>
+        <Route exact path="/datacollection/">
+          <DataCollection />
         </Route>
         <Route exact path="/thanks/">
           <Thanks />
