@@ -26,7 +26,7 @@ test('recommender button EN', () => {
 
 test('guessing game button EN', () => {
     const { getByText } = renderPage();
-    const guessBtn = getByText(/Guessing game/i);
+    const guessBtn = getByText(/Guess education/i);
     expect(guessBtn).toBeInTheDocument();
 })
 
@@ -37,7 +37,7 @@ test('recommender button DA', () => {
         changeLang('da')
     })
 
-    const recBtn = getByText(/Uddannelsesforslag/i);
+    const recBtn = getByText(/Gæt uddannelse/i);
     expect(recBtn).toBeInTheDocument();
 })
 
@@ -48,6 +48,6 @@ test('guessing game button DA', () => {
         changeLang('da')
     })
 
-    const guessBtn = getByText(/Uddannelsesgætter/i);
+    const guessBtn = getByText(/Gæt uddannelse/i);
     expect(guessBtn).toBeInTheDocument();
 })
