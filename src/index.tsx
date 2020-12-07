@@ -8,6 +8,7 @@ import Recommender from './pages/Recommender';
 import Result from './pages/Result'
 import Guess from './pages/Guess'
 import Thanks from './pages/Thanks'
+import Error404 from './pages/NoPageFound'
 import NavbarComponent from "./pages/commons/Navbar";
 import './styling/style.scss'
 
@@ -30,6 +31,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/thanks/">
           <Thanks />
+        </Route>
+        <Route>
+          <Error404/>
         </Route>
       </Switch>
     </Router>

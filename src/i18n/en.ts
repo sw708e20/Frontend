@@ -36,6 +36,11 @@ const enMessages = {
         thanks: {
             thanks_title: 'Thanks',
             thanks_content: 'Thank you for your answer'
+        },
+        
+        no_page_found: {
+            title: "No page was found",
+            back_button: "Back"
         }
     }
 }
