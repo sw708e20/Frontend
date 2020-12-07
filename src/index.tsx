@@ -7,6 +7,7 @@ import { Route, Switch , BrowserRouter as Router} from 'react-router-dom'
 import Recommender from './pages/Recommender';
 import DataCollection from './pages/DataCollection';
 import Thanks from './pages/Thanks'
+import NoPageFound from './pages/NoPageFound'
 import NavbarComponent from "./pages/commons/Navbar";
 import './styling/style.scss'
 import Result from "./pages/Result";
@@ -37,6 +38,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/thanks/">
           <Thanks />
+        </Route>
+        <Route>
+          <NoPageFound/>
         </Route>
       </Switch>
     </Router>

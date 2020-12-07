@@ -37,6 +37,11 @@ const daMessages = {
         thanks: {
             thanks_title: 'Tak',
             thanks_content: 'Mange tak for din besvarelse'
+        },
+        
+        no_page_found: {
+            title: "Denne side blev ikke fundet",
+            back_button: "Tilbage"
         }
     }
 }
