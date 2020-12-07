@@ -39,7 +39,7 @@ const enMessages = {
         },
         
         no_page_found: {
-            title: "No page was found",
+            title: "This page was not found",
             back_button: "Back"
         }
     }

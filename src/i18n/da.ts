@@ -38,7 +38,7 @@ const daMessages = {
         },
         
         no_page_found: {
-            title: "Ingen side blev fundet",
+            title: "Denne side blev ikke fundet",
             back_button: "Tilbage"
         }
     }
